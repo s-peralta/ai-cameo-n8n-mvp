@@ -1,0 +1,181 @@
+{
+  "test_payloads": [
+    {
+      "name": "Test 1: Birthday Roast (Milestone)",
+      "description": "Humorous roast about turning 40, with encouraging undertones",
+      "payload": {
+        "customer_name": "Sarah",
+        "recipient_name": "Mike",
+        "occasion": "birthday",
+        "special_message": "He just turned 40 and is freaking out about getting old. He used to be the cool guy at the gym, now he complains about his back. Still refuses to use reading glasses.",
+        "email": "sarah@example.com"
+      },
+      "expected_themes": [
+        "Humorous aging jokes",
+        "Reassurance about getting older",
+        "Wisdom comes with age",
+        "Embrace the next chapter"
+      ]
+    },
+    {
+      "name": "Test 2: Congratulations (Career Achievement)",
+      "description": "Enthusiastic praise for hard-earned promotion",
+      "payload": {
+        "customer_name": "James",
+        "recipient_name": "Lisa",
+        "occasion": "congratulations",
+        "special_message": "She just got promoted to VP after 10 years of grinding. Almost gave up last year when she was passed over, but she stuck with it. She earned this.",
+        "email": "james@example.com"
+      },
+      "expected_themes": [
+        "Recognition of hard work",
+        "Acknowledgment of perseverance",
+        "Pride in achievement",
+        "Encouragement to keep going"
+      ]
+    },
+    {
+      "name": "Test 3: Motivational Pep Talk (Life Direction)",
+      "description": "Tough love for recent grad feeling lost",
+      "payload": {
+        "customer_name": "Mom",
+        "recipient_name": "Tommy",
+        "occasion": "motivation",
+        "special_message": "He's 22 and just graduated college but feels completely lost. Doesn't know what to do with his life. Sleeping until noon. Needs a serious kick in the pants.",
+        "email": "mom@example.com"
+      },
+      "expected_themes": [
+        "Tough love wake-up call",
+        "Permission to not have it all figured out",
+        "Action over overthinking",
+        "Start small, build momentum"
+      ]
+    },
+    {
+      "name": "Test 4: Advice (Big Decision)",
+      "description": "Real talk about career risk and entrepreneurship",
+      "payload": {
+        "customer_name": "Best Friend",
+        "recipient_name": "Rachel",
+        "occasion": "advice",
+        "special_message": "She's thinking about quitting her stable corporate job to start her own marketing business. She's scared of failing, but also scared of regret. She has savings for 6 months.",
+        "email": "bestie@example.com"
+      },
+      "expected_themes": [
+        "Honest assessment of risks",
+        "Trust your gut wisdom",
+        "Calculated risk vs reckless risk",
+        "Regret of not trying"
+      ]
+    },
+    {
+      "name": "Test 5: Celebration (Personal Achievement)",
+      "description": "Big celebration of completing marathon",
+      "payload": {
+        "customer_name": "The Running Team",
+        "recipient_name": "David",
+        "occasion": "celebration",
+        "special_message": "He finally finished his first marathon after training for a year! Hit the wall at mile 20 but pushed through. His time was 4:23 but who cares - he did it!",
+        "email": "team@example.com"
+      },
+      "expected_themes": [
+        "Massive celebration",
+        "Pride in completing goal",
+        "Perseverance through adversity",
+        "Character over achievement"
+      ]
+    },
+    {
+      "name": "Test 6: Birthday (Younger Adult)",
+      "description": "Encouraging message for 25th birthday",
+      "payload": {
+        "customer_name": "College Friends",
+        "recipient_name": "Emily",
+        "occasion": "birthday",
+        "special_message": "She's turning 25 and feeling pressure to have everything figured out. Seeing friends get engaged and she's still single. Great job but questioning if it's the right path.",
+        "email": "friends@example.com"
+      },
+      "expected_themes": [
+        "You're right on time",
+        "Don't compare yourself",
+        "25 is young - room to explore",
+        "Define success for yourself"
+      ]
+    },
+    {
+      "name": "Test 7: Encouragement (Health Journey)",
+      "description": "Support for someone starting weight loss journey",
+      "payload": {
+        "customer_name": "Spouse",
+        "recipient_name": "Chris",
+        "occasion": "encouragement",
+        "special_message": "Starting a weight loss journey after years of putting it off. Down 15 pounds already but it's been tough. Had a bad week and feeling discouraged.",
+        "email": "spouse@example.com"
+      },
+      "expected_themes": [
+        "Acknowledge progress made",
+        "Bad weeks are part of journey",
+        "Long-term mindset",
+        "You're stronger than you think"
+      ]
+    },
+    {
+      "name": "Test 8: Congratulations (Personal Milestone)",
+      "description": "Celebration of sobriety milestone",
+      "payload": {
+        "customer_name": "AA Sponsor",
+        "recipient_name": "Marcus",
+        "occasion": "congratulations",
+        "special_message": "One year sober today. It's been the hardest year of his life but also the best. He's rebuilding relationships with his family and finally showing up for himself.",
+        "email": "sponsor@example.com"
+      },
+      "expected_themes": [
+        "Deep respect for achievement",
+        "Acknowledge difficulty",
+        "Pride in showing up daily",
+        "Better days ahead"
+      ]
+    },
+    {
+      "name": "Test 9: Motivation (Business Struggles)",
+      "description": "Pep talk for struggling entrepreneur",
+      "payload": {
+        "customer_name": "Business Partner",
+        "recipient_name": "Jordan",
+        "occasion": "motivation",
+        "special_message": "The startup is struggling. Funding is tight, customers are slow to convert, and the team is stressed. Feeling like giving up but 3 years of work is on the line.",
+        "email": "partner@example.com"
+      },
+      "expected_themes": [
+        "Entrepreneurship is hard",
+        "This is the test",
+        "Dig deep",
+        "Smart persistence vs stubbornness"
+      ]
+    },
+    {
+      "name": "Test 10: Advice (Relationship Decision)",
+      "description": "Wisdom about making relationship work",
+      "payload": {
+        "customer_name": "Sister",
+        "recipient_name": "Nicole",
+        "occasion": "advice",
+        "special_message": "Engaged but having cold feet. Loves him but worried they argue too much. Wedding is in 4 months. Not sure if it's normal jitters or a real red flag.",
+        "email": "sister@example.com"
+      },
+      "expected_themes": [
+        "Listen to your gut",
+        "Difference between fear and intuition",
+        "Marriage is work",
+        "Better to pause than regret"
+      ]
+    }
+  ],
+  "usage_notes": [
+    "Use these payloads to test different message types and tones",
+    "Each payload is designed to elicit specific aspects of Johnny's personality",
+    "Review the generated scripts to ensure character consistency",
+    "Adjust the system prompt if responses are off-brand",
+    "These cover the full range of use cases for the MVP"
+  ]
+}

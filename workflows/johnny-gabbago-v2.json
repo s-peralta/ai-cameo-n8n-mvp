@@ -1,0 +1,437 @@
+{
+  "name": "Johnny Gabbago v2 (20260214-1800)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "johnny-working-test",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook - Video Request",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        256,
+        304
+      ],
+      "webhookId": "johnny-working-test-88935639"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"gpt-4o\",\n  \"max_tokens\": 500,\n  \"temperature\": 0.7,\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are Johnny Gabbago, a streetwise Brooklyn motivational speaker with Italian-American roots and a heart of gold. You're like if Tony Soprano became a life coach - tough exterior, but you genuinely care about people.\\n\\nYOUR BACKGROUND:\\n- Born and raised in Brooklyn, New York\\n- Italian-American heritage with old-school values\\n- Former construction worker turned motivational speaker\\n- Known for 'tough love with emphasis on the love'\\n\\nYOUR SPEAKING STYLE:\\n- Always start with: 'Ey [recipient_name], it's your pal Johnny Gabbago here'\\n- Use Brooklyn Italian-American phrases naturally: 'capisce,' 'fuggedaboutit,' 'listen kid,' 'lemme tell you something'\\n- Direct and honest - no sugar-coating, but never mean\\n- Confident and authoritative but warm\\n- Use short, punchy sentences mixed with longer storytelling\\n- Sprinkle in wisdom disguised as street smarts\\n- Always end with: 'Now go out there and make me proud, capisce?'\\n\\nYOUR PERSONALITY:\\n- Tough but caring - you roast with love\\n- No-nonsense but deeply empathetic\\n- Old-school wisdom meets modern understanding\\n- You believe in people even when they don't believe in themselves\\n- Proud of your roots, family-oriented\\n- Life experience has taught you what matters\\n\\nHOW YOU HANDLE DIFFERENT OCCASIONS:\\n- Birthdays: Roast them lovingly about getting older, but remind them age is wisdom\\n- Congratulations: Big enthusiasm, acknowledge their hard work, push them to keep going\\n- Motivation: Tough love, call out excuses, remind them of their strength\\n- Advice: Draw from 'life experience,' be direct, give actionable wisdom\\n\\nMESSAGE GUIDELINES:\\n- Length: 150-250 words (60-90 seconds when spoken)\\n- Personalize using recipient's name and specific details provided\\n- Make it feel like a real one-on-one conversation\\n- Balance humor with genuine emotion\\n- End on an uplifting, motivational note\\n- Be authentic - this is who you are, not a character you're playing\\n\\nEXAMPLE PHRASES YOU USE:\\n- 'Listen kid, lemme tell you something...'\\n- 'You know what your problem is? You're thinking too much.'\\n- 'Fuggedaboutit and move forward'\\n- 'I'm proud of you, and that ain't something I say lightly'\\n- 'Life's too short for that nonsense'\\n- 'You got this, I can see it in you'\\n\\nRemember: You're not acting tough - you ARE tough. But beneath that Brooklyn exterior is someone who genuinely wants the best for people. You motivate through truth, not platitudes.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Create a personalized message for the following:\\n\\nRecipient Name: {{ $json.body.recipient_name }}\\nOccasion: {{ $json.body.occasion }}\\nSpecial Details: {{ $json.body.special_message }}\\nFrom: {{ $json.body.customer_name }}\\n\\nWrite a 150-250 word personalized message in Johnny Gabbago's voice. Make it authentic, heartfelt, and true to character. Include specific references to the occasion and details provided.\"\n    }\n  ]\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "openai-api",
+      "name": "OpenAI - Generate Script",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        464,
+        304
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-gs",
+          "name": "OpenAI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract script from OpenAI response\nconst items = $input.all();\nconst openaiResponse = items[0].json;\nconst script = openaiResponse.choices[0].message.content;\nconst webhookData = $node[\"Webhook - Video Request\"].json.body;\n\nreturn {\n  json: {\n    script: script,\n    recipient_name: webhookData.recipient_name,\n    customer_email: webhookData.email,\n    start_time: new Date().toISOString()\n  }\n};"
+      },
+      "id": "extract-script",
+      "name": "Extract Script",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        656,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare HeyGen API request body\nconst script = $input.item.json.script;\n\nreturn {\n  json: {\n    video_inputs: [\n      {\n        character: {\n          type: \"avatar\",\n          avatar_id: \"c7dbd59042454197b365797343de9b30\",\n          avatar_style: \"normal\"\n        },\n        voice: {\n          type: \"text\",\n          input_text: script,\n          voice_id: \"zxVic3pDQcjcPiWrVF4p\"\n        }\n      }\n    ],\n    test: false,\n    caption: false\n  }\n};"
+      },
+      "id": "prepare-heygen",
+      "name": "Prepare HeyGen Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        848,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.heygen.com/v2/video/generate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "heygen-api",
+      "name": "HeyGen - Start Video Generation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1040,
+        304
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "KyxNrQgDXhNnzCyu",
+          "name": "Header Auth account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract video ID and keep script data\nconst heygenResponse = $json;\nconst extractData = $node[\"Extract Script\"].json;\n\nconsole.log(\"HeyGen response:\", JSON.stringify(heygenResponse, null, 2));\n\n// Extract video_id from HeyGen response\nlet videoId;\nif (heygenResponse.data && heygenResponse.data.video_id) {\n  videoId = heygenResponse.data.video_id;\n  console.log(\"\u2713 Extracted video_id:\", videoId);\n} else if (heygenResponse.video_id) {\n  videoId = heygenResponse.video_id;\n  console.log(\"\u2713 Extracted video_id from root:\", videoId);\n} else {\n  console.error(\"\u2717 Could not find video_id!\");\n  console.error(\"Response:\", JSON.stringify(heygenResponse));\n  throw new Error(\"video_id not found in HeyGen response\");\n}\n\nreturn {\n  json: {\n    video_id: videoId,\n    script: extractData.script,\n    start_time: extractData.start_time,\n    customer_email: extractData.customer_email\n  }\n};"
+      },
+      "id": "extract-video-id",
+      "name": "Extract Video ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1232,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "amount": 10,
+        "unit": "seconds"
+      },
+      "id": "wait-for-video",
+      "name": "Wait 10 Seconds",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        1424,
+        304
+      ],
+      "webhookId": "wait-video-generation-openai"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.heygen.com/v1/video_status.get?video_id={{ $json.video_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "check-video-status",
+      "name": "Check Video Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1616,
+        304
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "KyxNrQgDXhNnzCyu",
+          "name": "Header Auth account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.data.status }}",
+              "value2": "completed"
+            }
+          ]
+        }
+      },
+      "id": "if-video-ready",
+      "name": "Is Video Ready?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1808,
+        304
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format success response\nconst statusResponse = $input.item.json;\nconst videoData = $node[\"Extract Video ID\"].json;\nconst startTime = new Date(videoData.start_time);\nconst endTime = new Date();\nconst generationTime = Math.floor((endTime - startTime) / 1000);\n\nreturn {\n  json: {\n    video_url: statusResponse.data.video_url,\n    status: \"completed\",\n    script_used: videoData.script,\n    generation_time_seconds: generationTime,\n    customer_email: videoData.customer_email\n  }\n};"
+      },
+      "id": "format-success-response",
+      "name": "Format Success Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2000,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "respond-success",
+      "name": "Respond - Success",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        2192,
+        208
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $runIndex }}",
+              "value2": 18
+            }
+          ]
+        }
+      },
+      "id": "check-retry-limit",
+      "name": "Check Retry Limit",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format timeout response\nconst videoData = $node[\"Extract Video ID\"].json;\n\nreturn {\n  json: {\n    status: \"timeout\",\n    error: \"Video generation timed out after 3 minutes. Video may still be processing.\",\n    video_id: videoData.video_id\n  }\n};"
+      },
+      "id": "format-timeout-response",
+      "name": "Format Timeout Response",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2192,
+        512
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json }}",
+        "options": {
+          "responseCode": 202
+        }
+      },
+      "id": "respond-timeout",
+      "name": "Respond - Timeout",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        2384,
+        512
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook - Video Request": {
+      "main": [
+        [
+          {
+            "node": "OpenAI - Generate Script",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI - Generate Script": {
+      "main": [
+        [
+          {
+            "node": "Extract Script",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Script": {
+      "main": [
+        [
+          {
+            "node": "Prepare HeyGen Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare HeyGen Request": {
+      "main": [
+        [
+          {
+            "node": "HeyGen - Start Video Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HeyGen - Start Video Generation": {
+      "main": [
+        [
+          {
+            "node": "Extract Video ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Video ID": {
+      "main": [
+        [
+          {
+            "node": "Wait 10 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 10 Seconds": {
+      "main": [
+        [
+          {
+            "node": "Check Video Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Video Status": {
+      "main": [
+        [
+          {
+            "node": "Is Video Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Video Ready?": {
+      "main": [
+        [
+          {
+            "node": "Format Success Response",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check Retry Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Success Response": {
+      "main": [
+        [
+          {
+            "node": "Respond - Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Retry Limit": {
+      "main": [
+        [
+          {
+            "node": "Wait 10 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Timeout Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Timeout Response": {
+      "main": [
+        [
+          {
+            "node": "Respond - Timeout",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "versionId": "870a9b88-be1b-4f72-bec6-bf969043f3cc",
+  "active": true
+}
