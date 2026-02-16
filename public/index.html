@@ -869,11 +869,12 @@
             width: 100%; height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 0.6s ease;
+            transition: opacity 0.5s ease;
             z-index: 1;
+            pointer-events: none;
         }
-        .bento-item:hover .bento-thumbnail video,
-        .bento-item.video-playing .bento-thumbnail video {
+        /* Only fade in once video is buffered AND playing */
+        .bento-item.video-ready .bento-thumbnail video {
             opacity: 1;
         }
 
@@ -2547,24 +2548,35 @@
             if (!video) return;
 
             let loaded = false;
+            let ready = false;
+            let hovering = false;
+
+            // Only reveal video after it can actually play (no jump)
+            video.addEventListener('canplay', () => {
+                ready = true;
+                if (hovering) item.classList.add('video-ready');
+            }, { once: true });
 
             item.addEventListener('mouseenter', () => {
+                hovering = true;
                 if (!loaded) {
                     video.src = video.dataset.src;
                     video.load();
                     loaded = true;
                 }
                 video.play().catch(() => {});
-                item.classList.add('video-playing');
+                // If already buffered from a previous hover, show immediately
+                if (ready) item.classList.add('video-ready');
             });
 
             item.addEventListener('mouseleave', () => {
+                hovering = false;
                 video.pause();
-                item.classList.remove('video-playing');
+                item.classList.remove('video-ready');
             });
         });
 
-        // Also autoplay on mobile when tile scrolls into view (since no hover)
+        // Mobile: autoplay on scroll into view
         if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
             const mobileVideoObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -2575,11 +2587,13 @@
                             video.src = video.dataset.src;
                             video.load();
                         }
+                        video.addEventListener('canplay', () => {
+                            entry.target.classList.add('video-ready');
+                        }, { once: true });
                         video.play().catch(() => {});
-                        entry.target.classList.add('video-playing');
                     } else {
                         video.pause();
-                        entry.target.classList.remove('video-playing');
+                        entry.target.classList.remove('video-ready');
                     }
                 });
             }, { threshold: 0.5 });
