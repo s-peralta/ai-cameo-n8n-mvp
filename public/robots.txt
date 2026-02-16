@@ -1,4 +1,4 @@
-# Aloguv - robots.txt
+# AloGuv - robots.txt
 # Allow all search engine and AI crawlers
 
 User-agent: *
