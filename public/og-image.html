@@ -1,0 +1,105 @@
+<!-- Open this in a browser and screenshot at 1200x630 to create og-image.png -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1200px;
+    height: 630px;
+    background: #08080A;
+    font-family: system-ui, -apple-system, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .orb1 {
+    position: absolute;
+    width: 500px; height: 500px;
+    background: #6366F1;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.4;
+    top: -200px; right: -100px;
+  }
+  .orb2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: #EC4899;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.35;
+    bottom: -200px; left: -50px;
+  }
+  .content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .logo {
+    font-size: 48px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+  }
+  .logo span { font-weight: 200; }
+  h1 {
+    font-size: 64px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    letter-spacing: -3px;
+    margin-bottom: 20px;
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #818CF8, #EC4899, #F59E0B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  p {
+    font-size: 22px;
+    color: #71717A;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+  .badge {
+    display: inline-block;
+    padding: 8px 20px;
+    background: rgba(99,102,241,0.1);
+    border: 1px solid rgba(99,102,241,0.2);
+    border-radius: 100px;
+    color: #818CF8;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 32px;
+  }
+  .url {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #3f3f46;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+  <div class="orb1"></div>
+  <div class="orb2"></div>
+  <div class="content">
+    <div class="badge">9 AI Personalities &bull; Delivered in Minutes</div>
+    <div class="logo">👋 Alo<span>Guv</span></div>
+    <h1>Video Messages<br><em>That Feel Real</em></h1>
+    <p>Personalized AI video messages for birthdays, motivation, celebrations, and more.</p>
+  </div>
+  <div class="url">www.aloguv.com</div>
+</body>
+</html>
