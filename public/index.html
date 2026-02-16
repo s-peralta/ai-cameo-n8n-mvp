@@ -530,7 +530,6 @@
         }
 
         .hero h1 {
-            font-family: 'Instrument Serif', serif;
             font-size: clamp(3rem, 5vw, 4.75rem);
             font-weight: 800;
             line-height: 1.05;
@@ -650,7 +649,7 @@
             gap: 12px;
             opacity: 0;
             transform: translateX(40px);
-            max-height: 500px;
+            max-height: 600px;
         }
 
         .hero-tile {
@@ -660,6 +659,9 @@
             border: 1px solid var(--border);
             cursor: pointer;
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s;
+            display: block;
+            text-decoration: none;
+            color: var(--text);
         }
         .hero-tile:first-child {
             grid-row: span 2;
@@ -910,9 +912,12 @@
             border-radius: var(--radius-lg);
             overflow: hidden;
             position: relative;
-            cursor: none;
+            cursor: pointer;
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid var(--border);
+            text-decoration: none;
+            color: var(--text);
+            display: block;
         }
 
         .bento-item:hover {
@@ -1987,8 +1992,8 @@
 
         <!-- Hero Tiles (right side) -->
         <div class="hero-tiles">
-            <div class="hero-tile" onclick="scrollTo('#personalities')">
-                <video src="video/Baby_Trailer_V2.mp4" muted loop playsinline autoplay></video>
+            <a class="hero-tile" href="personality/party-pat.html">
+                <video src="video/Baby_Trailer_V2.mp4" muted loop playsinline preload="auto"></video>
                 <img src="images/baby-male.jpg" alt="Party Pat">
                 <div class="hero-tile-overlay">
                     <span class="hero-tile-name">Party Pat</span>
@@ -1997,9 +2002,9 @@
                         <span class="hero-tile-price">From $10</span>
                     </div>
                 </div>
-            </div>
-            <div class="hero-tile" onclick="scrollTo('#personalities')">
-                <video src="video/Coach_Tony_-_Thumb.mp4" muted loop playsinline autoplay></video>
+            </a>
+            <a class="hero-tile" href="personality/coach-tony.html">
+                <video src="video/Coach_Tony_-_Thumb.mp4" muted loop playsinline preload="auto"></video>
                 <img src="images/black-male.jpg" alt="Coach Tony">
                 <div class="hero-tile-overlay">
                     <span class="hero-tile-name">Coach Tony</span>
@@ -2008,9 +2013,9 @@
                         <span class="hero-tile-price">From $12</span>
                     </div>
                 </div>
-            </div>
-            <div class="hero-tile" onclick="scrollTo('#personalities')">
-                <video src="video/Santa_-_Thumb.mp4" muted loop playsinline autoplay></video>
+            </a>
+            <a class="hero-tile" href="personality/santa.html">
+                <video src="video/Santa_-_Thumb.mp4" muted loop playsinline preload="auto"></video>
                 <img src="images/santa-male.jpg" alt="Santa Claus">
                 <div class="hero-tile-overlay">
                     <span class="hero-tile-name">Santa Claus</span>
@@ -2019,7 +2024,7 @@
                         <span class="hero-tile-price">From $14</span>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
     </section>
@@ -2069,7 +2074,7 @@
 
         <div class="bento-grid">
             <!-- 1: Party Pat (Featured / Large) -->
-            <div class="bento-item" data-personality="party" data-name="Party Pat" data-price="10" data-emoji="🎉" data-bg="linear-gradient(135deg, #AD1457 0%, #F06292 100%)">
+            <a href="personality/party-pat.html" class="bento-item" data-personality="party" data-name="Party Pat" data-price="10" data-emoji="🎉" data-bg="linear-gradient(135deg, #AD1457 0%, #F06292 100%)">
                 <div class="bento-thumbnail" style="background-image: url('images/baby-male.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Baby_Trailer_V2.mp4"></video>
                 </div>
@@ -2087,10 +2092,10 @@
                         <button class="book-btn">Book Now</button>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- 2: Coach Tony -->
-            <div class="bento-item" data-personality="coach" data-name="Coach Tony" data-price="12" data-emoji="💪" data-bg="linear-gradient(135deg, #E65100 0%, #FF9800 100%)">
+            <a href="personality/coach-tony.html" class="bento-item" data-personality="coach" data-name="Coach Tony" data-price="12" data-emoji="💪" data-bg="linear-gradient(135deg, #E65100 0%, #FF9800 100%)">
                 <div class="bento-thumbnail" style="background-image: url('images/black-male.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Coach_Tony_-_Thumb.mp4"></video>
                 </div>
@@ -2107,10 +2112,10 @@
                         <button class="book-btn">Book</button>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- 3: The Oracle -->
-            <div class="bento-item" data-personality="oracle" data-name="The Oracle" data-price="17" data-emoji="🧙" data-bg="linear-gradient(135deg, #4527A0 0%, #7E57C2 100%)">
+            <a href="personality/the-oracle.html" class="bento-item" data-personality="oracle" data-name="The Oracle" data-price="17" data-emoji="🧙" data-bg="linear-gradient(135deg, #4527A0 0%, #7E57C2 100%)">
                 <div class="bento-thumbnail" style="background-image: url('images/cult-male.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Oracle-Thumb.mp4"></video>
                 </div>
@@ -2127,10 +2132,10 @@
                         <button class="book-btn">Book</button>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- 4: Santa Claus -->
-            <div class="bento-item" data-personality="santa" data-name="Santa Claus" data-price="14" data-emoji="🎅" data-bg="linear-gradient(135deg, #B71C1C 0%, #E53935 50%, #FF8A80 100%)">
+            <a href="personality/santa.html" class="bento-item" data-personality="santa" data-name="Santa Claus" data-price="14" data-emoji="🎅" data-bg="linear-gradient(135deg, #B71C1C 0%, #E53935 50%, #FF8A80 100%)">
                 <div class="bento-thumbnail" style="background-image: url('images/santa-male.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Santa_-_Thumb.mp4"></video>
                 </div>
@@ -2148,7 +2153,7 @@
                         <button class="book-btn">Book Now</button>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- 5: Romeo Rose -->
             <div class="bento-item" data-personality="romeo" data-name="Romeo Rose" data-price="15" data-emoji="💝" data-bg="linear-gradient(135deg, #880E4F 0%, #E91E63 100%)">
@@ -2209,7 +2214,7 @@
             </div>
 
             <!-- 8: Fit Frank -->
-            <div class="bento-item" data-personality="fitness" data-name="Fit Frank" data-price="11" data-emoji="🏋️" data-bg="linear-gradient(135deg, #1B5E20 0%, #66BB6A 100%)">
+            <a href="personality/fit-frank.html" class="bento-item" data-personality="fitness" data-name="Fit Frank" data-price="11" data-emoji="🏋️" data-bg="linear-gradient(135deg, #1B5E20 0%, #66BB6A 100%)">
                 <div class="bento-thumbnail" style="background-image: url('images/yoga-chick.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Gym_Guy_-_Thumb.mp4"></video>
                 </div>
@@ -2227,10 +2232,10 @@
                         <button class="book-btn">Book Now</button>
                     </div>
                 </div>
-            </div>
+            </a>
 
             <!-- 9: Grandma Betty -->
-            <div class="bento-item" data-personality="grandma" data-name="Grandma Betty" data-price="9" data-emoji="👵" data-bg="linear-gradient(135deg, #4E342E 0%, #A1887F 100%)">
+            <a href="personality/grandma-betty.html" class="bento-item" data-personality="grandma" data-name="Grandma Betty" data-price="9" data-emoji="👵" data-bg="linear-gradient(135deg, #4E342E 0%, #A1887F 100%)">
                 <div class="bento-thumbnail" style="background-image: url('images/grandma-female.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Grandma-Thumb.mp4"></video>
                 </div>
@@ -2247,7 +2252,7 @@
                         <button class="book-btn">Book</button>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 
@@ -2444,7 +2449,7 @@
                     <li><a href="#personalities">Browse</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#">Pricing</a></li>
-                    <li><a href="#">FAQ</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -2674,13 +2679,28 @@
         });
 
         // Force-play hero tile videos after load screen clears
-        setTimeout(() => {
+        function forcePlayHeroVideos() {
             document.querySelectorAll('.hero-tile video').forEach(v => {
-                v.play().then(() => v.classList.add('loaded')).catch(() => {});
-                // Fallback if already playing
+                // Show video as soon as it has data
+                v.addEventListener('canplay', () => v.classList.add('loaded'), { once: true });
+                v.addEventListener('playing', () => v.classList.add('loaded'), { once: true });
+                // If already ready, show immediately
                 if (v.readyState >= 3) v.classList.add('loaded');
+                // Attempt play
+                v.play().then(() => v.classList.add('loaded')).catch(() => {
+                    // Retry on failure (some browsers need user gesture context)
+                    setTimeout(() => v.play().then(() => v.classList.add('loaded')).catch(() => {}), 500);
+                });
             });
-        }, 2200);
+        }
+        // Try after loading screen, and again shortly after in case first attempt fails
+        setTimeout(forcePlayHeroVideos, 2200);
+        setTimeout(forcePlayHeroVideos, 3500);
+        // Also try on first user interaction as ultimate fallback
+        document.addEventListener('click', function heroVideoFallback() {
+            forcePlayHeroVideos();
+            document.removeEventListener('click', heroVideoFallback);
+        }, { once: true });
 
         // Animate elements when they scroll into view using IntersectionObserver
         function animateOnScroll(selector, stagger = 0) {
