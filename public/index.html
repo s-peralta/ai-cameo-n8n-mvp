@@ -310,6 +310,33 @@
             to { width: 100%; }
         }
 
+        /* Wave animation for hand emoji */
+        @keyframes wave-subtle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(8deg); }
+            75% { transform: rotate(-4deg); }
+        }
+        @keyframes wave-bold {
+            0% { transform: rotate(0deg); }
+            10% { transform: rotate(14deg); }
+            20% { transform: rotate(-8deg); }
+            30% { transform: rotate(14deg); }
+            40% { transform: rotate(-4deg); }
+            50% { transform: rotate(10deg); }
+            60% { transform: rotate(0deg); }
+            100% { transform: rotate(0deg); }
+        }
+        .logo-wave {
+            display: inline-block;
+            animation: wave-subtle 2.5s ease-in-out infinite;
+            transform-origin: 70% 70%;
+        }
+        .loading-wave {
+            display: inline-block;
+            animation: wave-bold 1.4s ease-in-out infinite;
+            transform-origin: 70% 70%;
+        }
+
         /* ========================================
            NAVIGATION
            ======================================== */
@@ -833,6 +860,21 @@
 
         .bento-item:hover .bento-thumbnail {
             transform: scale(1.05);
+        }
+
+        /* Video preview on tiles */
+        .bento-thumbnail video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: 1;
+        }
+        .bento-item:hover .bento-thumbnail video,
+        .bento-item.video-playing .bento-thumbnail video {
+            opacity: 1;
         }
 
         .bento-thumbnail::after {
@@ -1788,13 +1830,13 @@
 
     <!-- Loading Screen -->
     <div class="loading-screen">
-        <div class="loading-logo">👋 Alo<span style="font-weight:200;">Guv</span></div>
+        <div class="loading-logo"><span class="loading-wave">👋</span> Alo<span style="font-weight:200;">Guv</span></div>
         <div class="loading-bar"><div class="loading-bar-fill"></div></div>
     </div>
 
     <!-- Navigation -->
     <nav>
-        <div style="color: #fff;" class="logo">👋 Alo<span style="font-weight:200;">Guv</span></div>
+        <div style="color: #fff;" class="logo"><span class="logo-wave">👋</span> Alo<span style="font-weight:200;">Guv</span></div>
         <div class="nav-links">
             <a href="#personalities" class="nav-link">Browse</a>
             <a href="#how-it-works" class="nav-link">How It Works</a>
@@ -1875,20 +1917,22 @@
         </div>
 
         <div class="bento-grid">
-            <!-- 1: Santa (Featured / Large) -->
-            <div class="bento-item" data-personality="santa" data-name="Santa Claus" data-price="29" data-emoji="🎅" data-bg="linear-gradient(135deg, #B71C1C 0%, #E53935 50%, #FF8A80 100%)">
-                <div class="bento-thumbnail" style="background-image: url('images/santa-male.jpg');"></div>
+            <!-- 1: Party Pat (Featured / Large) -->
+            <div class="bento-item" data-personality="party" data-name="Party Pat" data-price="20" data-emoji="🎉" data-bg="linear-gradient(135deg, #AD1457 0%, #F06292 100%)">
+                <div class="bento-thumbnail" style="background-image: url('images/baby-male.jpg');">
+                    <video muted loop playsinline preload="none" data-src="video/Baby_Trailer_V2.mp4"></video>
+                </div>
                 <div class="play-overlay"><div class="play-icon"></div></div>
                 <div class="bento-content">
-                    <span class="personality-tag">Holiday Special</span>
-                    <h3 class="personality-name">Santa Claus</h3>
-                    <p class="personality-tagline">Jolly messages straight from the North Pole</p>
+                    <span class="personality-tag">Celebration</span>
+                    <h3 class="personality-name">Party Pat</h3>
+                    <p class="personality-tagline">High-energy birthday vibes and celebrations</p>
                     <div class="personality-meta">
                         <span class="personality-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="personality-reviews">2.4k reviews</span>
+                        <span class="personality-reviews">3.1k reviews</span>
                     </div>
                     <div class="personality-footer">
-                        <span class="personality-price">$29 <span>/ video</span></span>
+                        <span class="personality-price">$20 <span>/ video</span></span>
                         <button class="book-btn">Book Now</button>
                     </div>
                 </div>
@@ -1896,7 +1940,9 @@
 
             <!-- 2: Coach Tony -->
             <div class="bento-item" data-personality="coach" data-name="Coach Tony" data-price="25" data-emoji="💪" data-bg="linear-gradient(135deg, #E65100 0%, #FF9800 100%)">
-                <div class="bento-thumbnail" style="background-image: url('images/black-male.jpg');"></div>
+                <div class="bento-thumbnail" style="background-image: url('images/black-male.jpg');">
+                    <video muted loop playsinline preload="none" data-src="video/Coach_Tony_-_Thumb.mp4"></video>
+                </div>
                 <div class="play-overlay"><div class="play-icon"></div></div>
                 <div class="bento-content">
                     <span class="personality-tag">Motivation</span>
@@ -1930,20 +1976,22 @@
                 </div>
             </div>
 
-            <!-- 4: Party Pat -->
-            <div class="bento-item" data-personality="party" data-name="Party Pat" data-price="20" data-emoji="🎉" data-bg="linear-gradient(135deg, #AD1457 0%, #F06292 100%)">
-                <div class="bento-thumbnail" style="background-image: url('images/baby-male.jpg');"></div>
+            <!-- 4: Santa Claus -->
+            <div class="bento-item" data-personality="santa" data-name="Santa Claus" data-price="29" data-emoji="🎅" data-bg="linear-gradient(135deg, #B71C1C 0%, #E53935 50%, #FF8A80 100%)">
+                <div class="bento-thumbnail" style="background-image: url('images/santa-male.jpg');">
+                    <video muted loop playsinline preload="none" data-src="video/Santa_-_Thumb.mp4"></video>
+                </div>
                 <div class="play-overlay"><div class="play-icon"></div></div>
                 <div class="bento-content">
-                    <span class="personality-tag">Celebration</span>
-                    <h3 class="personality-name">Party Pat</h3>
-                    <p class="personality-tagline">High-energy birthday vibes and celebrations</p>
+                    <span class="personality-tag">Holiday Special</span>
+                    <h3 class="personality-name">Santa Claus</h3>
+                    <p class="personality-tagline">Jolly messages straight from the North Pole</p>
                     <div class="personality-meta">
                         <span class="personality-rating">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
-                        <span class="personality-reviews">3.1k</span>
+                        <span class="personality-reviews">2.4k</span>
                     </div>
                     <div class="personality-footer">
-                        <span class="personality-price">$20 <span>/ video</span></span>
+                        <span class="personality-price">$29 <span>/ video</span></span>
                         <button class="book-btn">Book Now</button>
                     </div>
                 </div>
@@ -2009,7 +2057,9 @@
 
             <!-- 8: Fit Frank -->
             <div class="bento-item" data-personality="fitness" data-name="Fit Frank" data-price="22" data-emoji="🏋️" data-bg="linear-gradient(135deg, #1B5E20 0%, #66BB6A 100%)">
-                <div class="bento-thumbnail" style="background-image: url('images/yoga-chick.jpg');"></div>
+                <div class="bento-thumbnail" style="background-image: url('images/yoga-chick.jpg');">
+                    <video muted loop playsinline preload="none" data-src="video/Gym_Guy_-_Thumb.mp4"></video>
+                </div>
                 <div class="play-overlay"><div class="play-icon"></div></div>
                 <div class="bento-content">
                     <span class="personality-tag">Fitness</span>
@@ -2028,7 +2078,9 @@
 
             <!-- 9: Grandma Betty -->
             <div class="bento-item" data-personality="grandma" data-name="Grandma Betty" data-price="18" data-emoji="👵" data-bg="linear-gradient(135deg, #4E342E 0%, #A1887F 100%)">
-                <div class="bento-thumbnail" style="background-image: url('images/grandma-female.jpg');"></div>
+                <div class="bento-thumbnail" style="background-image: url('images/grandma-female.jpg');">
+                    <video muted loop playsinline preload="none" data-src="video/Grandma-Thumb.mp4"></video>
+                </div>
                 <div class="play-overlay"><div class="play-icon"></div></div>
                 <div class="bento-content">
                     <span class="personality-tag">Comfort</span>
@@ -2228,7 +2280,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-brand">
-                <span class="logo">AloGuv</span>
+                <span style="color: #fff;" class="logo"><span class="logo-wave">👋</span> Alo<span style="font-weight:200;">Guv</span></span>
                 <p class="footer-description">
                     AloGuv creates meaningful connections through AI-powered personalized video messages. Choose from unique virtual personalities for birthdays, celebrations, motivation, and more.
                 </p>
@@ -2487,6 +2539,57 @@
         animateOnScroll('.section-title, .section-label, .section-subtitle');
         animateOnScroll('.step', 0.15);
 
+        // ========================================
+        // VIDEO PREVIEW ON HOVER (muted, autoplay)
+        // ========================================
+        document.querySelectorAll('.bento-item').forEach(item => {
+            const video = item.querySelector('video[data-src]');
+            if (!video) return;
+
+            let loaded = false;
+
+            item.addEventListener('mouseenter', () => {
+                if (!loaded) {
+                    video.src = video.dataset.src;
+                    video.load();
+                    loaded = true;
+                }
+                video.play().catch(() => {});
+                item.classList.add('video-playing');
+            });
+
+            item.addEventListener('mouseleave', () => {
+                video.pause();
+                item.classList.remove('video-playing');
+            });
+        });
+
+        // Also autoplay on mobile when tile scrolls into view (since no hover)
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            const mobileVideoObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const video = entry.target.querySelector('video[data-src]');
+                    if (!video) return;
+                    if (entry.isIntersecting) {
+                        if (!video.src || video.src === '') {
+                            video.src = video.dataset.src;
+                            video.load();
+                        }
+                        video.play().catch(() => {});
+                        entry.target.classList.add('video-playing');
+                    } else {
+                        video.pause();
+                        entry.target.classList.remove('video-playing');
+                    }
+                });
+            }, { threshold: 0.5 });
+            document.querySelectorAll('.bento-item').forEach(item => {
+                if (item.querySelector('video[data-src]')) {
+                    mobileVideoObserver.observe(item);
+                }
+            });
+        }
+
         // Stats counter with IntersectionObserver
         const statObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -2615,12 +2718,24 @@
         document.querySelectorAll('.book-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
+                const item = btn.closest('.bento-item');
+                if (item && item.dataset.personality === 'santa') {
+                    window.location.href = 'personality/santa.html';
+                    return;
+                }
                 handleTileClick(btn);
             });
         });
 
         document.querySelectorAll('.bento-item').forEach(item => {
-            item.addEventListener('click', () => handleTileClick(item));
+            item.addEventListener('click', () => {
+                const personality = item.dataset.personality;
+                if (personality === 'santa') {
+                    window.location.href = 'personality/santa.html';
+                    return;
+                }
+                handleTileClick(item);
+            });
         });
 
         async function submitBooking(e) {

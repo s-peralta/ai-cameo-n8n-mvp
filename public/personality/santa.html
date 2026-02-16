@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Santa Claus - Personalized AI Video Messages | AloGuv</title>
     <meta name="description" content="Book a personalized AI video message from Santa Claus on AloGuv. Jolly holiday greetings, birthday surprises, and magical moments — delivered in minutes. Starting at $29.">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <meta name="theme-color" content="#08080A">
 
     <!-- Open Graph -->
@@ -14,7 +14,7 @@
     <meta property="og:image" content="https://www.aloguv.com/images/santa-male.jpg">
     <meta property="og:url" content="https://www.aloguv.com/personality/santa">
 
-    <!-- Schema: VideoObject -->
+    <!-- Schema: Product -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -57,7 +57,6 @@
             --text-muted: #71717A;
             --border: rgba(255, 255, 255, 0.06);
             --border-hover: rgba(255, 255, 255, 0.12);
-            --glow-primary: rgba(99, 102, 241, 0.15);
             --radius-sm: 8px;
             --radius-md: 16px;
             --radius-lg: 24px;
@@ -67,7 +66,6 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 
         body {
@@ -75,6 +73,18 @@
             background: var(--dark);
             color: var(--text);
             line-height: 1.6;
+        }
+
+        /* ========== WAVE ANIMATION ========== */
+        @keyframes wave-subtle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(8deg); }
+            75% { transform: rotate(-4deg); }
+        }
+        .logo-wave {
+            display: inline-block;
+            animation: wave-subtle 2.5s ease-in-out infinite;
+            transform-origin: 70% 70%;
         }
 
         /* ========== NAV ========== */
@@ -89,21 +99,34 @@
             align-items: center;
             background: rgba(8, 8, 10, 0.8);
             backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
             border-bottom: 1px solid var(--border);
         }
 
         .logo {
-            font-family: 'Bodoni Moda', serif;
+            font-family: system-ui, -apple-system, sans-serif;
             font-size: 1.6rem;
             font-weight: 800;
             letter-spacing: -1px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #fff;
             text-decoration: none;
         }
+        .logo span { font-weight: 200; }
 
-        .nav-links { display: flex; gap: 32px; align-items: center; }
+        .nav-right { display: flex; gap: 32px; align-items: center; }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--text); }
+        .nav-back svg { width: 16px; height: 16px; }
 
         .nav-link {
             color: var(--text-muted);
@@ -113,18 +136,6 @@
             transition: color 0.3s;
         }
         .nav-link:hover { color: var(--text); }
-
-        .nav-back {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: color 0.2s;
-        }
-        .nav-back:hover { color: var(--text); }
 
         /* ========== BREADCRUMB ========== */
         .breadcrumb {
@@ -139,7 +150,7 @@
             transition: color 0.2s;
         }
         .breadcrumb a:hover { color: var(--text); }
-        .breadcrumb span { color: var(--text-muted); font-size: 0.8rem; margin: 0 8px; }
+        .breadcrumb .sep { color: var(--text-muted); font-size: 0.8rem; margin: 0 8px; }
         .breadcrumb .current { color: var(--text-secondary); font-size: 0.8rem; }
 
         /* ========== HERO SPLIT ========== */
@@ -163,19 +174,97 @@
             overflow: hidden;
             position: relative;
             border: 1px solid var(--border);
+            background: var(--dark-surface);
         }
 
-        .detail-main-image img {
+        .detail-main-image img,
+        .detail-main-image video {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
+        }
+
+        .detail-main-image video {
+            cursor: pointer;
+        }
+
+        /* Video player states */
+        .detail-main-image .poster-img {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            transition: opacity 0.3s;
+        }
+        .detail-main-image.playing .poster-img {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .detail-main-image.playing .play-btn-large {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .detail-main-image.playing::after {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        /* Video controls bar */
+        .video-controls {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 12px 16px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .detail-main-image.playing:hover .video-controls,
+        .detail-main-image.paused .video-controls {
+            opacity: 1;
+        }
+        .video-controls button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 4px;
+        }
+        .video-progress {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+        }
+        .video-progress-fill {
+            height: 100%;
+            background: white;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        .video-time {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.7);
+            font-variant-numeric: tabular-nums;
+            min-width: 40px;
         }
 
         .detail-main-image::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.4) 100%);
+            transition: opacity 0.3s;
+            background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5) 100%);
+            pointer-events: none;
         }
 
         .play-btn-large {
@@ -234,6 +323,7 @@
             cursor: pointer;
             transition: all 0.3s;
             position: relative;
+            background: var(--dark-surface);
         }
         .detail-thumb.active, .detail-thumb:hover {
             border-color: var(--santa-red-light);
@@ -242,6 +332,13 @@
         .detail-thumb img {
             width: 100%; height: 100%;
             object-fit: cover;
+        }
+        .detail-thumb-placeholder {
+            width: 100%; height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
         }
         .detail-thumb-label {
             position: absolute;
@@ -253,7 +350,12 @@
             border-radius: 100px;
         }
 
-        /* Right: Booking Card */
+        /* ========== MOBILE NAME BAR (shown only on mobile, below hero image) ========== */
+        .mobile-name-bar {
+            display: none;
+        }
+
+        /* ========== RIGHT: BOOKING CARD ========== */
         .detail-card {
             position: sticky;
             top: 96px;
@@ -322,15 +424,8 @@
             width: 1px;
             background: var(--border);
         }
-        .detail-stat-value {
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-        .detail-stat-label {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
+        .detail-stat-value { font-size: 1.1rem; font-weight: 700; }
+        .detail-stat-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 2px; }
 
         .detail-price {
             display: flex;
@@ -338,15 +433,8 @@
             gap: 8px;
             margin-bottom: 16px;
         }
-        .detail-price-amount {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-        .detail-price-per {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
+        .detail-price-amount { font-size: 2rem; font-weight: 800; letter-spacing: -1px; }
+        .detail-price-per { color: var(--text-muted); font-size: 0.9rem; }
         .detail-price-urgency {
             font-size: 0.75rem;
             color: var(--santa-red-light);
@@ -356,6 +444,99 @@
             align-items: center;
             gap: 6px;
         }
+
+        /* ========== BOOKING FORM ========== */
+        .booking-form { margin-bottom: 12px; }
+        .booking-step { display: none; }
+        .booking-step.active { display: block; }
+
+        .booking-step-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+        .booking-step-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        .step-indicator {
+            display: flex;
+            gap: 6px;
+        }
+        .step-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--border);
+            transition: background 0.3s;
+        }
+        .step-dot.active { background: var(--santa-red-light); }
+        .step-dot.done { background: var(--text-muted); }
+
+        .occasion-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .occasion-btn {
+            padding: 12px 14px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+        .occasion-btn:hover {
+            border-color: var(--border-hover);
+            color: var(--text);
+            background: var(--dark-surface);
+        }
+        .occasion-btn.selected {
+            border-color: var(--santa-red-light);
+            background: rgba(198, 40, 40, 0.08);
+            color: var(--text);
+        }
+
+        .form-group { margin-bottom: 14px; }
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus { border-color: var(--santa-red-light); }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: var(--text-muted); }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
         .book-cta {
             width: 100%;
@@ -369,11 +550,34 @@
             cursor: pointer;
             transition: all 0.3s;
             margin-bottom: 12px;
+            font-family: inherit;
         }
         .book-cta:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 40px rgba(255,255,255,0.15);
         }
+        .book-cta:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .back-btn {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 12px;
+            font-family: inherit;
+        }
+        .back-btn:hover { border-color: var(--border-hover); color: var(--text); }
 
         .delivery-note {
             text-align: center;
@@ -397,10 +601,18 @@
             font-size: 0.8rem;
             color: var(--text-secondary);
         }
-        .guarantee-icon {
-            font-size: 1.2rem;
-            flex-shrink: 0;
+        .guarantee-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+        /* ========== SUCCESS STATE ========== */
+        .booking-success {
+            display: none;
+            text-align: center;
+            padding: 20px 0;
         }
+        .booking-success.active { display: block; }
+        .booking-success-icon { font-size: 3rem; margin-bottom: 16px; }
+        .booking-success h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+        .booking-success p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
 
         /* ========== REASON TAGS ========== */
         .detail-section {
@@ -493,10 +705,7 @@
             letter-spacing: 1px;
             margin-bottom: 4px;
         }
-        .about-meta-value {
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
+        .about-meta-value { font-size: 0.95rem; font-weight: 600; }
 
         /* What to expect */
         .expect-card {
@@ -506,11 +715,7 @@
             padding: 32px;
         }
 
-        .expect-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
+        .expect-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 24px; }
 
         .expect-step {
             display: flex;
@@ -532,16 +737,8 @@
             flex-shrink: 0;
         }
 
-        .expect-step-text h4 {
-            font-size: 0.9rem;
-            font-weight: 700;
-            margin-bottom: 2px;
-        }
-        .expect-step-text p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
+        .expect-step-text h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 2px; }
+        .expect-step-text p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
 
         /* ========== SAMPLE QUOTES ========== */
         .quotes-section {
@@ -646,25 +843,10 @@
         }
         .review-card:hover { border-color: var(--border-hover); }
 
-        .review-stars {
-            color: var(--accent);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-            margin-bottom: 14px;
-        }
+        .review-stars { color: var(--accent); font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 14px; }
+        .review-text { font-size: 0.95rem; line-height: 1.7; color: var(--text-secondary); margin-bottom: 20px; }
 
-        .review-text {
-            font-size: 0.95rem;
-            line-height: 1.7;
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-        }
-
-        .review-author {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+        .review-author { display: flex; align-items: center; gap: 12px; }
 
         .review-avatar {
             width: 40px; height: 40px;
@@ -717,12 +899,7 @@
             transform: translateY(-4px);
         }
 
-        .related-card-img {
-            width: 100%;
-            aspect-ratio: 4/3;
-            object-fit: cover;
-        }
-
+        .related-card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
         .related-card-body { padding: 16px; }
         .related-card-name { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
         .related-card-meta {
@@ -730,6 +907,51 @@
             color: var(--text-muted);
             display: flex;
             justify-content: space-between;
+        }
+
+        /* ========== MOBILE STICKY CTA ========== */
+        .mobile-sticky-cta {
+            display: none;
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            z-index: 999;
+            padding: 12px 20px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
+            background: rgba(8, 8, 10, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+        }
+        .mobile-sticky-cta-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .mobile-sticky-cta-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .mobile-sticky-cta-avatar {
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .mobile-sticky-cta-name { font-size: 0.85rem; font-weight: 700; }
+        .mobile-sticky-cta-price { font-size: 0.75rem; color: var(--text-muted); }
+        .mobile-sticky-cta button {
+            padding: 12px 28px;
+            background: var(--text);
+            color: var(--dark);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
         /* ========== FOOTER ========== */
@@ -755,7 +977,7 @@
         .footer-links-row a:hover { color: var(--text); }
         .footer-copy { color: var(--text-muted); font-size: 0.8rem; }
 
-        /* ========== RESPONSIVE ========== */
+        /* ========== RESPONSIVE: TABLET ========== */
         @media (max-width: 1024px) {
             .detail-hero { grid-template-columns: 1fr; gap: 32px; }
             .detail-card { position: static; }
@@ -765,46 +987,147 @@
             .related-grid { grid-template-columns: 1fr 1fr; }
         }
 
+        /* ========== RESPONSIVE: MOBILE ========== */
         @media (max-width: 768px) {
-            nav { padding: 0 20px; height: 60px; }
-            .nav-links { display: none; }
-            .breadcrumb { padding: 80px 20px 0; }
-            .detail-hero { padding: 24px 20px 0; }
-            .detail-section { padding: 0 20px; }
+            nav { padding: 0 16px; height: 56px; }
+            .logo { font-size: 1.3rem; }
+            .nav-right .nav-link { display: none; }
 
-            .detail-main-image { aspect-ratio: 16/9; }
-            .play-btn-large { width: 60px; height: 60px; }
+            .breadcrumb { padding: 68px 16px 0; font-size: 0.75rem; }
 
-            .detail-card { padding: 28px 24px; border-radius: var(--radius-lg); }
-            .detail-card-name { font-size: 1.3rem; }
-            .detail-price-amount { font-size: 1.7rem; }
+            .detail-hero { padding: 20px 16px 0; gap: 24px; }
+            .detail-section { padding: 0 16px; }
+
+            .detail-main-image {
+                aspect-ratio: 4/3;
+                border-radius: var(--radius-md);
+            }
+            .play-btn-large { width: 56px; height: 56px; }
+            .play-btn-large::after {
+                border-left-width: 16px;
+                border-top-width: 10px;
+                border-bottom-width: 10px;
+                margin-left: 3px;
+            }
+
+            /* Thumbnail strip: horizontal scroll on mobile */
+            .detail-thumbs {
+                gap: 8px;
+                margin-top: 10px;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .detail-thumbs::-webkit-scrollbar { display: none; }
+            .detail-thumb {
+                flex: 0 0 30%;
+                min-width: 100px;
+                scroll-snap-align: start;
+            }
+
+            /* Mobile name bar */
+            .mobile-name-bar {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 16px 0 0;
+            }
+            .mobile-name-bar img {
+                width: 44px; height: 44px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 2px solid var(--santa-red);
+            }
+            .mobile-name-bar h1 {
+                font-family: 'Bodoni Moda', serif;
+                font-size: 1.3rem;
+                font-weight: 700;
+                letter-spacing: -0.5px;
+            }
+            .mobile-name-bar .detail-card-tag {
+                font-size: 0.7rem;
+            }
+
+            /* Booking card on mobile */
+            .detail-card {
+                padding: 24px 20px;
+                border-radius: var(--radius-lg);
+                border: none;
+                background: var(--dark-surface);
+            }
+            .detail-card-header { display: none; }
+            .detail-card-name { font-size: 1.2rem; }
+            .detail-price-amount { font-size: 1.6rem; }
             .book-cta { padding: 16px; font-size: 1rem; }
 
-            .reason-tags { gap: 8px; }
-            .reason-tag { padding: 8px 14px; font-size: 0.8rem; }
+            .occasion-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+            .occasion-btn { padding: 10px 12px; font-size: 0.75rem; }
+            .form-row { grid-template-columns: 1fr; }
 
+            /* Reason tags: horizontal scroll */
+            .reasons-section { margin-top: 32px; padding-bottom: 32px; }
+            .reason-tags {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 4px;
+            }
+            .reason-tags::-webkit-scrollbar { display: none; }
+            .reason-tag {
+                flex-shrink: 0;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+                scroll-snap-align: start;
+            }
+
+            /* Section typography */
             .about-content h2,
             .quotes-section h2,
             .reviews-header h2,
-            .related-section h2 { font-size: 1.4rem; }
+            .related-section h2 { font-size: 1.3rem; }
 
-            .about-meta { grid-template-columns: 1fr; }
-            .quotes-grid { grid-template-columns: 1fr; }
-            .reviews-grid { grid-template-columns: 1fr; }
-            .related-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .about-section { margin-top: 32px; gap: 24px; }
+            .about-content p { font-size: 0.9rem; line-height: 1.7; }
+            .about-meta { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .about-meta-item { padding: 12px 14px; }
 
-            .related-section { padding: 48px 20px; }
-            footer { padding: 32px 20px 24px; }
+            .expect-card { padding: 24px 20px; border-radius: var(--radius-lg); }
+
+            .quotes-section { margin-top: 32px; padding-top: 32px; }
+            .quotes-grid { grid-template-columns: 1fr; gap: 12px; }
+            .quote-card { padding: 20px; }
+
+            .reviews-section { margin-top: 32px; padding-top: 32px; padding-bottom: 40px; }
+            .reviews-header { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 20px; }
+            .reviews-grid { grid-template-columns: 1fr; gap: 12px; }
+            .review-card { padding: 20px; }
+
+            .related-section { padding: 32px 16px; }
+            .related-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .related-card-body { padding: 12px; }
+            .related-card-name { font-size: 0.9rem; }
+
+            /* Mobile sticky CTA */
+            .mobile-sticky-cta { display: block; }
+
+            footer {
+                padding: 32px 16px 24px;
+                margin-bottom: 72px;
+            }
             .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
-            .footer-links-row { gap: 20px; }
+            .footer-links-row { gap: 20px; flex-wrap: wrap; justify-content: center; }
         }
 
+        /* ========== RESPONSIVE: SMALL ========== */
         @media (max-width: 400px) {
-            .detail-thumbs { gap: 6px; }
-            .detail-card-stats { grid-template-columns: 1fr 1fr; }
-            .detail-stat:nth-child(2)::after { display: none; }
-            .detail-stat:last-child { grid-column: span 2; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+            .detail-thumb { flex: 0 0 28%; min-width: 80px; }
+            .detail-card-stats { grid-template-columns: 1fr 1fr 1fr; }
+            .occasion-grid { grid-template-columns: 1fr; }
             .related-grid { grid-template-columns: 1fr; }
+            .about-meta { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -812,19 +1135,22 @@
 
     <!-- Nav -->
     <nav>
-        <a href="/" class="logo">AloGuv</a>
-        <div class="nav-links">
-            <a href="/#personalities" class="nav-link">Browse All</a>
-            <a href="/#how-it-works" class="nav-link">How It Works</a>
+        <a href="../index.html" class="logo"><span class="logo-wave">&#128075;</span> Alo<span>Guv</span></a>
+        <div class="nav-right">
+            <a href="../index.html#personalities" class="nav-back">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+                Browse All
+            </a>
+            <a href="../index.html#how-it-works" class="nav-link">How It Works</a>
         </div>
     </nav>
 
     <!-- Breadcrumb -->
     <div class="breadcrumb">
-        <a href="/">Home</a>
-        <span>/</span>
-        <a href="/#personalities">Personalities</a>
-        <span>/</span>
+        <a href="../index.html">Home</a>
+        <span class="sep">/</span>
+        <a href="../index.html#personalities">Personalities</a>
+        <span class="sep">/</span>
         <span class="current">Santa Claus</span>
     </div>
 
@@ -832,35 +1158,56 @@
     <section class="detail-hero">
         <!-- Left: Media -->
         <div class="detail-media">
-            <div class="detail-main-image">
+            <div class="detail-main-image" id="videoPlayer">
                 <span class="detail-badge">Holiday Special</span>
-                <img src="/images/santa-male.jpg" alt="Santa Claus AI Video Personality - AloGuv">
-                <div class="play-btn-large"></div>
+                <img class="poster-img" src="../images/santa-male.jpg" alt="Santa Claus AI Video Personality - AloGuv">
+                <video id="mainVideo" preload="metadata" playsinline>
+                    <source src="../video/Santa_-_Thumb.mp4" type="video/mp4">
+                </video>
+                <div class="play-btn-large" id="playBtn"></div>
+                <div class="video-controls">
+                    <button id="pauseBtn">&#10074;&#10074;</button>
+                    <div class="video-progress" id="progressBar">
+                        <div class="video-progress-fill" id="progressFill"></div>
+                    </div>
+                    <span class="video-time" id="videoTime">0:00</span>
+                    <button id="muteBtn">&#128266;</button>
+                    <button id="fullscreenBtn">&#9974;</button>
+                </div>
             </div>
             <div class="detail-thumbs">
                 <div class="detail-thumb active">
-                    <img src="/images/santa-male.jpg" alt="Santa intro video">
+                    <img src="../images/santa-male.jpg" alt="Santa intro">
                     <span class="detail-thumb-label">Intro</span>
                 </div>
                 <div class="detail-thumb">
-                    <img src="/images/santa-male.jpg" alt="Santa birthday sample">
+                    <div class="detail-thumb-placeholder" style="background: linear-gradient(135deg, #1a1a2e, #C62828);">&#127874;</div>
                     <span class="detail-thumb-label">Birthday</span>
                 </div>
                 <div class="detail-thumb">
-                    <img src="/images/santa-male.jpg" alt="Santa holiday sample">
+                    <div class="detail-thumb-placeholder" style="background: linear-gradient(135deg, #1a1a2e, #1B5E20);">&#127775;</div>
                     <span class="detail-thumb-label">Holiday</span>
                 </div>
                 <div class="detail-thumb">
-                    <img src="/images/santa-male.jpg" alt="Santa pep talk sample">
+                    <div class="detail-thumb-placeholder" style="background: linear-gradient(135deg, #1a1a2e, #4A148C);">&#128170;</div>
                     <span class="detail-thumb-label">Pep Talk</span>
+                </div>
+            </div>
+
+            <!-- Mobile-only name bar (replaces the card header on mobile) -->
+            <div class="mobile-name-bar">
+                <img src="../images/santa-male.jpg" alt="Santa Claus">
+                <div>
+                    <h1>Santa Claus</h1>
+                    <span class="detail-card-tag">Holiday Special</span>
                 </div>
             </div>
         </div>
 
         <!-- Right: Booking Card -->
-        <div class="detail-card">
+        <div class="detail-card" id="bookingCard">
             <div class="detail-card-header">
-                <img class="detail-card-avatar" src="/images/santa-male.jpg" alt="Santa Claus">
+                <img class="detail-card-avatar" src="../images/santa-male.jpg" alt="Santa Claus">
                 <div>
                     <h1 class="detail-card-name">Santa Claus</h1>
                     <span class="detail-card-tag">Holiday Special</span>
@@ -896,7 +1243,66 @@
                 &#128293; Only 3 spots left at this price
             </div>
 
-            <button class="book-cta" onclick="window.location.href='/#personalities'">Book Santa Claus &mdash; $29</button>
+            <!-- Booking Form -->
+            <div class="booking-form" id="bookingForm">
+                <!-- Step 1: Choose Occasion -->
+                <div class="booking-step active" id="step1">
+                    <div class="booking-step-header">
+                        <div class="booking-step-label">Choose an occasion</div>
+                        <div class="step-indicator">
+                            <div class="step-dot active"></div>
+                            <div class="step-dot"></div>
+                        </div>
+                    </div>
+                    <div class="occasion-grid">
+                        <button class="occasion-btn" data-occasion="Holiday greeting" onclick="selectOccasion(this)">&#10052;&#65039; Holiday greeting</button>
+                        <button class="occasion-btn" data-occasion="Birthday" onclick="selectOccasion(this)">&#127874; Birthday</button>
+                        <button class="occasion-btn" data-occasion="Christmas surprise" onclick="selectOccasion(this)">&#127775; Christmas surprise</button>
+                        <button class="occasion-btn" data-occasion="Pep talk" onclick="selectOccasion(this)">&#128170; Pep talk</button>
+                        <button class="occasion-btn" data-occasion="Gift for kids" onclick="selectOccasion(this)">&#127873; Gift for kids</button>
+                        <button class="occasion-btn" data-occasion="Naughty list roast" onclick="selectOccasion(this)">&#129395; Naughty list roast</button>
+                    </div>
+                    <button class="book-cta" id="step1Btn" disabled onclick="goToStep(2)">Continue</button>
+                </div>
+
+                <!-- Step 2: Details -->
+                <div class="booking-step" id="step2">
+                    <div class="booking-step-header">
+                        <div class="booking-step-label">Personalize it</div>
+                        <div class="step-indicator">
+                            <div class="step-dot done"></div>
+                            <div class="step-dot active"></div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Who is this for?</label>
+                            <input type="text" id="recipientName" placeholder="Recipient's name" oninput="validateStep2()">
+                        </div>
+                        <div class="form-group">
+                            <label>From</label>
+                            <input type="text" id="senderName" placeholder="Your name" oninput="validateStep2()">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Instructions for Santa</label>
+                        <textarea id="instructions" placeholder="Any special details, inside jokes, or things you'd like Santa to mention..." oninput="validateStep2()"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Your email (to receive the video)</label>
+                        <input type="email" id="emailInput" placeholder="you@email.com" oninput="validateStep2()">
+                    </div>
+                    <button class="book-cta" id="step2Btn" disabled onclick="submitBooking()">Book Santa Claus &mdash; $29</button>
+                    <button class="back-btn" onclick="goToStep(1)">&#8592; Back</button>
+                </div>
+            </div>
+
+            <!-- Success State -->
+            <div class="booking-success" id="bookingSuccess">
+                <div class="booking-success-icon">&#127877;</div>
+                <h3>Ho ho ho! You're booked!</h3>
+                <p>Santa is preparing your personalized video. You'll receive it at your email in under 10 minutes.</p>
+            </div>
 
             <p class="delivery-note">&#9889; Get it in under 10 minutes</p>
 
@@ -911,14 +1317,14 @@
     <div class="detail-section reasons-section">
         <div class="section-label-sm">Reasons to book Santa</div>
         <div class="reason-tags">
-            <span class="reason-tag">&#10052;&#65039; Holiday greeting</span>
-            <span class="reason-tag">&#127874; Say happy birthday</span>
-            <span class="reason-tag">&#127775; Christmas morning surprise</span>
-            <span class="reason-tag">&#128170; Send a pep talk</span>
-            <span class="reason-tag">&#127873; Gift for kids</span>
-            <span class="reason-tag">&#129395; Naughty list roast</span>
-            <span class="reason-tag">&#128172; Ask Santa a question</span>
-            <span class="reason-tag">&#10024; Other</span>
+            <span class="reason-tag" onclick="quickBook('Holiday greeting')">&#10052;&#65039; Holiday greeting</span>
+            <span class="reason-tag" onclick="quickBook('Birthday')">&#127874; Say happy birthday</span>
+            <span class="reason-tag" onclick="quickBook('Christmas surprise')">&#127775; Christmas morning surprise</span>
+            <span class="reason-tag" onclick="quickBook('Pep talk')">&#128170; Send a pep talk</span>
+            <span class="reason-tag" onclick="quickBook('Gift for kids')">&#127873; Gift for kids</span>
+            <span class="reason-tag" onclick="quickBook('Naughty list roast')">&#129395; Naughty list roast</span>
+            <span class="reason-tag" onclick="quickBook('Question')">&#128172; Ask Santa a question</span>
+            <span class="reason-tag" onclick="quickBook('Other')">&#10024; Other</span>
         </div>
     </div>
 
@@ -1047,7 +1453,7 @@
         <h2>You Might Also Like</h2>
         <div class="related-grid">
             <a class="related-card" href="#">
-                <img class="related-card-img" src="/images/grandma-female.jpg" alt="Grandma Betty">
+                <img class="related-card-img" src="../images/grandma-female.jpg" alt="Grandma Betty">
                 <div class="related-card-body">
                     <div class="related-card-name">Grandma Betty</div>
                     <div class="related-card-meta">
@@ -1057,7 +1463,7 @@
                 </div>
             </a>
             <a class="related-card" href="#">
-                <img class="related-card-img" src="/images/baby-male.jpg" alt="Party Pat">
+                <img class="related-card-img" src="../images/baby-male.jpg" alt="Party Pat">
                 <div class="related-card-body">
                     <div class="related-card-name">Party Pat</div>
                     <div class="related-card-meta">
@@ -1067,7 +1473,7 @@
                 </div>
             </a>
             <a class="related-card" href="#">
-                <img class="related-card-img" src="/images/black-male.jpg" alt="Coach Tony">
+                <img class="related-card-img" src="../images/black-male.jpg" alt="Coach Tony">
                 <div class="related-card-body">
                     <div class="related-card-name">Coach Tony</div>
                     <div class="related-card-meta">
@@ -1077,7 +1483,7 @@
                 </div>
             </a>
             <a class="related-card" href="#">
-                <img class="related-card-img" src="/images/cult-male.jpg" alt="The Oracle">
+                <img class="related-card-img" src="../images/cult-male.jpg" alt="The Oracle">
                 <div class="related-card-body">
                     <div class="related-card-name">The Oracle</div>
                     <div class="related-card-meta">
@@ -1092,16 +1498,172 @@
     <!-- Footer -->
     <footer>
         <div class="footer-inner">
-            <a href="/" class="logo">AloGuv</a>
+            <a href="../index.html" class="logo"><span class="logo-wave">&#128075;</span> Alo<span>Guv</span></a>
             <div class="footer-links-row">
-                <a href="/#personalities">Browse</a>
-                <a href="/#how-it-works">How It Works</a>
+                <a href="../index.html#personalities">Browse</a>
+                <a href="../index.html#how-it-works">How It Works</a>
                 <a href="#">Privacy</a>
                 <a href="#">Terms</a>
             </div>
             <span class="footer-copy">&copy; 2026 AloGuv</span>
         </div>
     </footer>
+
+    <!-- Mobile Sticky CTA -->
+    <div class="mobile-sticky-cta" id="mobileCta">
+        <div class="mobile-sticky-cta-inner">
+            <div class="mobile-sticky-cta-info">
+                <img class="mobile-sticky-cta-avatar" src="../images/santa-male.jpg" alt="Santa">
+                <div>
+                    <div class="mobile-sticky-cta-name">Santa Claus</div>
+                    <div class="mobile-sticky-cta-price">$29 / video</div>
+                </div>
+            </div>
+            <button onclick="document.getElementById('bookingCard').scrollIntoView({behavior:'smooth', block:'start'})">Book Now</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== VIDEO PLAYER ==========
+        const video = document.getElementById('mainVideo');
+        const player = document.getElementById('videoPlayer');
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const progressBar = document.getElementById('progressBar');
+        const progressFill = document.getElementById('progressFill');
+        const videoTime = document.getElementById('videoTime');
+        const muteBtn = document.getElementById('muteBtn');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+
+        function formatTime(s) {
+            const m = Math.floor(s / 60);
+            const sec = Math.floor(s % 60);
+            return m + ':' + (sec < 10 ? '0' : '') + sec;
+        }
+
+        // Play on click of play button or poster
+        playBtn.addEventListener('click', () => {
+            video.play();
+            player.classList.add('playing');
+            player.classList.remove('paused');
+        });
+
+        // Pause/resume on video click
+        video.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                player.classList.add('playing');
+                player.classList.remove('paused');
+                pauseBtn.innerHTML = '&#10074;&#10074;';
+            } else {
+                video.pause();
+                player.classList.add('paused');
+                pauseBtn.innerHTML = '&#9654;';
+            }
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                player.classList.remove('paused');
+                pauseBtn.innerHTML = '&#10074;&#10074;';
+            } else {
+                video.pause();
+                player.classList.add('paused');
+                pauseBtn.innerHTML = '&#9654;';
+            }
+        });
+
+        // Progress bar
+        video.addEventListener('timeupdate', () => {
+            if (video.duration) {
+                progressFill.style.width = (video.currentTime / video.duration * 100) + '%';
+                videoTime.textContent = formatTime(video.currentTime);
+            }
+        });
+
+        progressBar.addEventListener('click', (e) => {
+            const rect = progressBar.getBoundingClientRect();
+            const pct = (e.clientX - rect.left) / rect.width;
+            video.currentTime = pct * video.duration;
+        });
+
+        // Mute
+        muteBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+            muteBtn.innerHTML = video.muted ? '&#128263;' : '&#128266;';
+        });
+
+        // Fullscreen
+        fullscreenBtn.addEventListener('click', () => {
+            if (video.requestFullscreen) video.requestFullscreen();
+            else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+            else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+        });
+
+        // Reset on end
+        video.addEventListener('ended', () => {
+            player.classList.remove('playing', 'paused');
+            pauseBtn.innerHTML = '&#10074;&#10074;';
+            progressFill.style.width = '0%';
+            videoTime.textContent = '0:00';
+        });
+
+        // ========== BOOKING ==========
+        let selectedOccasion = '';
+
+        function selectOccasion(btn) {
+            document.querySelectorAll('.occasion-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedOccasion = btn.dataset.occasion;
+            document.getElementById('step1Btn').disabled = false;
+        }
+
+        function goToStep(step) {
+            document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+            document.getElementById('step' + step).classList.add('active');
+        }
+
+        function validateStep2() {
+            const name = document.getElementById('recipientName').value.trim();
+            const email = document.getElementById('emailInput').value.trim();
+            document.getElementById('step2Btn').disabled = !(name && email);
+        }
+
+        function submitBooking() {
+            document.getElementById('bookingForm').style.display = 'none';
+            document.getElementById('bookingSuccess').classList.add('active');
+            // Hide mobile CTA after booking
+            document.getElementById('mobileCta').style.display = 'none';
+        }
+
+        function quickBook(occasion) {
+            selectedOccasion = occasion;
+            document.querySelectorAll('.occasion-btn').forEach(b => {
+                b.classList.toggle('selected', b.dataset.occasion === occasion);
+            });
+            document.getElementById('step1Btn').disabled = false;
+            document.getElementById('bookingCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => goToStep(2), 400);
+        }
+
+        // Hide mobile sticky CTA when booking card is in viewport
+        if (window.IntersectionObserver) {
+            const observer = new IntersectionObserver((entries) => {
+                const cta = document.getElementById('mobileCta');
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        cta.style.opacity = '0';
+                        cta.style.pointerEvents = 'none';
+                    } else {
+                        cta.style.opacity = '1';
+                        cta.style.pointerEvents = 'auto';
+                    }
+                });
+            }, { threshold: 0.1 });
+            observer.observe(document.getElementById('bookingCard'));
+        }
+    </script>
 
 </body>
 </html>
