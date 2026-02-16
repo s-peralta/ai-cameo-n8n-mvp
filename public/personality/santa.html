@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Santa Claus - Personalized AI Video Messages | AloGuv</title>
-    <meta name="description" content="Book a personalized AI video message from Santa Claus on AloGuv. Jolly holiday greetings, birthday surprises, and magical moments — delivered in minutes. Starting at $29.">
+    <meta name="description" content="Book a personalized AI video message from Santa Claus on AloGuv. Jolly holiday greetings, birthday surprises, and magical moments — delivered in minutes. Starting at $14.">
     <link rel="icon" type="image/svg+xml" href="../favicon.svg">
     <meta name="theme-color" content="#08080A">
 
@@ -40,7 +40,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,800;1,6..96,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -423,7 +423,6 @@
         }
 
         .detail-card-name {
-            font-family: 'Bodoni Moda', serif;
             font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: -0.5px;
@@ -497,14 +496,27 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 14px;
+            margin-bottom: 16px;
         }
         .booking-step-label {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .booking-step-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 800;
+            flex-shrink: 0;
         }
         .step-indicator {
             display: flex;
@@ -816,7 +828,6 @@
 
         .quote-card::before {
             content: '\201C';
-            font-family: 'Bodoni Moda', serif;
             font-size: 4rem;
             color: var(--santa-red);
             opacity: 0.3;
@@ -1020,12 +1031,16 @@
 
         /* ========== RESPONSIVE: TABLET ========== */
         @media (max-width: 1024px) {
-            .detail-hero { grid-template-columns: 1fr; gap: 32px; }
-            .detail-card { position: static; }
+            .detail-hero { grid-template-columns: 1fr; gap: 32px; padding: 24px 40px 0; }
+            .detail-card { position: static; max-width: 560px; }
             .about-section { grid-template-columns: 1fr; gap: 32px; }
             .quotes-grid { grid-template-columns: 1fr 1fr; }
             .reviews-grid { grid-template-columns: 1fr 1fr; }
             .related-grid { grid-template-columns: 1fr 1fr; }
+            .breadcrumb { padding: 80px 40px 0; }
+            .detail-section { padding: 0 40px; }
+            .related-section { padding: 48px 40px; }
+            footer { padding: 40px; }
         }
 
         /* ========== RESPONSIVE: MOBILE ========== */
@@ -1033,15 +1048,21 @@
             nav { padding: 0 16px; height: 56px; }
             .logo { font-size: 1.3rem; }
             .nav-right .nav-link { display: none; }
+            .nav-back { font-size: 0.8rem; }
 
-            .breadcrumb { padding: 68px 16px 0; font-size: 0.75rem; }
+            .breadcrumb { padding: 64px 16px 0; font-size: 0.75rem; }
 
-            .detail-hero { padding: 20px 16px 0; gap: 24px; }
+            .detail-hero { padding: 16px 16px 0; gap: 20px; }
             .detail-section { padding: 0 16px; }
 
             .detail-main-image {
-                aspect-ratio: 4/3;
+                aspect-ratio: 16/10;
                 border-radius: var(--radius-md);
+            }
+            .detail-badge {
+                top: 10px; left: 10px;
+                padding: 4px 10px;
+                font-size: 0.65rem;
             }
             .play-btn-large { width: 56px; height: 56px; }
             .play-btn-large::after {
@@ -1050,6 +1071,12 @@
                 border-bottom-width: 10px;
                 margin-left: 3px;
             }
+
+            /* Video controls on mobile — always show when playing */
+            .detail-main-image.playing .video-controls,
+            .detail-main-image.paused .video-controls { opacity: 1; }
+            .video-controls { padding: 10px 12px; gap: 8px; }
+            .video-controls button { font-size: 1rem; }
 
             /* Thumbnail strip: horizontal scroll on mobile */
             .detail-thumbs {
@@ -1067,6 +1094,26 @@
                 scroll-snap-align: start;
             }
 
+            /* Reasons inline below video */
+            .reasons-inline { margin-top: 16px; }
+            .section-label-sm { font-size: 0.65rem; margin-bottom: 10px; }
+            .reason-tags {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 4px;
+                gap: 8px;
+            }
+            .reason-tags::-webkit-scrollbar { display: none; }
+            .reason-tag {
+                flex-shrink: 0;
+                padding: 8px 14px;
+                font-size: 0.8rem;
+                scroll-snap-align: start;
+            }
+
             /* Mobile name bar */
             .mobile-name-bar {
                 display: flex;
@@ -1081,7 +1128,6 @@
                 border: 2px solid var(--santa-red);
             }
             .mobile-name-bar h1 {
-                font-family: 'Bodoni Moda', serif;
                 font-size: 1.3rem;
                 font-weight: 700;
                 letter-spacing: -0.5px;
@@ -1096,79 +1142,117 @@
                 border-radius: var(--radius-lg);
                 border: none;
                 background: var(--dark-surface);
+                max-width: 100%;
             }
             .detail-card-header { display: none; }
             .detail-card-name { font-size: 1.2rem; }
+
+            .detail-card-rating { margin-bottom: 16px; }
+            .detail-card-stats { margin-bottom: 16px; padding: 12px 0; }
+            .detail-stat-value { font-size: 1rem; }
+            .detail-stat-label { font-size: 0.65rem; }
+
             .detail-price-amount { font-size: 1.6rem; }
-            .book-cta { padding: 16px; font-size: 1rem; }
+            .detail-price-urgency { font-size: 0.7rem; margin-bottom: 16px; }
 
+            .booking-step-label { font-size: 0.8rem; }
+            .booking-step-num { width: 22px; height: 22px; font-size: 0.65rem; }
             .occasion-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
-            .occasion-btn { padding: 10px 12px; font-size: 0.75rem; }
+            .occasion-btn { padding: 10px 12px; font-size: 0.75rem; gap: 6px; }
             .form-row { grid-template-columns: 1fr; }
+            .form-group label { font-size: 0.75rem; }
+            .form-group input,
+            .form-group textarea { padding: 10px 12px; font-size: 0.85rem; }
 
-            /* Reason tags: horizontal scroll */
-            .reasons-section { margin-top: 32px; padding-bottom: 32px; }
-            .reason-tags {
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-                scrollbar-width: none;
-                padding-bottom: 4px;
-            }
-            .reason-tags::-webkit-scrollbar { display: none; }
-            .reason-tag {
-                flex-shrink: 0;
-                padding: 8px 14px;
-                font-size: 0.8rem;
-                scroll-snap-align: start;
-            }
+            .book-cta { padding: 16px; font-size: 1rem; border-radius: var(--radius-sm); }
+            .back-btn { padding: 10px; font-size: 0.8rem; }
+            .delivery-note { font-size: 0.75rem; }
+            .guarantee { padding: 12px 14px; font-size: 0.75rem; border-radius: var(--radius-sm); }
 
-            /* Section typography */
-            .about-content h2,
-            .quotes-section h2,
-            .reviews-header h2,
-            .related-section h2 { font-size: 1.3rem; }
+            /* About section */
+            .about-section { margin-top: 32px; gap: 20px; }
+            .about-content h2 { font-size: 1rem; margin-bottom: 14px; }
+            .about-content p { font-size: 0.88rem; line-height: 1.7; margin-bottom: 12px; }
+            .about-meta { grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 24px; }
+            .about-meta-item { padding: 12px 14px; border-radius: var(--radius-sm); }
+            .about-meta-label { font-size: 0.6rem; }
+            .about-meta-value { font-size: 0.85rem; }
 
-            .about-section { margin-top: 32px; gap: 24px; }
-            .about-content p { font-size: 0.9rem; line-height: 1.7; }
-            .about-meta { grid-template-columns: 1fr 1fr; gap: 8px; }
-            .about-meta-item { padding: 12px 14px; }
+            /* What to expect card */
+            .expect-card { padding: 20px 18px; border-radius: var(--radius-lg); }
+            .expect-card h3 { font-size: 1rem; margin-bottom: 18px; }
+            .expect-step { gap: 12px; margin-bottom: 16px; }
+            .expect-step-num { width: 32px; height: 32px; font-size: 0.75rem; }
+            .expect-step-text h4 { font-size: 0.85rem; }
+            .expect-step-text p { font-size: 0.75rem; }
 
-            .expect-card { padding: 24px 20px; border-radius: var(--radius-lg); }
-
+            /* Quotes */
             .quotes-section { margin-top: 32px; padding-top: 32px; }
+            .quotes-section h2 { font-size: 1rem; margin-bottom: 16px; }
             .quotes-grid { grid-template-columns: 1fr; gap: 12px; }
-            .quote-card { padding: 20px; }
+            .quote-card { padding: 20px; border-radius: var(--radius-md); }
+            .quote-card::before { font-size: 3rem; top: 6px; left: 14px; }
+            .quote-occasion { font-size: 0.65rem; padding: 3px 10px; margin-bottom: 10px; }
+            .quote-text { font-size: 0.88rem; line-height: 1.6; }
 
+            /* Reviews */
             .reviews-section { margin-top: 32px; padding-top: 32px; padding-bottom: 40px; }
             .reviews-header { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 20px; }
+            .reviews-header h2 { font-size: 1rem; }
+            .reviews-summary { font-size: 0.8rem; }
             .reviews-grid { grid-template-columns: 1fr; gap: 12px; }
-            .review-card { padding: 20px; }
+            .review-card { padding: 20px; border-radius: var(--radius-md); }
+            .review-stars { font-size: 0.8rem; margin-bottom: 10px; }
+            .review-text { font-size: 0.88rem; line-height: 1.6; margin-bottom: 16px; }
+            .review-avatar { width: 36px; height: 36px; font-size: 0.75rem; }
+            .review-author-name { font-size: 0.85rem; }
+            .review-author-date { font-size: 0.7rem; }
 
+            /* Related */
             .related-section { padding: 32px 16px; }
+            .related-section h2 { font-size: 1rem; margin-bottom: 20px; }
             .related-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .related-card { border-radius: var(--radius-md); }
             .related-card-body { padding: 12px; }
-            .related-card-name { font-size: 0.9rem; }
+            .related-card-name { font-size: 0.88rem; }
+            .related-card-meta { font-size: 0.75rem; }
 
             /* Mobile sticky CTA */
             .mobile-sticky-cta { display: block; }
+            .mobile-sticky-cta-inner { gap: 12px; }
+            .mobile-sticky-cta-avatar { width: 32px; height: 32px; }
+            .mobile-sticky-cta-name { font-size: 0.8rem; }
+            .mobile-sticky-cta-price { font-size: 0.7rem; }
+            .mobile-sticky-cta button {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+                border-radius: var(--radius-sm);
+            }
 
+            /* Footer */
             footer {
                 padding: 32px 16px 24px;
                 margin-bottom: 72px;
             }
             .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
-            .footer-links-row { gap: 20px; flex-wrap: wrap; justify-content: center; }
+            .footer-links-row { gap: 20px; flex-wrap: wrap; justify-content: center; font-size: 0.8rem; }
+            .footer-copy { font-size: 0.75rem; }
         }
 
         /* ========== RESPONSIVE: SMALL ========== */
         @media (max-width: 400px) {
+            .detail-hero { padding: 12px 12px 0; }
+            .detail-section { padding: 0 12px; }
+            .breadcrumb { padding: 64px 12px 0; }
+            .detail-main-image { aspect-ratio: 4/3; }
             .detail-thumb { flex: 0 0 28%; min-width: 80px; }
+            .detail-card { padding: 20px 16px; }
             .detail-card-stats { grid-template-columns: 1fr 1fr 1fr; }
             .occasion-grid { grid-template-columns: 1fr; }
             .related-grid { grid-template-columns: 1fr; }
             .about-meta { grid-template-columns: 1fr; }
+            .related-section { padding: 24px 12px; }
+            .mobile-name-bar h1 { font-size: 1.15rem; }
         }
     </style>
 </head>
@@ -1266,7 +1350,7 @@
 
             <div class="detail-card-stats">
                 <div class="detail-stat">
-                    <div class="detail-stat-value">$29</div>
+                    <div class="detail-stat-value">$14</div>
                     <div class="detail-stat-label">Price</div>
                 </div>
                 <div class="detail-stat">
@@ -1288,7 +1372,7 @@
                 <!-- Step 1: Choose Occasion -->
                 <div class="booking-step active" id="step1">
                     <div class="booking-step-header">
-                        <div class="booking-step-label">Choose an occasion</div>
+                        <div class="booking-step-label"><span class="booking-step-num">1</span> Choose an occasion</div>
                         <div class="step-indicator">
                             <div class="step-dot active"></div>
                             <div class="step-dot"></div>
@@ -1306,7 +1390,7 @@
                 <!-- Step 2: Details -->
                 <div class="booking-step" id="step2">
                     <div class="booking-step-header">
-                        <div class="booking-step-label">Personalize it</div>
+                        <div class="booking-step-label"><span class="booking-step-num">2</span> Personalize it</div>
                         <div class="step-indicator">
                             <div class="step-dot done"></div>
                             <div class="step-dot active"></div>
@@ -1330,7 +1414,7 @@
                         <label>Your email (to receive the video)</label>
                         <input type="email" id="emailInput" placeholder="you@email.com" oninput="validateStep2()">
                     </div>
-                    <button class="book-cta" id="step2Btn" disabled onclick="submitBooking()">Book Santa Claus &mdash; $29</button>
+                    <button class="book-cta" id="step2Btn" disabled onclick="submitBooking()">Book Santa Claus &mdash; $14</button>
                     <button class="back-btn" onclick="goToStep(1)">&#8592; Back</button>
                 </div>
             </div>
@@ -1481,7 +1565,7 @@
                     <div class="related-card-name">Grandma Betty</div>
                     <div class="related-card-meta">
                         <span>&#9733; 4.9</span>
-                        <span>From $18</span>
+                        <span>From $9</span>
                     </div>
                 </div>
             </a>
@@ -1491,7 +1575,7 @@
                     <div class="related-card-name">Party Pat</div>
                     <div class="related-card-meta">
                         <span>&#9733; 4.9</span>
-                        <span>From $20</span>
+                        <span>From $10</span>
                     </div>
                 </div>
             </a>
@@ -1501,7 +1585,7 @@
                     <div class="related-card-name">Coach Tony</div>
                     <div class="related-card-meta">
                         <span>&#9733; 4.9</span>
-                        <span>From $25</span>
+                        <span>From $12</span>
                     </div>
                 </div>
             </a>
@@ -1511,7 +1595,7 @@
                     <div class="related-card-name">The Oracle</div>
                     <div class="related-card-meta">
                         <span>&#9733; 4.9</span>
-                        <span>From $35</span>
+                        <span>From $17</span>
                     </div>
                 </div>
             </a>
@@ -1539,7 +1623,7 @@
                 <img class="mobile-sticky-cta-avatar" src="../images/santa-male.jpg" alt="Santa">
                 <div>
                     <div class="mobile-sticky-cta-name">Santa Claus</div>
-                    <div class="mobile-sticky-cta-price">$29 / video</div>
+                    <div class="mobile-sticky-cta-price">$14 / video</div>
                 </div>
             </div>
             <button onclick="document.getElementById('bookingCard').scrollIntoView({behavior:'smooth', block:'start'})">Book Now</button>
