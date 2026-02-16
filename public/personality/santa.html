@@ -627,6 +627,10 @@
             border-bottom: 1px solid var(--border);
         }
 
+        .reasons-inline {
+            margin-top: 20px;
+        }
+
         .section-label-sm {
             font-size: 0.7rem;
             font-weight: 700;
@@ -671,10 +675,8 @@
         }
 
         .about-content h2 {
-            font-family: 'Bodoni Moda', serif;
-            font-size: 1.8rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            letter-spacing: -1px;
             margin-bottom: 20px;
         }
 
@@ -748,10 +750,8 @@
         }
 
         .quotes-section h2 {
-            font-family: 'Bodoni Moda', serif;
-            font-size: 1.8rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            letter-spacing: -1px;
             margin-bottom: 24px;
         }
 
@@ -815,10 +815,8 @@
         }
 
         .reviews-header h2 {
-            font-family: 'Bodoni Moda', serif;
-            font-size: 1.8rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            letter-spacing: -1px;
         }
 
         .reviews-summary {
@@ -871,10 +869,8 @@
         }
 
         .related-section h2 {
-            font-family: 'Bodoni Moda', serif;
-            font-size: 1.8rem;
+            font-size: 1.1rem;
             font-weight: 700;
-            letter-spacing: -1px;
             margin-bottom: 32px;
         }
 
@@ -1175,22 +1171,18 @@
                     <button id="fullscreenBtn">&#9974;</button>
                 </div>
             </div>
-            <div class="detail-thumbs">
-                <div class="detail-thumb active">
-                    <img src="../images/santa-male.jpg" alt="Santa intro">
-                    <span class="detail-thumb-label">Intro</span>
-                </div>
-                <div class="detail-thumb">
-                    <div class="detail-thumb-placeholder" style="background: linear-gradient(135deg, #1a1a2e, #C62828);">&#127874;</div>
-                    <span class="detail-thumb-label">Birthday</span>
-                </div>
-                <div class="detail-thumb">
-                    <div class="detail-thumb-placeholder" style="background: linear-gradient(135deg, #1a1a2e, #1B5E20);">&#127775;</div>
-                    <span class="detail-thumb-label">Holiday</span>
-                </div>
-                <div class="detail-thumb">
-                    <div class="detail-thumb-placeholder" style="background: linear-gradient(135deg, #1a1a2e, #4A148C);">&#128170;</div>
-                    <span class="detail-thumb-label">Pep Talk</span>
+            <!-- Reasons to book (moved here, below video) -->
+            <div class="reasons-inline">
+                <div class="section-label-sm">Reasons to book Santa</div>
+                <div class="reason-tags">
+                    <span class="reason-tag" onclick="quickBook('Holiday greeting')">&#10052;&#65039; Holiday greeting</span>
+                    <span class="reason-tag" onclick="quickBook('Birthday')">&#127874; Say happy birthday</span>
+                    <span class="reason-tag" onclick="quickBook('Christmas surprise')">&#127775; Christmas morning surprise</span>
+                    <span class="reason-tag" onclick="quickBook('Pep talk')">&#128170; Send a pep talk</span>
+                    <span class="reason-tag" onclick="quickBook('Gift for kids')">&#127873; Gift for kids</span>
+                    <span class="reason-tag" onclick="quickBook('Naughty list roast')">&#129395; Naughty list roast</span>
+                    <span class="reason-tag" onclick="quickBook('Question')">&#128172; Ask Santa a question</span>
+                    <span class="reason-tag" onclick="quickBook('Other')">&#10024; Other</span>
                 </div>
             </div>
 
@@ -1235,10 +1227,6 @@
                 </div>
             </div>
 
-            <div class="detail-price">
-                <span class="detail-price-amount">$29</span>
-                <span class="detail-price-per">/ video</span>
-            </div>
             <div class="detail-price-urgency">
                 &#128293; Only 3 spots left at this price
             </div>
@@ -1257,9 +1245,7 @@
                     <div class="occasion-grid">
                         <button class="occasion-btn" data-occasion="Holiday greeting" onclick="selectOccasion(this)">&#10052;&#65039; Holiday greeting</button>
                         <button class="occasion-btn" data-occasion="Birthday" onclick="selectOccasion(this)">&#127874; Birthday</button>
-                        <button class="occasion-btn" data-occasion="Christmas surprise" onclick="selectOccasion(this)">&#127775; Christmas surprise</button>
                         <button class="occasion-btn" data-occasion="Pep talk" onclick="selectOccasion(this)">&#128170; Pep talk</button>
-                        <button class="occasion-btn" data-occasion="Gift for kids" onclick="selectOccasion(this)">&#127873; Gift for kids</button>
                         <button class="occasion-btn" data-occasion="Naughty list roast" onclick="selectOccasion(this)">&#129395; Naughty list roast</button>
                     </div>
                     <button class="book-cta" id="step1Btn" disabled onclick="goToStep(2)">Continue</button>
@@ -1312,21 +1298,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Reasons -->
-    <div class="detail-section reasons-section">
-        <div class="section-label-sm">Reasons to book Santa</div>
-        <div class="reason-tags">
-            <span class="reason-tag" onclick="quickBook('Holiday greeting')">&#10052;&#65039; Holiday greeting</span>
-            <span class="reason-tag" onclick="quickBook('Birthday')">&#127874; Say happy birthday</span>
-            <span class="reason-tag" onclick="quickBook('Christmas surprise')">&#127775; Christmas morning surprise</span>
-            <span class="reason-tag" onclick="quickBook('Pep talk')">&#128170; Send a pep talk</span>
-            <span class="reason-tag" onclick="quickBook('Gift for kids')">&#127873; Gift for kids</span>
-            <span class="reason-tag" onclick="quickBook('Naughty list roast')">&#129395; Naughty list roast</span>
-            <span class="reason-tag" onclick="quickBook('Question')">&#128172; Ask Santa a question</span>
-            <span class="reason-tag" onclick="quickBook('Other')">&#10024; Other</span>
-        </div>
-    </div>
 
     <!-- About + What to Expect -->
     <div class="detail-section about-section">

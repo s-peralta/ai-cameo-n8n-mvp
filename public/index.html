@@ -431,14 +431,22 @@
         /* ========================================
            HERO SECTION
            ======================================== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .hero-wrapper {
             position: relative;
             overflow: hidden;
+            min-height: 100vh;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            position: relative;
             padding: 120px 60px 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 40px;
         }
 
         /* Animated gradient orbs */
@@ -487,8 +495,8 @@
         }
 
         .hero-content {
-            max-width: 900px;
-            text-align: center;
+            max-width: 600px;
+            text-align: left;
             position: relative;
             z-index: 1;
         }
@@ -523,11 +531,11 @@
 
         .hero h1 {
             font-family: 'Instrument Serif', serif;
-            font-size: clamp(3.5rem, 7vw, 6.5rem);
+            font-size: clamp(3rem, 5vw, 4.75rem);
             font-weight: 800;
             line-height: 1.05;
-            letter-spacing: -3px;
-            margin-bottom: 32px;
+            letter-spacing: -2px;
+            margin-bottom: 28px;
         }
 
         .hero h1 .line {
@@ -555,10 +563,10 @@
         }
 
         .hero-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             color: var(--text-muted);
-            max-width: 560px;
-            margin: 0 auto 48px;
+            max-width: 480px;
+            margin: 0 0 40px;
             line-height: 1.7;
             opacity: 0;
         }
@@ -566,7 +574,7 @@
         .hero-ctas {
             display: flex;
             gap: 16px;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             opacity: 0;
         }
@@ -632,12 +640,87 @@
             margin-left: 2px;
         }
 
+        /* Hero tiles (right side) */
+        .hero-tiles {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 12px;
+            opacity: 0;
+            transform: translateX(40px);
+            max-height: 420px;
+        }
+
+        .hero-tile {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s;
+        }
+        .hero-tile:first-child {
+            grid-row: span 2;
+        }
+        .hero-tile:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-tile img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hero-tile:hover img {
+            transform: scale(1.05);
+        }
+
+        .hero-tile-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+
+        .hero-tile-name {
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .hero-tile-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .hero-tile-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .hero-tile-price {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        .hero-tile-rating {
+            font-size: 0.7rem;
+            color: var(--accent);
+        }
+
         /* Scrolling marquee below hero */
         .hero-marquee {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            width: 100%;
             padding: 20px 0;
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
@@ -1672,35 +1755,80 @@
             .logo { font-size: 1.3rem; }
 
             /* Hero */
-            .hero { padding: 90px 20px 60px; min-height: auto; }
+            .hero-wrapper { min-height: auto; }
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 100px 20px 32px;
+                min-height: auto;
+                gap: 0;
+            }
+            .hero-content {
+                text-align: center;
+                margin-bottom: 32px;
+            }
             .hero h1 {
-                font-size: clamp(2.4rem, 9vw, 3.5rem);
+                font-size: clamp(2.2rem, 10vw, 3rem);
                 letter-spacing: -1.5px;
+                margin-bottom: 16px;
             }
             .hero-badge {
                 font-size: 0.7rem;
                 padding: 6px 14px 6px 8px;
-                margin-bottom: 28px;
+                margin-bottom: 20px;
             }
             .hero-badge img { width: 22px !important; height: 22px !important; }
             .hero-subtitle {
-                font-size: 0.95rem;
-                margin-bottom: 32px;
+                font-size: 0.9rem;
+                margin: 0 auto 24px;
                 line-height: 1.6;
+                max-width: 340px;
             }
             .hero-ctas {
-                flex-direction: column;
-                width: 100%;
-                gap: 12px;
-            }
-            .btn-primary, .btn-secondary {
-                width: 100%;
+                flex-direction: row;
                 justify-content: center;
-                padding: 14px;
-                font-size: 0.9rem;
+                gap: 10px;
             }
+            .btn-primary {
+                padding: 12px 24px;
+                font-size: 0.85rem;
+            }
+            .btn-secondary {
+                padding: 12px 20px;
+                font-size: 0.85rem;
+            }
+
+            /* Mobile hero tiles: horizontal scroll strip */
+            .hero-tiles {
+                display: flex;
+                gap: 10px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding: 0 20px 8px;
+                margin: 0 -20px;
+                max-height: none;
+                opacity: 1;
+                transform: none;
+            }
+            .hero-tiles::-webkit-scrollbar { display: none; }
+            .hero-tile {
+                flex: 0 0 140px;
+                height: 190px;
+                scroll-snap-align: start;
+                border-radius: var(--radius-md);
+            }
+            .hero-tile:first-child {
+                grid-row: auto;
+                flex: 0 0 140px;
+            }
+            .hero-tile-overlay { padding: 12px; }
+            .hero-tile-name { font-size: 0.8rem; }
+            .hero-tile-meta { gap: 6px; }
+            .hero-tile-rating, .hero-tile-price { font-size: 0.6rem; }
+
             .hero-marquee { display: none; }
-            .hero-orb { opacity: 0.2; }
+            .hero-orb { opacity: 0.15; }
 
             /* Social Proof */
             .social-proof { padding: 32px 20px; }
@@ -1810,7 +1938,11 @@
            RESPONSIVE - SMALL MOBILE
            ======================================== */
         @media (max-width: 400px) {
-            .hero h1 { font-size: 2.2rem; }
+            .hero h1 { font-size: 2rem; letter-spacing: -1px; }
+            .hero-tile { flex: 0 0 120px; height: 160px; }
+            .hero-tile:first-child { flex: 0 0 120px; }
+            .hero-ctas { flex-direction: column; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
             .bento-grid {
                 grid-template-columns: 1fr;
                 grid-auto-rows: 260px;
@@ -1847,11 +1979,11 @@
     </nav>
 
     <!-- Hero Section -->
+    <div class="hero-wrapper">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
     <section class="hero">
-        <div class="hero-orb hero-orb-1"></div>
-        <div class="hero-orb hero-orb-2"></div>
-        <div class="hero-orb hero-orb-3"></div>
-
         <div class="hero-content">
             <div class="hero-badge">
                 <span style="color: #F59E0B; font-size: 1rem;">&#9733;</span>
@@ -1873,23 +2005,58 @@
             </div>
         </div>
 
-        <div class="hero-marquee">
-            <div class="marquee-track">
-                <span class="marquee-item"><span class="marquee-dot"></span>Personalized in seconds</span>
-                <span class="marquee-item"><span class="marquee-dot"></span>AI-powered video generation</span>
-                <span class="marquee-item"><span class="marquee-dot"></span>9 unique personalities</span>
-                <span class="marquee-item"><span class="marquee-dot"></span>Perfect for any occasion</span>
-                <span class="marquee-item"><span class="marquee-dot"></span>Delivered to your inbox</span>
-                <span class="marquee-item"><span class="marquee-dot"></span>Share with anyone</span>
-                <span class="marquee-item"><span class="marquee-dot"></span>Personalized in seconds</span>
-                <span class="marquee-item"><span class="marquee-dot"></span>AI-powered video generation</span>
-                <span class="marquee-item"><span class="marquee-dot"></span>9 unique personalities</span>
-                <span class="marquee-item"><span class="marquee-dot"></span>Perfect for any occasion</span>
-                <span class="marquee-item"><span class="marquee-dot"></span>Delivered to your inbox</span>
-                <span class="marquee-item"><span class="marquee-dot"></span>Share with anyone</span>
+        <!-- Hero Tiles (right side) -->
+        <div class="hero-tiles">
+            <div class="hero-tile" onclick="scrollTo('#personalities')">
+                <img src="images/baby-male.jpg" alt="Party Pat">
+                <div class="hero-tile-overlay">
+                    <span class="hero-tile-name">Party Pat</span>
+                    <div class="hero-tile-meta">
+                        <span class="hero-tile-rating">&#9733; 4.9</span>
+                        <span class="hero-tile-price">From $20</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-tile" onclick="scrollTo('#personalities')">
+                <img src="images/black-male.jpg" alt="Coach Tony">
+                <div class="hero-tile-overlay">
+                    <span class="hero-tile-name">Coach Tony</span>
+                    <div class="hero-tile-meta">
+                        <span class="hero-tile-rating">&#9733; 4.9</span>
+                        <span class="hero-tile-price">From $25</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-tile" onclick="scrollTo('#personalities')">
+                <img src="images/santa-male.jpg" alt="Santa Claus">
+                <div class="hero-tile-overlay">
+                    <span class="hero-tile-name">Santa Claus</span>
+                    <div class="hero-tile-meta">
+                        <span class="hero-tile-rating">&#9733; 4.9</span>
+                        <span class="hero-tile-price">From $29</span>
+                    </div>
+                </div>
             </div>
         </div>
+
     </section>
+    <div class="hero-marquee">
+        <div class="marquee-track">
+            <span class="marquee-item"><span class="marquee-dot"></span>Personalized in seconds</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>AI-powered video generation</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>9 unique personalities</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Perfect for any occasion</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Delivered to your inbox</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Share with anyone</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Personalized in seconds</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>AI-powered video generation</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>9 unique personalities</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Perfect for any occasion</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Delivered to your inbox</span>
+            <span class="marquee-item"><span class="marquee-dot"></span>Share with anyone</span>
+        </div>
+    </div>
+    </div><!-- /hero-wrapper -->
 
     <!-- Social Proof -->
     <section class="social-proof">
@@ -1961,7 +2128,9 @@
 
             <!-- 3: The Oracle -->
             <div class="bento-item" data-personality="oracle" data-name="The Oracle" data-price="35" data-emoji="🧙" data-bg="linear-gradient(135deg, #4527A0 0%, #7E57C2 100%)">
-                <div class="bento-thumbnail" style="background-image: url('images/cult-male.jpg');"></div>
+                <div class="bento-thumbnail" style="background-image: url('images/cult-male.jpg');">
+                    <video muted loop playsinline preload="none" data-src="video/Oracle-Thumb.mp4"></video>
+                </div>
                 <div class="play-overlay"><div class="play-icon"></div></div>
                 <div class="bento-content">
                     <span class="personality-tag">Wisdom</span>
@@ -2510,6 +2679,14 @@
             y: 0,
             duration: 0.8,
             delay: 2.2,
+            ease: 'power3.out'
+        });
+
+        gsap.to('.hero-tiles', {
+            opacity: 1,
+            x: 0,
+            duration: 1,
+            delay: 1.8,
             ease: 'power3.out'
         });
 
