@@ -434,11 +434,11 @@
         .hero-wrapper {
             position: relative;
             overflow: hidden;
-            min-height: 100vh;
+            min-height: 80vh;
         }
 
         .hero {
-            min-height: 100vh;
+            min-height: 80vh;
             display: grid;
             grid-template-columns: 1fr 1fr;
             align-items: center;
@@ -650,7 +650,7 @@
             gap: 12px;
             opacity: 0;
             transform: translateX(40px);
-            max-height: 420px;
+            max-height: 500px;
         }
 
         .hero-tile {
@@ -669,12 +669,28 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
 
-        .hero-tile img {
+        .hero-tile img,
+        .hero-tile video {
             width: 100%; height: 100%;
             object-fit: cover;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .hero-tile:hover img {
+        .hero-tile video {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .hero-tile video.loaded {
+            opacity: 1;
+        }
+        .hero-tile img {
+            position: relative;
+            z-index: 0;
+        }
+        .hero-tile:hover img,
+        .hero-tile:hover video {
             transform: scale(1.05);
         }
 
@@ -1797,35 +1813,7 @@
                 font-size: 0.85rem;
             }
 
-            /* Mobile hero tiles: horizontal scroll strip */
-            .hero-tiles {
-                display: flex;
-                gap: 10px;
-                overflow-x: auto;
-                overflow-y: hidden;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-                padding: 0 20px 8px;
-                margin: 0 -20px;
-                max-height: none;
-                opacity: 1;
-                transform: none;
-            }
-            .hero-tiles::-webkit-scrollbar { display: none; }
-            .hero-tile {
-                flex: 0 0 140px;
-                height: 190px;
-                scroll-snap-align: start;
-                border-radius: var(--radius-md);
-            }
-            .hero-tile:first-child {
-                grid-row: auto;
-                flex: 0 0 140px;
-            }
-            .hero-tile-overlay { padding: 12px; }
-            .hero-tile-name { font-size: 0.8rem; }
-            .hero-tile-meta { gap: 6px; }
-            .hero-tile-rating, .hero-tile-price { font-size: 0.6rem; }
+            .hero-tiles { display: none; }
 
             .hero-marquee { display: none; }
             .hero-orb { opacity: 0.15; }
@@ -1939,8 +1927,6 @@
            ======================================== */
         @media (max-width: 400px) {
             .hero h1 { font-size: 2rem; letter-spacing: -1px; }
-            .hero-tile { flex: 0 0 120px; height: 160px; }
-            .hero-tile:first-child { flex: 0 0 120px; }
             .hero-ctas { flex-direction: column; }
             .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
             .bento-grid {
@@ -2008,6 +1994,7 @@
         <!-- Hero Tiles (right side) -->
         <div class="hero-tiles">
             <div class="hero-tile" onclick="scrollTo('#personalities')">
+                <video src="video/Baby_Trailer_V2.mp4" muted loop playsinline autoplay></video>
                 <img src="images/baby-male.jpg" alt="Party Pat">
                 <div class="hero-tile-overlay">
                     <span class="hero-tile-name">Party Pat</span>
@@ -2018,6 +2005,7 @@
                 </div>
             </div>
             <div class="hero-tile" onclick="scrollTo('#personalities')">
+                <video src="video/Coach_Tony_-_Thumb.mp4" muted loop playsinline autoplay></video>
                 <img src="images/black-male.jpg" alt="Coach Tony">
                 <div class="hero-tile-overlay">
                     <span class="hero-tile-name">Coach Tony</span>
@@ -2028,6 +2016,7 @@
                 </div>
             </div>
             <div class="hero-tile" onclick="scrollTo('#personalities')">
+                <video src="video/Santa_-_Thumb.mp4" muted loop playsinline autoplay></video>
                 <img src="images/santa-male.jpg" alt="Santa Claus">
                 <div class="hero-tile-overlay">
                     <span class="hero-tile-name">Santa Claus</span>
@@ -2688,6 +2677,11 @@
             duration: 1,
             delay: 1.8,
             ease: 'power3.out'
+        });
+
+        // Fade in hero tile videos once loaded
+        document.querySelectorAll('.hero-tile video').forEach(v => {
+            v.addEventListener('canplay', () => v.classList.add('loaded'), { once: true });
         });
 
         // Animate elements when they scroll into view using IntersectionObserver

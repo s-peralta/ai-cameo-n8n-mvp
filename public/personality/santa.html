@@ -75,6 +75,45 @@
             line-height: 1.6;
         }
 
+        /* ========== GRADIENT ORBS ========== */
+        .detail-orbs {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .detail-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.25;
+            animation: orbDrift 25s ease-in-out infinite;
+        }
+        .detail-orb-1 {
+            width: 500px; height: 500px;
+            background: var(--primary);
+            top: -150px; right: -100px;
+        }
+        .detail-orb-2 {
+            width: 400px; height: 400px;
+            background: var(--secondary);
+            bottom: -100px; left: -80px;
+            animation-delay: -8s;
+        }
+        .detail-orb-3 {
+            width: 300px; height: 300px;
+            background: var(--santa-red);
+            top: 40%; left: 50%;
+            opacity: 0.1;
+            animation-delay: -16s;
+        }
+        @keyframes orbDrift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(25px, -30px) scale(1.04); }
+            66% { transform: translate(-15px, 20px) scale(0.96); }
+        }
+
         /* ========== WAVE ANIMATION ========== */
         @keyframes wave-subtle {
             0%, 100% { transform: rotate(0deg); }
@@ -142,6 +181,8 @@
             padding: 88px 60px 0;
             max-width: 1300px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
         .breadcrumb a {
             color: var(--text-muted);
@@ -162,6 +203,8 @@
             grid-template-columns: 1fr 420px;
             gap: 60px;
             align-items: start;
+            position: relative;
+            z-index: 1;
         }
 
         /* Left: Media */
@@ -619,6 +662,8 @@
             max-width: 1300px;
             margin: 0 auto;
             padding: 0 60px;
+            position: relative;
+            z-index: 1;
         }
 
         .reasons-section {
@@ -1140,6 +1185,13 @@
             <a href="../index.html#how-it-works" class="nav-link">How It Works</a>
         </div>
     </nav>
+
+    <!-- Gradient Orbs (brand consistency with homepage) -->
+    <div class="detail-orbs">
+        <div class="detail-orb detail-orb-1"></div>
+        <div class="detail-orb detail-orb-2"></div>
+        <div class="detail-orb detail-orb-3"></div>
+    </div>
 
     <!-- Breadcrumb -->
     <div class="breadcrumb">
