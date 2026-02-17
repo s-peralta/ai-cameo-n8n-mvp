@@ -230,6 +230,30 @@
         }
         .nav-link:hover { color: var(--text); }
 
+        .nav-login {
+            background: var(--text);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 100px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
+        }
+        .nav-user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+        }
+
         /* ========== HERO ========== */
         .faq-hero {
             padding: 140px 60px 60px;
@@ -562,11 +586,12 @@
 
     <!-- Nav -->
     <nav>
-        <a href="index.html" class="logo"><span class="logo-wave">&#128075;</span> Alo<span>Guv</span></a>
+        <a href="/" class="logo"><span class="logo-wave">&#128075;</span> Alo<span>Guv</span></a>
         <div class="nav-right">
-            <a href="index.html#personalities" class="nav-link">Browse</a>
-            <a href="index.html#how-it-works" class="nav-link">How It Works</a>
-            <a href="index.html#pricing" class="nav-link">Pricing</a>
+            <a href="/#personalities" class="nav-link">Browse</a>
+            <a href="/#how-it-works" class="nav-link">How It Works</a>
+            <a href="/#pricing" class="nav-link">Pricing</a>
+            <button class="nav-login" id="navAuthBtn" onclick="handleNavAuth()">Log In</button>
         </div>
     </nav>
 
@@ -630,7 +655,7 @@
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        AloGuv features a curated roster of <strong>unique AI-powered virtual personalities</strong>, each with their own distinct voice, style, and character. Our lineup includes characters like <strong>Santa Claus</strong> for holiday magic, <strong>Coach Tony</strong> for motivational fire, <strong>The Oracle</strong> for mystical wisdom, and many more. Each personality is carefully crafted to deliver authentic, engaging messages that feel personal and memorable. We're constantly adding new characters to the roster. <a href="index.html#personalities">Browse all personalities</a>.
+                        AloGuv features a curated roster of <strong>unique AI-powered virtual personalities</strong>, each with their own distinct voice, style, and character. Our lineup includes characters like <strong>Santa Claus</strong> for holiday magic, <strong>Coach Tony</strong> for motivational fire, <strong>The Oracle</strong> for mystical wisdom, and many more. Each personality is carefully crafted to deliver authentic, engaging messages that feel personal and memorable. We're constantly adding new characters to the roster. <a href="/#personalities">Browse all personalities</a>.
                     </div>
                 </div>
             </div>
@@ -789,7 +814,7 @@
                 </button>
                 <div class="faq-answer">
                     <div class="faq-answer-inner">
-                        Absolutely. AloGuv takes your privacy seriously. We use <strong>industry-standard encryption</strong> to protect all data in transit and at rest. We never sell or share your personal information with third parties. The details you provide are used exclusively to generate your video message and are not stored longer than necessary. You can request deletion of your data at any time by contacting <a href="mailto:support@aloguv.com">support@aloguv.com</a>. For full details, see our <a href="#">Privacy Policy</a>.
+                        Absolutely. AloGuv takes your privacy seriously. We use <strong>industry-standard encryption</strong> to protect all data in transit and at rest. We never sell or share your personal information with third parties. The details you provide are used exclusively to generate your video message and are not stored longer than necessary. You can request deletion of your data at any time by contacting <a href="mailto:support@aloguv.com">support@aloguv.com</a>. For full details, see our <a href="privacy">Privacy Policy</a>.
                     </div>
                 </div>
             </div>
@@ -800,18 +825,18 @@
     <section class="faq-cta">
         <h2>Still have questions?</h2>
         <p>Our team is happy to help. Or skip straight to the fun part.</p>
-        <a href="index.html#personalities" class="btn-primary">Browse Personalities</a>
+        <a href="/#personalities" class="btn-primary">Browse Personalities</a>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="footer-inner">
-            <a href="index.html" class="logo"><span class="logo-wave">&#128075;</span> Alo<span>Guv</span></a>
+            <a href="/" class="logo"><span class="logo-wave">&#128075;</span> Alo<span>Guv</span></a>
             <div class="footer-links-row">
-                <a href="index.html#personalities">Browse</a>
-                <a href="index.html#how-it-works">How It Works</a>
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
+                <a href="/#personalities">Browse</a>
+                <a href="/#how-it-works">How It Works</a>
+                <a href="privacy">Privacy</a>
+                <a href="terms">Terms</a>
             </div>
             <span class="footer-copy">&copy; 2026 AloGuv</span>
         </div>
@@ -865,5 +890,47 @@
         });
     </script>
 
+    <!-- Auth0 SDK -->
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+    <script>
+        const AUTH0_DOMAIN = 'YOUR_AUTH0_DOMAIN';
+        const AUTH0_CLIENT_ID = 'YOUR_AUTH0_CLIENT_ID';
+        let auth0Client = null;
+
+        async function initAuth0() {
+            try {
+                auth0Client = await auth0.createAuth0Client({
+                    domain: AUTH0_DOMAIN,
+                    clientId: AUTH0_CLIENT_ID,
+                    authorizationParams: { redirect_uri: window.location.origin },
+                    cacheLocation: 'localstorage'
+                });
+                if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+                    await auth0Client.handleRedirectCallback();
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+                const isAuth = await auth0Client.isAuthenticated();
+                if (isAuth) {
+                    const user = await auth0Client.getUser();
+                    const btn = document.getElementById('navAuthBtn');
+                    if (btn) {
+                        const img = document.createElement('img');
+                        img.className = 'nav-user-avatar';
+                        img.src = user.picture || '';
+                        img.alt = user.name || 'User';
+                        img.title = user.name || 'User';
+                        btn.replaceWith(img);
+                    }
+                }
+            } catch (err) { console.error('Auth0 error:', err); }
+        }
+
+        async function handleNavAuth() {
+            if (!auth0Client) { console.warn('Auth0 not configured'); return; }
+            await auth0Client.loginWithRedirect();
+        }
+
+        if (AUTH0_DOMAIN !== 'YOUR_AUTH0_DOMAIN') initAuth0();
+    </script>
 </body>
 </html>

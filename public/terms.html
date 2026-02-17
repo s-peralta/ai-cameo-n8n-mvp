@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary SEO -->
+    <title>Terms of Service | AloGuv</title>
+    <meta name="description" content="Terms of Service for AloGuv, the AI-powered personalized video message platform. Read about our policies on orders, payments, refunds, content usage, and user conduct.">
+    <meta name="keywords" content="AloGuv terms of service, AloGuv legal, AloGuv policies, AI video messages terms, AloGuv refund policy, AloGuv user agreement">
+    <meta name="author" content="AloGuv">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.aloguv.com/terms">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="theme-color" content="#08080A">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.aloguv.com/terms">
+    <meta property="og:title" content="Terms of Service | AloGuv">
+    <meta property="og:description" content="Terms of Service for AloGuv. Learn about our policies on orders, payments, refunds, content, and user conduct.">
+    <meta property="og:image" content="https://www.aloguv.com/og-image.png">
+    <meta property="og:site_name" content="AloGuv">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Terms of Service | AloGuv">
+    <meta name="twitter:description" content="Terms of Service for AloGuv. Learn about our policies on orders, payments, refunds, content, and user conduct.">
+    <meta name="twitter:image" content="https://www.aloguv.com/og-image.png">
+
+    <!-- Structured Data: WebPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Terms of Service",
+        "description": "Terms of Service for AloGuv, the AI-powered personalized video message platform.",
+        "url": "https://www.aloguv.com/terms",
+        "inLanguage": "en",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "AloGuv",
+            "url": "https://www.aloguv.com"
+        },
+        "about": {
+            "@type": "Thing",
+            "name": "Terms of Service"
+        },
+        "datePublished": "2026-02-16",
+        "dateModified": "2026-02-16",
+        "publisher": {
+            "@type": "Organization",
+            "name": "AloGuv",
+            "url": "https://www.aloguv.com"
+        }
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #6366F1;
+            --primary-light: #818CF8;
+            --secondary: #EC4899;
+            --accent: #F59E0B;
+            --dark: #08080A;
+            --dark-elevated: #111114;
+            --dark-surface: #18181B;
+            --card-bg: #141417;
+            --text: #FAFAFA;
+            --text-secondary: #D4D4D8;
+            --text-muted: #71717A;
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ========== GRADIENT ORBS ========== */
+        .detail-orbs {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .detail-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(140px);
+            opacity: 0.25;
+            animation: orbDrift 25s ease-in-out infinite;
+        }
+        .detail-orb-1 {
+            width: 500px; height: 500px;
+            background: var(--primary);
+            top: -150px; right: -100px;
+        }
+        .detail-orb-2 {
+            width: 400px; height: 400px;
+            background: var(--secondary);
+            bottom: -100px; left: -80px;
+            animation-delay: -8s;
+        }
+        .detail-orb-3 {
+            width: 300px; height: 300px;
+            background: var(--accent);
+            top: 40%; left: 50%;
+            opacity: 0.1;
+            animation-delay: -16s;
+        }
+        @keyframes orbDrift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(25px, -30px) scale(1.04); }
+            66% { transform: translate(-15px, 20px) scale(0.96); }
+        }
+
+        /* ========== WAVE ANIMATION ========== */
+        @keyframes wave-subtle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(8deg); }
+            75% { transform: rotate(-4deg); }
+        }
+        .logo-wave {
+            display: inline-block;
+            animation: wave-subtle 2.5s ease-in-out infinite;
+            transform-origin: 70% 70%;
+        }
+
+        /* ========== NAV ========== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 0 60px;
+            height: 72px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(8, 8, 10, 0.8);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: system-ui, -apple-system, sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: #fff;
+            text-decoration: none;
+        }
+        .logo span { font-weight: 200; }
+
+        .nav-right { display: flex; gap: 32px; align-items: center; }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color 0.3s;
+        }
+        .nav-link:hover { color: var(--text); }
+
+        .nav-login {
+            background: var(--text);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 100px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
+        }
+
+        /* ========== HERO ========== */
+        .terms-hero {
+            padding: 140px 60px 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .terms-hero h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .terms-hero .effective-date {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ========== TABLE OF CONTENTS ========== */
+        .toc {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 60px 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .toc-inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .toc-link {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: color 0.3s, border-color 0.3s, background 0.3s;
+            white-space: nowrap;
+        }
+
+        .toc-link:hover {
+            color: var(--text);
+            border-color: var(--border-hover);
+            background: var(--dark-surface);
+        }
+
+        /* ========== TERMS SECTIONS ========== */
+        .terms-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 60px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .terms-section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+
+        .terms-section:hover {
+            border-color: var(--border-hover);
+        }
+
+        .terms-section-heading {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+        }
+
+        .terms-section-number {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-light);
+            background: rgba(99, 102, 241, 0.1);
+            padding: 4px 10px;
+            border-radius: 100px;
+            flex-shrink: 0;
+        }
+
+        .terms-section p {
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .terms-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        .terms-section strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .terms-section a {
+            color: var(--primary-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .terms-section a:hover {
+            color: var(--secondary);
+        }
+
+        .terms-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0;
+        }
+
+        .terms-section ul li {
+            font-size: 0.925rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .terms-section ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 11px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--primary-light);
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            background: var(--dark-elevated);
+            padding: 48px 60px 32px;
+            border-top: 1px solid var(--border);
+        }
+        .footer-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-links-row { display: flex; gap: 32px; }
+        .footer-links-row a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        .footer-links-row a:hover { color: var(--text); }
+        .footer-copy { color: var(--text-muted); font-size: 0.8rem; }
+
+        /* ========== RESPONSIVE: TABLET ========== */
+        @media (max-width: 1024px) {
+            nav { padding: 0 40px; }
+            .terms-hero { padding: 120px 40px 32px; }
+            .toc { padding: 0 40px 32px; }
+            .terms-container { padding: 0 40px 60px; }
+            footer { padding: 40px; }
+        }
+
+        /* ========== RESPONSIVE: MOBILE ========== */
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 16px;
+                height: 60px;
+            }
+
+            .logo { font-size: 1.3rem; }
+
+            .nav-right { gap: 16px; }
+            .nav-link { font-size: 0.8rem; }
+
+            .terms-hero {
+                padding: 100px 20px 28px;
+            }
+
+            .terms-hero h1 {
+                font-size: 2rem;
+            }
+
+            .toc {
+                padding: 0 16px 28px;
+            }
+
+            .toc-inner {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 8px;
+            }
+
+            .toc-inner::-webkit-scrollbar {
+                display: none;
+            }
+
+            .terms-container {
+                padding: 0 16px 60px;
+            }
+
+            .terms-section {
+                padding: 22px 18px;
+            }
+
+            .terms-section-heading {
+                font-size: 1.05rem;
+            }
+
+            .terms-section p {
+                font-size: 0.875rem;
+            }
+
+            .terms-section ul li {
+                font-size: 0.875rem;
+            }
+
+            footer {
+                padding: 32px 16px 24px;
+            }
+            .footer-inner {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+            .footer-links-row {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+                font-size: 0.8rem;
+            }
+            .footer-copy { font-size: 0.75rem; }
+        }
+
+        /* ========== ENTRANCE ANIMATIONS ========== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s ease forwards;
+        }
+
+        .fade-up-delay-1 { animation-delay: 0.1s; }
+        .fade-up-delay-2 { animation-delay: 0.2s; }
+        .fade-up-delay-3 { animation-delay: 0.3s; }
+        .fade-up-delay-4 { animation-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Gradient Orbs Background -->
+    <div class="detail-orbs">
+        <div class="detail-orb detail-orb-1"></div>
+        <div class="detail-orb detail-orb-2"></div>
+        <div class="detail-orb detail-orb-3"></div>
+    </div>
+
+    <!-- Nav -->
+    <nav>
+        <a href="/" class="logo"><span class="logo-wave">&#128075;</span> Alo<span>Guv</span></a>
+        <div class="nav-right">
+            <a href="/#personalities" class="nav-link">Browse</a>
+            <a href="/#how-it-works" class="nav-link">How It Works</a>
+            <a href="/#pricing" class="nav-link">Pricing</a>
+            <button class="nav-login" id="navAuthBtn" onclick="handleNavAuth()">Log In</button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="terms-hero">
+        <h1 class="fade-up">Terms of Service</h1>
+        <p class="effective-date fade-up fade-up-delay-1">Effective date: February 16, 2026</p>
+    </section>
+
+    <!-- Table of Contents -->
+    <div class="toc fade-up fade-up-delay-2">
+        <div class="toc-inner">
+            <a href="#acceptance" class="toc-link">1. Acceptance</a>
+            <a href="#service" class="toc-link">2. Service</a>
+            <a href="#accounts" class="toc-link">3. Accounts</a>
+            <a href="#payments" class="toc-link">4. Payments</a>
+            <a href="#content" class="toc-link">5. Content</a>
+            <a href="#ip" class="toc-link">6. IP</a>
+            <a href="#conduct" class="toc-link">7. Conduct</a>
+            <a href="#refunds" class="toc-link">8. Refunds</a>
+            <a href="#disclaimers" class="toc-link">9. Disclaimers</a>
+            <a href="#liability" class="toc-link">10. Liability</a>
+            <a href="#privacy" class="toc-link">11. Privacy</a>
+            <a href="#modifications" class="toc-link">12. Modifications</a>
+            <a href="#governing-law" class="toc-link">13. Law</a>
+            <a href="#contact" class="toc-link">14. Contact</a>
+        </div>
+    </div>
+
+    <!-- Terms Content -->
+    <div class="terms-container">
+
+        <!-- 1. Acceptance of Terms -->
+        <div id="acceptance" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">1</span>
+                Acceptance of Terms
+            </h2>
+            <p>By accessing, browsing, or using the AloGuv platform (available at <strong>www.aloguv.com</strong>), including any of its features, content, or services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</p>
+            <p>If you do not agree to these terms, you must not access or use AloGuv. Your continued use of the platform following the posting of any changes to these terms constitutes acceptance of those changes.</p>
+            <p>You must be at least 18 years of age, or the age of legal majority in your jurisdiction, to use AloGuv. By using our services, you represent and warrant that you meet this requirement.</p>
+        </div>
+
+        <!-- 2. Service Description -->
+        <div id="service" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">2</span>
+                Service Description
+            </h2>
+            <p>AloGuv is an <strong>AI-powered personalized video message platform</strong>. Our service allows users to select from a roster of unique virtual AI personalities, provide personalization details about a recipient and occasion, and receive a custom-generated video message delivered via email.</p>
+            <p>Each video is created using artificial intelligence technologies including large language models for script generation, neural text-to-speech for voice synthesis, and advanced avatar rendering for video production. All personalities on AloGuv are virtual characters -- they are not real people.</p>
+            <p>AloGuv reserves the right to modify, suspend, or discontinue any aspect of the service at any time, including the availability of specific AI personalities, features, or delivery timelines.</p>
+        </div>
+
+        <!-- 3. User Accounts -->
+        <div id="accounts" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">3</span>
+                User Accounts
+            </h2>
+            <p>Certain features of AloGuv may require you to create an account or authenticate via our third-party authentication provider, <strong>Auth0</strong>. When creating an account, you agree to provide accurate, current, and complete information, and to update such information as necessary to keep it accurate.</p>
+            <p>You are solely responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify AloGuv immediately of any unauthorized use of your account or any other breach of security.</p>
+            <p>AloGuv reserves the right to suspend or terminate your account at any time if we reasonably believe that you have violated these Terms of Service or if your account has been compromised.</p>
+        </div>
+
+        <!-- 4. Orders & Payments -->
+        <div id="payments" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">4</span>
+                Orders &amp; Payments
+            </h2>
+            <p>AloGuv operates on a <strong>one-time payment model</strong>. Each video message is a separate purchase -- there are no subscriptions, recurring charges, or hidden fees. You pay once per video, and that's it.</p>
+            <p>During our beta launch period, all videos are offered at <strong>50% off regular pricing</strong>, with prices starting at $9. Beta pricing is subject to change at AloGuv's discretion, and regular pricing will apply once the beta period concludes.</p>
+            <p>All payments are securely processed through <strong>Stripe</strong>, a PCI-compliant payment processor. AloGuv does not store your full credit card information on our servers. By placing an order, you authorize AloGuv and Stripe to charge the applicable amount to your chosen payment method.</p>
+            <p>All sales are in USD unless otherwise stated. Prices are inclusive of the service and digital delivery. Any applicable taxes are your responsibility based on your jurisdiction.</p>
+        </div>
+
+        <!-- 5. Content & Delivery -->
+        <div id="content" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">5</span>
+                Content &amp; Delivery
+            </h2>
+            <p>All video messages created through AloGuv are <strong>AI-generated digital content</strong>. Videos are generated based on the personalization details you provide during the ordering process, including recipient name, occasion, and any custom messages or talking points.</p>
+            <p>AloGuv aims to deliver all videos <strong>within minutes</strong> of order completion. While most videos are generated and delivered in under 10 minutes, delivery times may vary based on demand and system load. AloGuv does not guarantee specific delivery times.</p>
+            <p>Videos are delivered digitally via email as downloadable MP4 files. AloGuv is a <strong>digital-only service</strong> -- we do not offer physical media, printed materials, or any non-digital deliverables.</p>
+            <p>Upon purchase, you receive a <strong>personal use license</strong> to view, download, share, and post the video for non-commercial, personal purposes. This license does not transfer ownership of the underlying content, technology, or intellectual property.</p>
+        </div>
+
+        <!-- 6. Intellectual Property -->
+        <div id="ip" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">6</span>
+                Intellectual Property
+            </h2>
+            <p>All intellectual property rights in and to the AloGuv platform, including but not limited to the website design, logos, branding, AI personalities, character likenesses, voice models, underlying technology, algorithms, and software, are and remain the exclusive property of <strong>AloGuv</strong>.</p>
+            <p>The AI-generated video content produced by AloGuv is owned by AloGuv. Upon purchase, you are granted a <strong>non-exclusive, non-transferable, personal use license</strong> to use the video for personal, non-commercial purposes. This includes sharing on social media, sending to friends and family, and playing at personal events.</p>
+            <p>You may not use AloGuv content for commercial purposes, sublicense it, or claim ownership of the AI personalities or generated content without prior written consent from AloGuv. Any unauthorized use of AloGuv's intellectual property may result in legal action.</p>
+        </div>
+
+        <!-- 7. User Conduct -->
+        <div id="conduct" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">7</span>
+                User Conduct
+            </h2>
+            <p>When using AloGuv, you agree not to engage in any of the following prohibited activities:</p>
+            <ul>
+                <li><strong>Harassment or abuse</strong> -- Using the platform to create content intended to bully, threaten, defame, or harass any individual</li>
+                <li><strong>Impersonation</strong> -- Representing AI-generated content as being created by a real person, or using the service to impersonate real individuals</li>
+                <li><strong>Illegal content</strong> -- Requesting or generating content that is unlawful, obscene, or promotes illegal activities in any jurisdiction</li>
+                <li><strong>Resale or redistribution</strong> -- Reselling, redistributing, or commercially exploiting AloGuv videos or any part of the service without authorization</li>
+                <li><strong>Reverse engineering</strong> -- Attempting to decompile, reverse engineer, or extract the source code, algorithms, or AI models underlying the AloGuv platform</li>
+                <li><strong>System interference</strong> -- Attempting to disrupt, overload, or interfere with AloGuv's servers, networks, or infrastructure</li>
+            </ul>
+            <p>AloGuv reserves the right to refuse service, cancel orders, or terminate accounts of users who violate these conduct guidelines, at our sole discretion and without prior notice.</p>
+        </div>
+
+        <!-- 8. Refund Policy -->
+        <div id="refunds" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">8</span>
+                Refund Policy
+            </h2>
+            <p>AloGuv stands behind the quality of our AI-generated video messages with a <strong>100% satisfaction guarantee</strong>.</p>
+            <p>If you are not happy with your video for any reason, you may request a full refund within <strong>7 days</strong> of delivery. No questions asked. Simply contact our support team at <a href="mailto:hello@aloguv.com">hello@aloguv.com</a> with your order details, and we will process your refund promptly.</p>
+            <p>Refunds are issued to the original payment method and typically take 5-10 business days to appear on your statement, depending on your bank or card issuer. AloGuv may also offer to regenerate your video with adjustments as an alternative to a refund, but this is entirely your choice.</p>
+        </div>
+
+        <!-- 9. Disclaimers -->
+        <div id="disclaimers" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">9</span>
+                Disclaimers
+            </h2>
+            <p>AloGuv's AI-generated video messages are provided on an <strong>"as is" and "as available"</strong> basis. While we strive to produce high-quality, personalized content, AloGuv makes no warranties or representations, express or implied, regarding the accuracy, completeness, or suitability of the generated content for any particular purpose.</p>
+            <p>AloGuv does not guarantee specific outcomes, reactions, or results from the use of our video messages. The quality, tone, and style of AI-generated content may vary based on the inputs provided and the inherent characteristics of AI technology.</p>
+            <p>AI-generated content may occasionally contain inaccuracies, unexpected phrasing, or imperfections. AloGuv disclaims all liability for any errors or omissions in AI-generated content to the fullest extent permitted by law.</p>
+        </div>
+
+        <!-- 10. Limitation of Liability -->
+        <div id="liability" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">10</span>
+                Limitation of Liability
+            </h2>
+            <p>To the maximum extent permitted by applicable law, AloGuv, its owners, employees, agents, and affiliates shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of the platform or any AI-generated content.</p>
+            <p>In no event shall AloGuv's total aggregate liability to you for any and all claims arising from or related to a specific order exceed the <strong>amount you paid for that specific order</strong>. This limitation applies regardless of the legal theory under which liability is asserted.</p>
+            <p>This limitation of liability applies to the fullest extent permitted by law and shall survive the termination or expiration of these Terms of Service.</p>
+        </div>
+
+        <!-- 11. Privacy -->
+        <div id="privacy" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">11</span>
+                Privacy
+            </h2>
+            <p>Your privacy is important to us. AloGuv's collection, use, and protection of your personal information is governed by our <strong><a href="privacy">Privacy Policy</a></strong>, which is incorporated into these Terms of Service by reference.</p>
+            <p>By using AloGuv, you consent to the collection and use of your information as described in our Privacy Policy. We encourage you to review the Privacy Policy carefully to understand how we handle your data, including the personalization details you provide when ordering a video message.</p>
+        </div>
+
+        <!-- 12. Modifications -->
+        <div id="modifications" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">12</span>
+                Modifications to Terms
+            </h2>
+            <p>AloGuv reserves the right to update, modify, or replace these Terms of Service at any time, at our sole discretion. When we make material changes, we will update the "Effective date" at the top of this page and, where appropriate, notify users via email or a prominent notice on the platform.</p>
+            <p>Your continued use of AloGuv after any changes to these terms constitutes your acceptance of the revised terms. If you do not agree with the updated terms, you must discontinue your use of the platform. We encourage you to review these Terms of Service periodically.</p>
+        </div>
+
+        <!-- 13. Governing Law -->
+        <div id="governing-law" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">13</span>
+                Governing Law
+            </h2>
+            <p>These Terms of Service and any disputes arising from or related to them shall be governed by and construed in accordance with applicable law, without regard to conflict of law principles.</p>
+            <p>Any disputes that cannot be resolved amicably shall be submitted to the competent courts of the jurisdiction in which AloGuv operates. Both parties agree to submit to the personal jurisdiction of such courts and waive any objections to venue.</p>
+            <p>If any provision of these Terms of Service is found to be invalid or unenforceable by a court of competent jurisdiction, the remaining provisions shall continue in full force and effect.</p>
+        </div>
+
+        <!-- 14. Contact Information -->
+        <div id="contact" class="terms-section fade-up">
+            <h2 class="terms-section-heading">
+                <span class="terms-section-number">14</span>
+                Contact Information
+            </h2>
+            <p>If you have any questions, concerns, or feedback regarding these Terms of Service or any aspect of the AloGuv platform, please don't hesitate to reach out to us.</p>
+            <p>Email: <strong><a href="mailto:hello@aloguv.com">hello@aloguv.com</a></strong></p>
+            <p>We aim to respond to all inquiries within 24 hours during business days. Your feedback helps us improve AloGuv for everyone.</p>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <a href="/" class="logo"><span class="logo-wave">&#128075;</span> Alo<span>Guv</span></a>
+            <div class="footer-links-row">
+                <a href="/#personalities">Browse</a>
+                <a href="/#how-it-works">How It Works</a>
+                <a href="privacy">Privacy</a>
+                <a href="terms">Terms</a>
+            </div>
+            <span class="footer-copy">&copy; 2026 AloGuv</span>
+        </div>
+    </footer>
+
+    <script>
+        // ========== INTERSECTION OBSERVER FOR FADE-UP ==========
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    fadeObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            fadeObserver.observe(el);
+        });
+
+        // ========== SMOOTH SCROLL FOR TOC LINKS ==========
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                const targetEl = document.getElementById(targetId);
+                if (targetEl) {
+                    const navHeight = 72;
+                    const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+    <!-- Auth0 SDK -->
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+    <script>
+        const AUTH0_DOMAIN = 'YOUR_AUTH0_DOMAIN';
+        const AUTH0_CLIENT_ID = 'YOUR_AUTH0_CLIENT_ID';
+        let auth0Client = null;
+
+        async function initAuth0() {
+            try {
+                auth0Client = await auth0.createAuth0Client({
+                    domain: AUTH0_DOMAIN,
+                    clientId: AUTH0_CLIENT_ID,
+                    authorizationParams: { redirect_uri: window.location.origin },
+                    cacheLocation: 'localstorage'
+                });
+                if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+                    await auth0Client.handleRedirectCallback();
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+                const isAuth = await auth0Client.isAuthenticated();
+                if (isAuth) {
+                    const btn = document.getElementById('navAuthBtn');
+                    if (btn) btn.style.display = 'none';
+                }
+            } catch (err) { console.error('Auth0 error:', err); }
+        }
+
+        async function handleNavAuth() {
+            if (!auth0Client) { console.warn('Auth0 not configured'); return; }
+            await auth0Client.loginWithRedirect();
+        }
+
+        if (AUTH0_DOMAIN !== 'YOUR_AUTH0_DOMAIN') initAuth0();
+    </script>
+</body>
+</html>

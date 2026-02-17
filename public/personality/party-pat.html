@@ -176,6 +176,30 @@
         }
         .nav-link:hover { color: var(--text); }
 
+        .nav-login {
+            background: var(--text);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 100px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .nav-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
+        }
+        .nav-user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent-color, #6366F1);
+            cursor: pointer;
+        }
+
         /* ========== BREADCRUMB ========== */
         .breadcrumb {
             padding: 88px 60px 0;
@@ -1260,13 +1284,14 @@
 
     <!-- Nav -->
     <nav>
-        <a href="../index.html" class="logo"><span class="logo-wave">&#128075;</span> Alo<span>Guv</span></a>
+        <a href=".." class="logo"><span class="logo-wave">&#128075;</span> Alo<span>Guv</span></a>
         <div class="nav-right">
-            <a href="../index.html#personalities" class="nav-back">
+            <a href="../#personalities" class="nav-back">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
                 Browse All
             </a>
-            <a href="../index.html#how-it-works" class="nav-link">How It Works</a>
+            <a href="../#how-it-works" class="nav-link">How It Works</a>
+            <button class="nav-login" id="navAuthBtn" onclick="handleNavAuth()">Log In</button>
         </div>
     </nav>
 
@@ -1279,9 +1304,9 @@
 
     <!-- Breadcrumb -->
     <div class="breadcrumb">
-        <a href="../index.html">Home</a>
+        <a href="..">Home</a>
         <span class="sep">/</span>
-        <a href="../index.html#personalities">Personalities</a>
+        <a href="../#personalities">Personalities</a>
         <span class="sep">/</span>
         <span class="current">Party Pat</span>
     </div>
@@ -1559,7 +1584,7 @@
     <section class="related-section">
         <h2>You Might Also Like</h2>
         <div class="related-grid">
-            <a class="related-card" href="santa.html">
+            <a class="related-card" href="santa">
                 <img class="related-card-img" src="../images/santa-male.jpg" alt="Santa Claus">
                 <div class="related-card-body">
                     <div class="related-card-name">Santa Claus</div>
@@ -1569,7 +1594,7 @@
                     </div>
                 </div>
             </a>
-            <a class="related-card" href="coach-tony.html">
+            <a class="related-card" href="coach-tony">
                 <img class="related-card-img" src="../images/black-male.jpg" alt="Coach Tony">
                 <div class="related-card-body">
                     <div class="related-card-name">Coach Tony</div>
@@ -1579,7 +1604,7 @@
                     </div>
                 </div>
             </a>
-            <a class="related-card" href="the-oracle.html">
+            <a class="related-card" href="the-oracle">
                 <img class="related-card-img" src="../images/cult-male.jpg" alt="The Oracle">
                 <div class="related-card-body">
                     <div class="related-card-name">The Oracle</div>
@@ -1589,7 +1614,7 @@
                     </div>
                 </div>
             </a>
-            <a class="related-card" href="grandma-betty.html">
+            <a class="related-card" href="grandma-betty">
                 <img class="related-card-img" src="../images/grandma-female.jpg" alt="Grandma Betty">
                 <div class="related-card-body">
                     <div class="related-card-name">Grandma Betty</div>
@@ -1605,12 +1630,12 @@
     <!-- Footer -->
     <footer>
         <div class="footer-inner">
-            <a href="../index.html" class="logo"><span class="logo-wave">&#128075;</span> Alo<span>Guv</span></a>
+            <a href=".." class="logo"><span class="logo-wave">&#128075;</span> Alo<span>Guv</span></a>
             <div class="footer-links-row">
-                <a href="../index.html#personalities">Browse</a>
-                <a href="../index.html#how-it-works">How It Works</a>
-                <a href="#">Privacy</a>
-                <a href="#">Terms</a>
+                <a href="../#personalities">Browse</a>
+                <a href="../#how-it-works">How It Works</a>
+                <a href="../privacy">Privacy</a>
+                <a href="../terms">Terms</a>
             </div>
             <span class="footer-copy">&copy; 2026 AloGuv</span>
         </div>
@@ -1772,5 +1797,47 @@
         }
     </script>
 
+    <!-- Auth0 SDK -->
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
+    <script>
+        const AUTH0_DOMAIN = 'YOUR_AUTH0_DOMAIN';
+        const AUTH0_CLIENT_ID = 'YOUR_AUTH0_CLIENT_ID';
+        let auth0Client = null;
+
+        async function initAuth0() {
+            try {
+                auth0Client = await auth0.createAuth0Client({
+                    domain: AUTH0_DOMAIN,
+                    clientId: AUTH0_CLIENT_ID,
+                    authorizationParams: { redirect_uri: window.location.origin },
+                    cacheLocation: 'localstorage'
+                });
+                if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+                    await auth0Client.handleRedirectCallback();
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+                const isAuth = await auth0Client.isAuthenticated();
+                if (isAuth) {
+                    const user = await auth0Client.getUser();
+                    const btn = document.getElementById('navAuthBtn');
+                    if (btn) {
+                        const img = document.createElement('img');
+                        img.className = 'nav-user-avatar';
+                        img.src = user.picture || '';
+                        img.alt = user.name || 'User';
+                        img.title = user.name || 'User';
+                        btn.replaceWith(img);
+                    }
+                }
+            } catch (err) { console.error('Auth0 error:', err); }
+        }
+
+        async function handleNavAuth() {
+            if (!auth0Client) { console.warn('Auth0 not configured'); return; }
+            await auth0Client.loginWithRedirect();
+        }
+
+        if (AUTH0_DOMAIN !== 'YOUR_AUTH0_DOMAIN') initAuth0();
+    </script>
 </body>
 </html>

@@ -428,6 +428,81 @@
             box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
         }
 
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+        }
+
+        .nav-user-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .nav-user-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 12px;
+            background: var(--dark-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 8px;
+            min-width: 180px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: all 0.2s ease;
+            z-index: 1001;
+        }
+
+        .nav-user-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .nav-user-menu-item {
+            display: block;
+            width: 100%;
+            padding: 10px 14px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-align: left;
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .nav-user-menu-item:hover {
+            background: var(--dark-surface);
+            color: var(--text);
+        }
+
+        .nav-user-menu-item.logout {
+            color: #f87171;
+        }
+
+        .nav-user-menu-item.logout:hover {
+            background: rgba(248, 113, 113, 0.1);
+            color: #f87171;
+        }
+
         /* ========================================
            HERO SECTION
            ======================================== */
@@ -1543,128 +1618,6 @@
             margin-top: 12px;
         }
 
-        /* ========================================
-           AUTH MODAL
-           ======================================== */
-        .auth-tabs {
-            display: flex;
-            gap: 0;
-            margin-bottom: 32px;
-            border-bottom: 1.5px solid var(--border);
-        }
-
-        .auth-tab {
-            flex: 1;
-            padding: 14px 0;
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: none;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .auth-tab.active {
-            color: var(--text);
-        }
-
-        .auth-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1.5px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .auth-tab:hover:not(.active) {
-            color: var(--text-secondary);
-        }
-
-        .auth-divider {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin: 20px 0;
-        }
-
-        .auth-divider::before,
-        .auth-divider::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: var(--border);
-        }
-
-        .auth-divider span {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .auth-social-btn {
-            width: 100%;
-            padding: 14px;
-            background: var(--dark);
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-md);
-            color: var(--text-secondary);
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.2s ease;
-        }
-
-        .auth-social-btn:hover {
-            border-color: var(--border-hover);
-            background: var(--dark-surface);
-            color: var(--text);
-        }
-
-        .auth-switch {
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 20px;
-        }
-
-        .auth-switch a {
-            color: var(--primary-light);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.2s ease;
-        }
-
-        .auth-switch a:hover {
-            color: var(--text);
-        }
-
-        .auth-forgot {
-            text-align: center;
-            margin-top: 12px;
-            margin-bottom: 0;
-        }
-
-        .auth-forgot a {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .auth-forgot a:hover {
-            color: var(--primary-light);
-        }
-
         .form-hint {
             display: block;
             font-size: 0.75rem;
@@ -1959,7 +1912,7 @@
             <a href="#personalities" class="nav-link">Browse</a>
             <a href="#how-it-works" class="nav-link">How It Works</a>
             <a href="#testimonials" class="nav-link">Reviews</a>
-            <button class="nav-cta" onclick="scrollTo('#personalities')">Get Started</button>
+            <button class="nav-cta nav-login" id="navAuthBtn" onclick="handleNavAuth()">Log In</button>
         </div>
     </nav>
 
@@ -1992,7 +1945,7 @@
 
         <!-- Hero Tiles (right side) -->
         <div class="hero-tiles">
-            <a class="hero-tile" href="personality/party-pat.html">
+            <a class="hero-tile" href="personality/party-pat">
                 <video src="video/Baby_Trailer_V2.mp4" muted loop playsinline preload="auto"></video>
                 <img src="images/baby-male.jpg" alt="Party Pat">
                 <div class="hero-tile-overlay">
@@ -2003,7 +1956,7 @@
                     </div>
                 </div>
             </a>
-            <a class="hero-tile" href="personality/coach-tony.html">
+            <a class="hero-tile" href="personality/coach-tony">
                 <video src="video/Coach_Tony_-_Thumb.mp4" muted loop playsinline preload="auto"></video>
                 <img src="images/black-male.jpg" alt="Coach Tony">
                 <div class="hero-tile-overlay">
@@ -2014,7 +1967,7 @@
                     </div>
                 </div>
             </a>
-            <a class="hero-tile" href="personality/santa.html">
+            <a class="hero-tile" href="personality/santa">
                 <video src="video/Santa_-_Thumb.mp4" muted loop playsinline preload="auto"></video>
                 <img src="images/santa-male.jpg" alt="Santa Claus">
                 <div class="hero-tile-overlay">
@@ -2074,7 +2027,7 @@
 
         <div class="bento-grid">
             <!-- 1: Party Pat (Featured / Large) -->
-            <a href="personality/party-pat.html" class="bento-item" data-personality="party" data-name="Party Pat" data-price="10" data-emoji="🎉" data-bg="linear-gradient(135deg, #AD1457 0%, #F06292 100%)">
+            <a href="personality/party-pat" class="bento-item" data-personality="party" data-name="Party Pat" data-price="10" data-emoji="🎉" data-bg="linear-gradient(135deg, #AD1457 0%, #F06292 100%)">
                 <div class="bento-thumbnail" style="background-image: url('images/baby-male.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Baby_Trailer_V2.mp4"></video>
                 </div>
@@ -2095,7 +2048,7 @@
             </a>
 
             <!-- 2: Coach Tony -->
-            <a href="personality/coach-tony.html" class="bento-item" data-personality="coach" data-name="Coach Tony" data-price="12" data-emoji="💪" data-bg="linear-gradient(135deg, #E65100 0%, #FF9800 100%)">
+            <a href="personality/coach-tony" class="bento-item" data-personality="coach" data-name="Coach Tony" data-price="12" data-emoji="💪" data-bg="linear-gradient(135deg, #E65100 0%, #FF9800 100%)">
                 <div class="bento-thumbnail" style="background-image: url('images/black-male.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Coach_Tony_-_Thumb.mp4"></video>
                 </div>
@@ -2115,7 +2068,7 @@
             </a>
 
             <!-- 3: The Oracle -->
-            <a href="personality/the-oracle.html" class="bento-item" data-personality="oracle" data-name="The Oracle" data-price="17" data-emoji="🧙" data-bg="linear-gradient(135deg, #4527A0 0%, #7E57C2 100%)">
+            <a href="personality/the-oracle" class="bento-item" data-personality="oracle" data-name="The Oracle" data-price="17" data-emoji="🧙" data-bg="linear-gradient(135deg, #4527A0 0%, #7E57C2 100%)">
                 <div class="bento-thumbnail" style="background-image: url('images/cult-male.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Oracle-Thumb.mp4"></video>
                 </div>
@@ -2135,7 +2088,7 @@
             </a>
 
             <!-- 4: Santa Claus -->
-            <a href="personality/santa.html" class="bento-item" data-personality="santa" data-name="Santa Claus" data-price="14" data-emoji="🎅" data-bg="linear-gradient(135deg, #B71C1C 0%, #E53935 50%, #FF8A80 100%)">
+            <a href="personality/santa" class="bento-item" data-personality="santa" data-name="Santa Claus" data-price="14" data-emoji="🎅" data-bg="linear-gradient(135deg, #B71C1C 0%, #E53935 50%, #FF8A80 100%)">
                 <div class="bento-thumbnail" style="background-image: url('images/santa-male.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Santa_-_Thumb.mp4"></video>
                 </div>
@@ -2214,7 +2167,7 @@
             </div>
 
             <!-- 8: Fit Frank -->
-            <a href="personality/fit-frank.html" class="bento-item" data-personality="fitness" data-name="Fit Frank" data-price="11" data-emoji="🏋️" data-bg="linear-gradient(135deg, #1B5E20 0%, #66BB6A 100%)">
+            <a href="personality/fit-frank" class="bento-item" data-personality="fitness" data-name="Fit Frank" data-price="11" data-emoji="🏋️" data-bg="linear-gradient(135deg, #1B5E20 0%, #66BB6A 100%)">
                 <div class="bento-thumbnail" style="background-image: url('images/yoga-chick.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Gym_Guy_-_Thumb.mp4"></video>
                 </div>
@@ -2235,7 +2188,7 @@
             </a>
 
             <!-- 9: Grandma Betty -->
-            <a href="personality/grandma-betty.html" class="bento-item" data-personality="grandma" data-name="Grandma Betty" data-price="9" data-emoji="👵" data-bg="linear-gradient(135deg, #4E342E 0%, #A1887F 100%)">
+            <a href="personality/grandma-betty" class="bento-item" data-personality="grandma" data-name="Grandma Betty" data-price="9" data-emoji="👵" data-bg="linear-gradient(135deg, #4E342E 0%, #A1887F 100%)">
                 <div class="bento-thumbnail" style="background-image: url('images/grandma-female.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Grandma-Thumb.mp4"></video>
                 </div>
@@ -2449,7 +2402,7 @@
                     <li><a href="#personalities">Browse</a></li>
                     <li><a href="#how-it-works">How It Works</a></li>
                     <li><a href="#">Pricing</a></li>
-                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="faq">FAQ</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -2457,16 +2410,14 @@
                 <ul class="footer-links">
                     <li><a href="#">About</a></li>
                     <li><a href="#">Blog</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="contact">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h4>Legal</h4>
                 <ul class="footer-links">
-                    <li><a href="#">Privacy</a></li>
-                    <li><a href="#">Terms</a></li>
-                    <li><a href="#">Cookies</a></li>
+                    <li><a href="privacy">Privacy</a></li>
+                    <li><a href="terms">Terms</a></li>
                 </ul>
             </div>
         </div>
@@ -2476,62 +2427,8 @@
         </div>
     </footer>
 
-    <!-- Auth Modal -->
-    <div class="modal-overlay" id="authModal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeAuthModal()">&times;</button>
-
-            <!-- Auth Header Tabs -->
-            <div class="auth-tabs">
-                <button class="auth-tab active" data-tab="login" onclick="switchAuthTab('login')">Log In</button>
-                <button class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</button>
-            </div>
-
-            <!-- Login Form -->
-            <form id="loginForm" class="auth-form" onsubmit="handleAuth(event, 'login')">
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" placeholder="you@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="form-submit">Log In</button>
-                <p class="auth-forgot"><a href="#" onclick="event.preventDefault()">Forgot password?</a></p>
-                <div class="auth-divider"><span>or</span></div>
-                <button type="button" class="auth-social-btn" onclick="handleAuth(event, 'google')">
-                    <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-                    Continue with Google
-                </button>
-                <p class="auth-switch">Don't have an account? <a href="#" onclick="event.preventDefault(); switchAuthTab('signup')">Sign up</a></p>
-            </form>
-
-            <!-- Signup Form -->
-            <form id="signupForm" class="auth-form" style="display: none;" onsubmit="handleAuth(event, 'signup')">
-                <div class="form-group">
-                    <label>Full name</label>
-                    <input type="text" name="name" placeholder="Your name" required>
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" name="email" placeholder="you@email.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" placeholder="Create a password" required minlength="8">
-                    <span class="form-hint">Must be at least 8 characters</span>
-                </div>
-                <button type="submit" class="form-submit">Create Account</button>
-                <div class="auth-divider"><span>or</span></div>
-                <button type="button" class="auth-social-btn" onclick="handleAuth(event, 'google')">
-                    <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-                    Continue with Google
-                </button>
-                <p class="auth-switch">Already have an account? <a href="#" onclick="event.preventDefault(); switchAuthTab('login')">Log in</a></p>
-            </form>
-        </div>
-    </div>
+    <!-- Auth0 SDK (CDN) -->
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.1/auth0-spa-js.production.js"></script>
 
     <!-- Booking Modal -->
     <div class="modal-overlay" id="bookingModal">
@@ -2817,58 +2714,96 @@
         document.querySelectorAll('[data-count]').forEach(stat => statObserver.observe(stat));
 
         // ========================================
-        // AUTH MODAL
+        // AUTH0 INTEGRATION
         // ========================================
+        // TODO: Replace these with your Auth0 credentials
+        const AUTH0_DOMAIN = 'YOUR_AUTH0_DOMAIN';       // e.g. dev-abc123.us.auth0.com
+        const AUTH0_CLIENT_ID = 'YOUR_AUTH0_CLIENT_ID'; // e.g. aBcDeFgHiJkLmNoPqRsT
+
+        let auth0Client = null;
         let isAuthenticated = false;
-        let pendingBookingEl = null;
+        let currentUser = null;
 
-        function switchAuthTab(tab) {
-            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-            document.querySelector(`.auth-tab[data-tab="${tab}"]`).classList.add('active');
-            document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
-            document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
-        }
+        async function initAuth0() {
+            try {
+                auth0Client = await auth0.createAuth0Client({
+                    domain: AUTH0_DOMAIN,
+                    clientId: AUTH0_CLIENT_ID,
+                    authorizationParams: {
+                        redirect_uri: window.location.origin
+                    },
+                    cacheLocation: 'localstorage'
+                });
 
-        function openAuthModal(el) {
-            pendingBookingEl = el;
-            switchAuthTab('login');
-            document.getElementById('authModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeAuthModal() {
-            document.getElementById('authModal').classList.remove('active');
-            document.body.style.overflow = '';
-            pendingBookingEl = null;
-        }
-
-        document.getElementById('authModal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) closeAuthModal();
-        });
-
-        function handleAuth(e, method) {
-            e.preventDefault();
-            const btn = method === 'google'
-                ? e.target.closest('.auth-social-btn')
-                : e.target.querySelector('.form-submit');
-
-            const originalText = btn.textContent;
-            btn.textContent = method === 'google' ? 'Connecting...' : (method === 'signup' ? 'Creating account...' : 'Logging in...');
-            btn.style.opacity = '0.7';
-
-            // Simulate auth
-            setTimeout(() => {
-                isAuthenticated = true;
-                btn.textContent = originalText;
-                btn.style.opacity = '1';
-                closeAuthModal();
-
-                // Proceed to booking modal with the saved element
-                if (pendingBookingEl) {
-                    openBookingModal(pendingBookingEl);
-                    pendingBookingEl = null;
+                // Handle redirect callback
+                if (window.location.search.includes('code=') && window.location.search.includes('state=')) {
+                    await auth0Client.handleRedirectCallback();
+                    window.history.replaceState({}, document.title, window.location.pathname);
                 }
-            }, 800);
+
+                // Check auth state
+                isAuthenticated = await auth0Client.isAuthenticated();
+                if (isAuthenticated) {
+                    currentUser = await auth0Client.getUser();
+                    updateNavForUser(currentUser);
+                }
+            } catch (err) {
+                console.error('Auth0 init error:', err);
+            }
+        }
+
+        function updateNavForUser(user) {
+            const navAuthBtn = document.getElementById('navAuthBtn');
+            if (!navAuthBtn) return;
+
+            const placeholder = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ccircle cx='18' cy='18' r='18' fill='%236366F1'/%3E%3Ctext x='18' y='23' text-anchor='middle' fill='white' font-size='16' font-family='sans-serif'%3E${(user.name || 'U').charAt(0).toUpperCase()}%3C/text%3E%3C/svg%3E`;
+
+            const userEl = document.createElement('div');
+            userEl.className = 'nav-user';
+            userEl.innerHTML = `
+                <img class="nav-user-avatar" src="${user.picture || placeholder}" alt="${user.name || 'User'}" onerror="this.src='${placeholder}'">
+                <span class="nav-user-name">${(user.given_name || user.name || 'Account')}</span>
+                <div class="nav-user-menu" id="userMenu">
+                    <button class="nav-user-menu-item" onclick="window.location.href='#personalities'">Browse</button>
+                    <button class="nav-user-menu-item logout" onclick="handleLogout()">Log Out</button>
+                </div>
+            `;
+            userEl.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('userMenu').classList.toggle('active');
+            });
+
+            navAuthBtn.replaceWith(userEl);
+
+            // Close menu on outside click
+            document.addEventListener('click', () => {
+                const menu = document.getElementById('userMenu');
+                if (menu) menu.classList.remove('active');
+            });
+        }
+
+        async function handleNavAuth() {
+            if (!auth0Client) {
+                console.error('Auth0 not initialized. Check your AUTH0_DOMAIN and AUTH0_CLIENT_ID.');
+                return;
+            }
+            await auth0Client.loginWithRedirect();
+        }
+
+        async function handleLogout() {
+            if (!auth0Client) return;
+            await auth0Client.logout({
+                logoutParams: {
+                    returnTo: window.location.origin
+                }
+            });
+        }
+
+        // Init Auth0 when DOM is ready
+        if (AUTH0_DOMAIN !== 'YOUR_AUTH0_DOMAIN') {
+            initAuth0();
+        } else {
+            console.warn('Auth0 not configured. Update AUTH0_DOMAIN and AUTH0_CLIENT_ID in index.html');
         }
 
         // ========================================
@@ -2896,8 +2831,10 @@
         function handleTileClick(el) {
             if (isAuthenticated) {
                 openBookingModal(el);
+            } else if (auth0Client) {
+                auth0Client.loginWithRedirect();
             } else {
-                openAuthModal(el);
+                console.warn('Auth0 not configured. Update AUTH0_DOMAIN and AUTH0_CLIENT_ID.');
             }
         }
 
@@ -2913,7 +2850,6 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 closeModal();
-                closeAuthModal();
             }
         });
 
@@ -2923,7 +2859,7 @@
                 e.stopPropagation();
                 const item = btn.closest('.bento-item');
                 if (item && item.dataset.personality === 'santa') {
-                    window.location.href = 'personality/santa.html';
+                    window.location.href = 'personality/santa';
                     return;
                 }
                 handleTileClick(btn);
@@ -2934,7 +2870,7 @@
             item.addEventListener('click', () => {
                 const personality = item.dataset.personality;
                 if (personality === 'santa') {
-                    window.location.href = 'personality/santa.html';
+                    window.location.href = 'personality/santa';
                     return;
                 }
                 handleTileClick(item);
