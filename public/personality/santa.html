@@ -1797,6 +1797,10 @@
                 email: document.getElementById('emailInput').value
             };
 
+            // Save pending order for account page
+            orderData.emoji = '🎅';
+            localStorage.setItem('aloguv_pending_order', JSON.stringify(orderData));
+
             try {
                 // Call backend to create Stripe Checkout session
                 const API_BASE = window.ALOGUV_API_BASE || '/api';

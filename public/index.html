@@ -693,12 +693,26 @@
             position: relative;
             border: 1px solid var(--border);
             cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s;
-            display: block;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s, opacity 0.6s ease;
+            display: none;
             text-decoration: none;
             color: var(--text);
         }
-        .hero-tile:first-child {
+        .hero-tile.active {
+            display: block;
+        }
+        .hero-tile.fading-out {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        .hero-tile.fading-in {
+            animation: tileFadeIn 0.6s ease forwards;
+        }
+        @keyframes tileFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .hero-tile.featured {
             grid-row: span 2;
         }
         .hero-tile:hover {
@@ -942,7 +956,7 @@
             grid-template-columns: repeat(3, 1fr);
             grid-auto-rows: 360px;
             gap: 16px;
-            grid-column: 1 / -1;
+            margin-top: 16px;
         }
         .bento-extra .bento-item:nth-child(1) { grid-column: span 1; }
         .bento-extra .bento-item:nth-child(2) { grid-column: span 1; }
@@ -1933,9 +1947,9 @@
             </div>
         </div>
 
-        <!-- Hero Tiles (right side) -->
+        <!-- Hero Tiles (right side) — 3 visible at a time, rotate one by one -->
         <div class="hero-tiles">
-            <a class="hero-tile" href="personality/party-pat">
+            <a class="hero-tile active featured" href="personality/party-pat" data-tile="0">
                 <video src="video/Baby_Trailer_V2.mp4" muted loop playsinline preload="auto"></video>
                 <img src="images/baby-male.jpg" alt="Party Pat">
                 <div class="hero-tile-overlay">
@@ -1946,7 +1960,7 @@
                     </div>
                 </div>
             </a>
-            <a class="hero-tile" href="personality/coach-tony">
+            <a class="hero-tile active" href="personality/coach-tony" data-tile="1">
                 <video src="video/Coach_Tony_-_Thumb.mp4" muted loop playsinline preload="auto"></video>
                 <img src="images/black-male.jpg" alt="Coach Tony">
                 <div class="hero-tile-overlay">
@@ -1957,7 +1971,7 @@
                     </div>
                 </div>
             </a>
-            <a class="hero-tile" href="personality/santa">
+            <a class="hero-tile active" href="personality/santa" data-tile="2">
                 <video src="video/Santa_-_Thumb.mp4" muted loop playsinline preload="auto"></video>
                 <img src="images/santa-male.jpg" alt="Santa Claus">
                 <div class="hero-tile-overlay">
@@ -1965,6 +1979,39 @@
                     <div class="hero-tile-meta">
                         <span class="hero-tile-rating">&#9733; 4.9</span>
                         <span class="hero-tile-price">From $14</span>
+                    </div>
+                </div>
+            </a>
+            <a class="hero-tile" href="personality/the-oracle" data-tile="3">
+                <video src="video/Oracle-Thumb.mp4" muted loop playsinline preload="none"></video>
+                <img src="images/cult-male.jpg" alt="The Oracle">
+                <div class="hero-tile-overlay">
+                    <span class="hero-tile-name">The Oracle</span>
+                    <div class="hero-tile-meta">
+                        <span class="hero-tile-rating">&#9733; 4.9</span>
+                        <span class="hero-tile-price">From $17</span>
+                    </div>
+                </div>
+            </a>
+            <a class="hero-tile" href="personality/fit-frank" data-tile="4">
+                <video src="video/Gym_Guy_-_Thumb.mp4" muted loop playsinline preload="none"></video>
+                <img src="images/yoga-chick.jpg" alt="Fit Frank">
+                <div class="hero-tile-overlay">
+                    <span class="hero-tile-name">Fit Frank</span>
+                    <div class="hero-tile-meta">
+                        <span class="hero-tile-rating">&#9733; 4.8</span>
+                        <span class="hero-tile-price">From $11</span>
+                    </div>
+                </div>
+            </a>
+            <a class="hero-tile" href="personality/grandma-betty" data-tile="5">
+                <video src="video/Grandma-Thumb.mp4" muted loop playsinline preload="none"></video>
+                <img src="images/grandma-female.jpg" alt="Grandma Betty">
+                <div class="hero-tile-overlay">
+                    <span class="hero-tile-name">Grandma Betty</span>
+                    <div class="hero-tile-meta">
+                        <span class="hero-tile-rating">&#9733; 4.9</span>
+                        <span class="hero-tile-price">From $9</span>
                     </div>
                 </div>
             </a>
@@ -2098,8 +2145,10 @@
                 </div>
             </a>
 
-            <!-- More personalities (hidden by default) -->
-            <div class="bento-extra" id="bentoExtra" style="display:none;">
+        </div>
+
+        <!-- More personalities (hidden by default) -->
+        <div class="bento-extra" id="bentoExtra" style="display:none;">
 
             <!-- 5: Romeo Rose -->
             <div class="bento-item" data-personality="romeo" data-name="Romeo Rose" data-price="15" data-emoji="💝" data-bg="linear-gradient(135deg, #880E4F 0%, #E91E63 100%)">
@@ -2200,8 +2249,7 @@
                 </div>
             </a>
 
-            </div><!-- end .bento-extra -->
-        </div>
+        </div><!-- end .bento-extra -->
 
         <!-- View All CTA -->
         <div class="bento-cta-wrapper" id="bentoCta">
@@ -2564,6 +2612,59 @@
             forcePlayHeroVideos();
             document.removeEventListener('click', heroVideoFallback);
         }, { once: true });
+
+        // Hero tile rotation — swap one tile at a time every 4 seconds
+        (function() {
+            const allTiles = document.querySelectorAll('.hero-tile');
+            const totalTiles = allTiles.length;
+            if (totalTiles <= 3) return; // no rotation needed
+
+            let activeIndices = [0, 1, 2]; // indices of currently visible tiles
+            let nextIndex = 3; // next tile to bring in
+            let slotToReplace = 1; // which of the 3 visible slots to replace (0=featured, 1, 2)
+
+            function rotateTile() {
+                const outIdx = activeIndices[slotToReplace];
+                const inIdx = nextIndex;
+                const outTile = allTiles[outIdx];
+                const inTile = allTiles[inIdx];
+
+                // Fade out current tile
+                outTile.classList.add('fading-out');
+                setTimeout(() => {
+                    outTile.classList.remove('active', 'featured', 'fading-out');
+                    // Stop video on hidden tile
+                    const vid = outTile.querySelector('video');
+                    if (vid) { vid.pause(); vid.currentTime = 0; }
+
+                    // Bring in new tile
+                    if (slotToReplace === 0) inTile.classList.add('featured');
+                    inTile.classList.add('active', 'fading-in');
+                    // Start video on new tile
+                    const newVid = inTile.querySelector('video');
+                    if (newVid) {
+                        if (!newVid.src && newVid.dataset && newVid.dataset.src) {
+                            newVid.src = newVid.dataset.src;
+                        }
+                        newVid.play().catch(() => {});
+                    }
+
+                    setTimeout(() => inTile.classList.remove('fading-in'), 600);
+
+                    // Update tracking
+                    activeIndices[slotToReplace] = inIdx;
+                    nextIndex = (inIdx + 1) % totalTiles;
+                    // Skip if next is already active
+                    while (activeIndices.includes(nextIndex)) {
+                        nextIndex = (nextIndex + 1) % totalTiles;
+                    }
+                    // Cycle which slot gets replaced (skip 0 most of the time for stability)
+                    slotToReplace = slotToReplace === 1 ? 2 : 1;
+                }, 500);
+            }
+
+            setInterval(rotateTile, 4000);
+        })();
 
         // Show all personalities
         function showAllPersonalities() {

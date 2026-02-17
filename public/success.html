@@ -532,7 +532,7 @@
     </footer>
 
     <script>
-        // ========== ORDER REFERENCE FROM URL ==========
+        // ========== SAVE ORDER + SHOW REFERENCE ==========
         (function() {
             const params = new URLSearchParams(window.location.search);
             const sessionId = params.get('session_id');
@@ -540,6 +540,27 @@
                 const refEl = document.getElementById('orderRef');
                 refEl.textContent = 'Order reference: ' + sessionId;
                 refEl.classList.add('visible');
+
+                // Save order to localStorage for account page
+                try {
+                    const orders = JSON.parse(localStorage.getItem('aloguv_orders') || '[]');
+                    // Don't duplicate if page is refreshed
+                    if (!orders.find(o => o.sessionId === sessionId)) {
+                        const pendingOrder = JSON.parse(localStorage.getItem('aloguv_pending_order') || '{}');
+                        orders.unshift({
+                            sessionId: sessionId,
+                            personality: pendingOrder.personalityName || 'AI Personality',
+                            personalitySlug: pendingOrder.personality || '',
+                            occasion: pendingOrder.occasion || '',
+                            recipientName: pendingOrder.recipientName || '',
+                            date: new Date().toISOString(),
+                            status: 'processing',
+                            emoji: pendingOrder.emoji || ''
+                        });
+                        localStorage.setItem('aloguv_orders', JSON.stringify(orders));
+                        localStorage.removeItem('aloguv_pending_order');
+                    }
+                } catch(e) { console.error('Error saving order:', e); }
             }
         })();
     </script>

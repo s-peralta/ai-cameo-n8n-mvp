@@ -718,81 +718,7 @@
         <h2 class="section-title fade-up fade-up-delay-1">Your Videos</h2>
 
         <div class="video-grid fade-up fade-up-delay-2" id="videoGrid">
-            <!-- Card 1: Completed -->
-            <div class="video-card">
-                <div class="video-card-top">
-                    <span class="video-card-emoji">&#127877;</span>
-                    <div>
-                        <div class="video-card-personality">Santa Claus</div>
-                        <div class="video-card-date">Feb 14, 2026</div>
-                    </div>
-                </div>
-                <div class="video-card-status status-completed">
-                    <span class="status-dot"></span>
-                    Completed
-                </div>
-                <button class="btn-download">
-                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Download MP4
-                </button>
-            </div>
-
-            <!-- Card 2: Completed -->
-            <div class="video-card">
-                <div class="video-card-top">
-                    <span class="video-card-emoji">&#128170;</span>
-                    <div>
-                        <div class="video-card-personality">Coach Tony</div>
-                        <div class="video-card-date">Feb 10, 2026</div>
-                    </div>
-                </div>
-                <div class="video-card-status status-completed">
-                    <span class="status-dot"></span>
-                    Completed
-                </div>
-                <button class="btn-download">
-                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Download MP4
-                </button>
-            </div>
-
-            <!-- Card 3: Processing -->
-            <div class="video-card">
-                <div class="video-card-top">
-                    <span class="video-card-emoji">&#128302;</span>
-                    <div>
-                        <div class="video-card-personality">The Oracle</div>
-                        <div class="video-card-date">Feb 16, 2026</div>
-                    </div>
-                </div>
-                <div class="video-card-status status-processing">
-                    <span class="status-dot"></span>
-                    Processing
-                </div>
-                <button class="btn-download" disabled>
-                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Processing...
-                </button>
-            </div>
-
-            <!-- Card 4: Pending -->
-            <div class="video-card">
-                <div class="video-card-top">
-                    <span class="video-card-emoji">&#128521;</span>
-                    <div>
-                        <div class="video-card-personality">Friendly Grandma</div>
-                        <div class="video-card-date">Feb 16, 2026</div>
-                    </div>
-                </div>
-                <div class="video-card-status status-pending">
-                    <span class="status-dot"></span>
-                    Pending
-                </div>
-                <button class="btn-download" disabled>
-                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                    Pending
-                </button>
-            </div>
+            <!-- Populated dynamically from localStorage -->
         </div>
 
         <!-- Empty State (hidden by default, shown when no videos) -->
@@ -996,6 +922,62 @@
             el.style.animationPlayState = 'paused';
             fadeObserver.observe(el);
         });
+
+        // ========== LOAD ORDERS FROM LOCALSTORAGE ==========
+        (function() {
+            const grid = document.getElementById('videoGrid');
+            const emptyState = document.getElementById('emptyState');
+            let orders = [];
+
+            try {
+                orders = JSON.parse(localStorage.getItem('aloguv_orders') || '[]');
+            } catch(e) { orders = []; }
+
+            if (orders.length === 0) {
+                grid.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            const statusMap = {
+                'completed': { label: 'Completed', css: 'status-completed', btnText: 'Download MP4', disabled: false },
+                'processing': { label: 'Processing', css: 'status-processing', btnText: 'Processing...', disabled: true },
+                'pending': { label: 'Pending', css: 'status-pending', btnText: 'Pending', disabled: true }
+            };
+
+            const defaultEmojis = {
+                'santa': '&#127877;', 'party-pat': '&#127881;', 'coach-tony': '&#128170;',
+                'the-oracle': '&#128302;', 'grandma-betty': '&#128117;', 'fit-frank': '&#127947;'
+            };
+
+            grid.innerHTML = orders.map(order => {
+                const s = statusMap[order.status] || statusMap['processing'];
+                const date = new Date(order.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                const emoji = order.emoji || defaultEmojis[order.personalitySlug] || '&#127916;';
+                const forText = order.recipientName ? `<div class="video-card-date">For: ${order.recipientName}</div>` : '';
+
+                return `
+                    <div class="video-card">
+                        <div class="video-card-top">
+                            <span class="video-card-emoji">${emoji}</span>
+                            <div>
+                                <div class="video-card-personality">${order.personality}</div>
+                                <div class="video-card-date">${date}${order.occasion ? ' &middot; ' + order.occasion : ''}</div>
+                                ${forText}
+                            </div>
+                        </div>
+                        <div class="video-card-status ${s.css}">
+                            <span class="status-dot"></span>
+                            ${s.label}
+                        </div>
+                        <button class="btn-download"${s.disabled ? ' disabled' : ''}>
+                            <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            ${s.btnText}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        })();
     </script>
 </body>
 </html>

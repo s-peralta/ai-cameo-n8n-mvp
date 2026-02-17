@@ -1796,6 +1796,10 @@
                 email: document.getElementById('emailInput').value
             };
 
+            // Save pending order for account page
+            orderData.emoji = '👵';
+            localStorage.setItem('aloguv_pending_order', JSON.stringify(orderData));
+
             try {
                 const API_BASE = window.ALOGUV_API_BASE || '/api';
                 const res = await fetch(`${API_BASE}/create-checkout-session`, {
