@@ -191,15 +191,26 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 32px rgba(255, 255, 255, 0.15);
         }
+        
+        .nav-user-avatar + #userDropdown,
+        #userDropdown { display: none \!important; }
+        #userDropdown.active { display: block \!important; }
         .nav-user-avatar {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
-            object-fit: cover;
             border: 2px solid var(--accent-color, #6366F1);
+            background: linear-gradient(135deg, #6366F1, #8B5CF6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 700;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            flex-shrink: 0;
             cursor: pointer;
         }
-
         /* ========== BREADCRUMB ========== */
         .breadcrumb {
             padding: 88px 60px 0;
@@ -1828,12 +1839,22 @@
                     const user = await auth0Client.getUser();
                     const btn = document.getElementById('navAuthBtn');
                     if (btn) {
-                        const img = document.createElement('img');
-                        img.className = 'nav-user-avatar';
-                        img.src = user.picture || '';
-                        img.alt = user.name || 'User';
-                        img.title = user.name || 'User';
-                        btn.replaceWith(img);
+                        const initials = (user.name || user.email || 'U').charAt(0).toUpperCase();
+                        const userEl = document.createElement('div');
+                        userEl.style.cssText = 'position:relative;display:flex;align-items:center;gap:8px;cursor:pointer;';
+                        userEl.innerHTML = '<div class="nav-user-avatar">' + initials + '</div>';
+                        userEl.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            const m = document.getElementById('userDropdown');
+                            if (m) m.classList.toggle('active');
+                        });
+                        const menu = document.createElement('div');
+                        menu.id = 'userDropdown';
+                        menu.style.cssText = 'display:none;position:absolute;top:100%;right:0;margin-top:8px;background:#1a1a2e;border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:8px 0;min-width:160px;z-index:1000;';
+                        menu.innerHTML = '<a href="../account" style="display:block;padding:10px 16px;color:#fff;text-decoration:none;font-size:0.85rem;">My Account</a><button onclick="handleLogout()" style="display:block;width:100%;padding:10px 16px;background:none;border:none;color:#ef4444;text-align:left;font-size:0.85rem;cursor:pointer;">Log Out</button>';
+                        userEl.appendChild(menu);
+                        btn.replaceWith(userEl);
+                        document.addEventListener('click', function() { menu.classList.remove('active'); });
                     }
                 }
             } catch (err) { console.error('Auth0 error:', err); }
