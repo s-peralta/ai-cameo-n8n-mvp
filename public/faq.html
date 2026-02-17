@@ -495,6 +495,126 @@
             footer { padding: 40px; }
         }
 
+        /* ========== MOBILE MENU ========== */
+        .mobile-menu-btn {
+            display: none;
+            width: 44px;
+            height: 44px;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 1002;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .mobile-menu-btn span {
+            display: block;
+            width: 22px;
+            height: 1.5px;
+            background: var(--text);
+            border-radius: 2px;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: absolute;
+        }
+        .mobile-menu-btn span:first-child { transform: translateY(-4px); }
+        .mobile-menu-btn span:last-child { transform: translateY(4px); }
+        .mobile-menu-btn.active span:first-child { transform: rotate(45deg); }
+        .mobile-menu-btn.active span:last-child { transform: rotate(-45deg); }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1001;
+            background: rgba(8, 8, 10, 0.97);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
+        }
+        .mobile-menu-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-menu-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 280px;
+        }
+        .mobile-menu-link {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 18px 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            letter-spacing: -0.3px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            opacity: 0;
+            transform: translateY(16px);
+        }
+        .mobile-menu-link:last-child { border-bottom: none; }
+        .mobile-menu-link:active { color: #fff; }
+        .mobile-menu-cta {
+            margin-top: 32px;
+            width: 100%;
+            padding: 16px 0;
+            background: #fff;
+            color: #08080A;
+            border: none;
+            border-radius: 100px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(16px);
+        }
+        .mobile-menu-socials {
+            display: flex;
+            gap: 24px;
+            margin-top: 40px;
+            opacity: 0;
+            transform: translateY(16px);
+        }
+        .mobile-menu-social {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+        .mobile-menu-social:active { border-color: rgba(255, 255, 255, 0.3); color: #fff; }
+        .mobile-menu-social svg { width: 18px; height: 18px; fill: currentColor; }
+        body.menu-open { overflow: hidden; }
+        .mobile-menu-overlay.active .mobile-menu-link,
+        .mobile-menu-overlay.active .mobile-menu-cta,
+        .mobile-menu-overlay.active .mobile-menu-socials {
+            animation: mobileMenuFadeIn 0.35s ease forwards;
+        }
+        .mobile-menu-overlay.active .mobile-menu-link:nth-child(1) { animation-delay: 0.1s; }
+        .mobile-menu-overlay.active .mobile-menu-link:nth-child(2) { animation-delay: 0.15s; }
+        .mobile-menu-overlay.active .mobile-menu-link:nth-child(3) { animation-delay: 0.2s; }
+        .mobile-menu-overlay.active .mobile-menu-link:nth-child(4) { animation-delay: 0.25s; }
+        .mobile-menu-overlay.active .mobile-menu-cta { animation-delay: 0.3s; }
+        .mobile-menu-overlay.active .mobile-menu-socials { animation-delay: 0.35s; }
+        @keyframes mobileMenuFadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         /* ========== RESPONSIVE: MOBILE ========== */
         @media (max-width: 768px) {
             nav {
@@ -504,8 +624,8 @@
 
             .logo { font-size: 1.3rem; }
 
-            .nav-right { gap: 16px; }
-            .nav-link { font-size: 0.8rem; }
+            .nav-right { display: none; }
+            .mobile-menu-btn { display: flex; }
 
             .faq-hero {
                 padding: 100px 20px 40px;
@@ -603,7 +723,25 @@
             <a href="/#pricing" class="nav-link">Pricing</a>
             <button class="nav-login" id="navAuthBtn" onclick="handleNavAuth()">Log In</button>
         </div>
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Menu">
+            <span></span><span></span>
+        </button>
     </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <div class="mobile-menu-inner">
+            <a href="/#personalities" class="mobile-menu-link" onclick="toggleMobileMenu()">Browse</a>
+            <a href="/#how-it-works" class="mobile-menu-link" onclick="toggleMobileMenu()">How It Works</a>
+            <a href="/faq" class="mobile-menu-link" onclick="toggleMobileMenu()">FAQ</a>
+            <button class="mobile-menu-cta" onclick="handleNavAuth(); toggleMobileMenu();">Log In</button>
+            <div class="mobile-menu-socials">
+                <a href="https://instagram.com/aloguv" target="_blank" rel="noopener" class="mobile-menu-social" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+                <a href="https://tiktok.com/@aloguv" target="_blank" rel="noopener" class="mobile-menu-social" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.15a8.16 8.16 0 005.58 2.2V11.2a4.85 4.85 0 01-2.4-.64v-.01a4.83 4.83 0 002.4-3.86z"/></svg></a>
+                <a href="https://x.com/aloguv" target="_blank" rel="noopener" class="mobile-menu-social" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+            </div>
+        </div>
+    </div>
 
     <!-- Hero -->
     <section class="faq-hero">
@@ -944,6 +1082,21 @@
                 }
             } catch (err) { console.error('Auth0 error:', err); }
         }
+
+        // Mobile Menu
+        function toggleMobileMenu() {
+            const btn = document.querySelector('.mobile-menu-btn');
+            const overlay = document.getElementById('mobileMenu');
+            btn.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.classList.toggle('menu-open');
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.getElementById('mobileMenu').classList.contains('active')) toggleMobileMenu();
+        });
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768 && document.getElementById('mobileMenu').classList.contains('active')) toggleMobileMenu();
+        });
 
         async function handleNavAuth() {
             if (!auth0Client) { alert('Auth0 is not configured yet.\n\nUpdate AUTH0_DOMAIN and AUTH0_CLIENT_ID in this page to enable login.'); return; }
