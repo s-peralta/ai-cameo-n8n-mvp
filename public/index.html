@@ -3039,7 +3039,7 @@
                         gsap.to(stat, {
                             innerText: target,
                             duration: 2.5,
-                            snap: { innerText: 1000 },
+                            snap: { innerText: 1 },
                             ease: 'power2.out',
                             onUpdate: function() {
                                 stat.innerText = Math.ceil(this.targets()[0].innerText).toLocaleString() + '+';
