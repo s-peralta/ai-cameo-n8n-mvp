@@ -31,6 +31,12 @@
         <priority>0.3</priority>
     </url>
     <url>
+        <loc>https://www.aloguv.com/account</loc>
+        <lastmod>2026-02-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
         <loc>https://www.aloguv.com/personality/santa</loc>
         <lastmod>2026-02-16</lastmod>
         <changefreq>monthly</changefreq>

@@ -143,7 +143,7 @@
         }
 
         .logo {
-            font-family: system-ui, -apple-system, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 1.6rem;
             font-weight: 800;
             letter-spacing: -1px;
@@ -1779,11 +1779,43 @@
             document.getElementById('step2Btn').disabled = !(name && email);
         }
 
-        function submitBooking() {
-            document.getElementById('bookingForm').style.display = 'none';
-            document.getElementById('bookingSuccess').classList.add('active');
-            // Hide mobile CTA after booking
-            document.getElementById('mobileCta').style.display = 'none';
+        async function submitBooking() {
+            const btn = document.getElementById('step2Btn');
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = 'Redirecting to payment...';
+
+            const orderData = {
+                personality: 'grandma-betty',
+                personalityName: 'Grandma Betty',
+                price: 900,
+                occasion: selectedOccasion,
+                recipientName: document.getElementById('recipientName').value,
+                senderName: document.getElementById('senderName').value,
+                instructions: document.getElementById('instructions').value,
+                email: document.getElementById('emailInput').value
+            };
+
+            try {
+                const API_BASE = window.ALOGUV_API_BASE || '/api';
+                const res = await fetch(`${API_BASE}/create-checkout-session`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+                const data = await res.json();
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    throw new Error(data.error || 'Failed to create checkout session');
+                }
+            } catch (err) {
+                console.error('Checkout error:', err);
+                alert('Payment is not available yet. This feature is coming soon!\n\nOrder details have been logged.');
+                document.getElementById('bookingForm').style.display = 'none';
+                document.getElementById('bookingSuccess').classList.add('active');
+                document.getElementById('mobileCta').style.display = 'none';
+            }
         }
 
         function quickBook(occasion) {
