@@ -2784,7 +2784,7 @@
 
         async function handleNavAuth() {
             if (!auth0Client) {
-                console.error('Auth0 not initialized. Check your AUTH0_DOMAIN and AUTH0_CLIENT_ID.');
+                alert('Auth0 is not configured yet.\n\nTo enable login, update AUTH0_DOMAIN and AUTH0_CLIENT_ID in each HTML file.\n\nSee: https://manage.auth0.com/dashboard/');
                 return;
             }
             await auth0Client.loginWithRedirect();

@@ -232,7 +232,12 @@
         }
 
         /* Left: Media */
-        .detail-media { position: relative; }
+        .detail-media {
+            position: relative;
+            width: 100%;
+            min-width: 0;
+            overflow: hidden;
+        }
 
         .detail-main-image {
             width: 100%;
@@ -250,6 +255,8 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            position: absolute;
+            inset: 0;
         }
 
         .detail-main-image video {
@@ -1832,7 +1839,7 @@
         }
 
         async function handleNavAuth() {
-            if (!auth0Client) { console.warn('Auth0 not configured'); return; }
+            if (!auth0Client) { alert('Auth0 is not configured yet.\n\nUpdate AUTH0_DOMAIN and AUTH0_CLIENT_ID to enable login.'); return; }
             await auth0Client.loginWithRedirect();
         }
 

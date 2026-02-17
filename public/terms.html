@@ -770,7 +770,7 @@
         }
 
         async function handleNavAuth() {
-            if (!auth0Client) { console.warn('Auth0 not configured'); return; }
+            if (!auth0Client) { alert('Auth0 is not configured yet.\n\nUpdate AUTH0_DOMAIN and AUTH0_CLIENT_ID in this page to enable login.'); return; }
             await auth0Client.loginWithRedirect();
         }
 
