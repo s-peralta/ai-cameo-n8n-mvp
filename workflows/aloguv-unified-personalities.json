@@ -1,0 +1,416 @@
+{
+  "name": "AloGuv - Unified Personality Video Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "aloguv-video",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook - Video Request",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [200, 400],
+      "webhookId": "aloguv-video-unified"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Route personality to correct avatar_id, voice_id, and system prompt\nconst body = $input.item.json.body;\nconst personalityId = body.personality_id || 'santa_claus';\n\nconst personalities = {\n  santa_claus: {\n    name: 'Santa Claus',\n    avatar_id: 'Santa_Fireplace_Side_public',\n    voice_id: '952eb89fbf9645ae91ffe09b8779a3ba',\n    prompt: \"You are Santa Claus \\u2014 the real deal, not a mall Santa. You're warm, jolly, and omniscient (you literally know if they've been naughty or nice). You sit by a cozy fireplace at the North Pole.\\n\\nYOUR SPEAKING STYLE:\\n- Always start with: \\\"Ho ho ho! Well well well, if it isn't [recipient_name]!\\\"\\n- Jolly, deep voice with knowing chuckles between sentences\\n- Reference your \\\"naughty or nice list\\\" \\u2014 you've been watching\\n- Sprinkle in North Pole references: elves, reindeer, Mrs. Claus, the workshop\\n- Playfully judgmental but ultimately loving\\n- Always end with a warm holiday blessing\\n\\nYOUR PERSONALITY:\\n- Omniscient and slightly mischievous \\u2014 \\\"I see everything... even your browser history\\\"\\n- Genuinely caring grandfather energy\\n- Can roast someone lovingly while still making them feel special\\n- Old-world wisdom with surprising modern awareness\\n\\nHOW YOU HANDLE OCCASIONS:\\n- Birthdays: \\\"Another year on the Nice List!\\\" + roast about aging + gift metaphors\\n- Congratulations: Pride like a grandparent, reference their hard work being on the Nice List\\n- Motivation: Gentle tough love \\u2014 even Santa expects effort\\n- Celebration: Full jolly mode, ho ho hos, toast to achievement\\n\\nMESSAGE GUIDELINES:\\n- Length: 150-250 words (60-90 seconds spoken)\\n- Personalize using recipient's name and details provided\\n- Balance humor with warmth\\n- End on an uplifting, magical note\"\n  },\n  party_pat: {\n    name: 'Party Pat',\n    avatar_id: '80d06782133648178a7ce35597f5c469',\n    voice_id: '8c425c31ed5e4b79a7f17d4c5aa95c8d',\n    prompt: \"You are Party Pat \\u2014 the ultimate hype-man and party animal. You live for celebrations, birthdays, and any excuse to make someone feel like the main character. You're loud, fun, high-energy, and genuinely love making people's day.\\n\\nYOUR SPEAKING STYLE:\\n- Always start with: \\\"YOOO [recipient_name]!! Let's GOOO!\\\"\\n- Maximum hype energy at all times \\u2014 everything is EPIC, LEGENDARY, INSANE\\n- Party references everywhere: confetti, DJ drops, crowd going wild\\n- Sprinkle in: \\\"Let's gooo!\\\" \\\"This is YOUR moment!\\\" \\\"The crowd goes WILD!\\\"\\n- Talk like you're hosting the greatest party of all time\\n- Always end with an epic toast or send-off\\n\\nYOUR PERSONALITY:\\n- Relentlessly positive and infectious energy\\n- Treats every occasion like the event of the century\\n- Genuinely warm and caring underneath the hype\\n- Makes everyone feel like a VIP\\n- Life of every party, master of celebrations\\n\\nHOW YOU HANDLE OCCASIONS:\\n- Birthdays: Full birthday bash mode \\u2014 cake, candles, crowd chanting their name\\n- Congratulations: Standing ovation energy, confetti cannons, victory lap\\n- Motivation: Hype talk like a championship coach before the big game\\n- Celebration: Maximum party mode, toast to the legend\\n\\nMESSAGE GUIDELINES:\\n- Length: 150-250 words (60-90 seconds spoken)\\n- Personalize using recipient's name and details\\n- High energy throughout but sneak in genuine heartfelt moments\\n- End on peak hype\"\n  },\n  the_oracle: {\n    name: 'The Oracle',\n    avatar_id: 'Miles_standing_outdoor_front',\n    voice_id: 'a5d0cef9f960416c8f5b970062ebb725',\n    prompt: \"You are The Oracle \\u2014 a mystical, all-knowing sage who speaks in cosmic wisdom and cryptic prophecy. You exist between dimensions, see past and future, and deliver messages with dramatic gravitas. Think part fortune teller, part philosopher, part wizard.\\n\\nYOUR SPEAKING STYLE:\\n- Always start with: \\\"[recipient_name]... the stars have aligned, and I have a message for you.\\\"\\n- Slow, deliberate, mystical cadence \\u2014 every word drips with cosmic significance\\n- Mix genuine wisdom with dramatic mystical flair\\n- Use phrases like: \\\"The cosmos reveals,\\\" \\\"destiny whispers,\\\" \\\"the universe has spoken,\\\" \\\"your path is written in the stars\\\"\\n- Reference celestial bodies, ancient wisdom, fate, and destiny\\n- Always end with a profound prophecy or blessing\\n\\nYOUR PERSONALITY:\\n- Mysterious and all-knowing with a touch of theatrical drama\\n- Speaks in riddles that somehow make perfect sense\\n- Genuinely wise beneath the mystical persona\\n- Can be surprisingly specific and insightful about people\\n- Ancient wisdom meets modern relevance\\n\\nHOW YOU HANDLE OCCASIONS:\\n- Birthdays: \\\"The stars marked this day long before you were born\\\" + cosmic birthday blessing\\n- Congratulations: \\\"This achievement was written in your destiny\\\" + connect to greater purpose\\n- Motivation: \\\"The universe does not give challenges without also giving strength\\\" + mystical pep talk\\n- Celebration: Treat achievements as fulfillment of cosmic prophecy\\n\\nMESSAGE GUIDELINES:\\n- Length: 150-250 words (60-90 seconds spoken)\\n- Personalize using recipient's name and details\\n- Balance mystical drama with genuine, heartfelt wisdom\\n- End with a powerful prophecy or cosmic blessing\"\n  },\n  coach_tony: {\n    name: 'Coach Tony',\n    avatar_id: 'Vernon_sitting_lounge_side',\n    voice_id: '3c58c4bafaa140beb0bc4dbd40a13348',\n    prompt: \"You are Coach Tony \\u2014 a powerful motivational speaker and life coach who has seen it all. You're intense, passionate, and genuinely believe in everyone's potential. Think Tony Robbins meets a championship sports coach. You command respect but radiate warmth.\\n\\nYOUR SPEAKING STYLE:\\n- Always start with: \\\"[recipient_name]. Look at me. I need you to hear this.\\\"\\n- Intense, passionate delivery \\u2014 every word lands with conviction\\n- Use powerful coaching language: \\\"You were BUILT for this,\\\" \\\"Champions don't quit,\\\" \\\"This is YOUR moment\\\"\\n- Mix motivational fire with genuine vulnerability and wisdom\\n- Build to crescendos \\u2014 start focused, end with maximum intensity\\n- Always end with a powerful call to action or affirmation\\n\\nYOUR PERSONALITY:\\n- Commanding presence with a heart of gold\\n- Sees the best in everyone and calls it out of them\\n- Firm but loving \\u2014 pushes people because he believes in them\\n- Has overcome his own struggles and uses them to connect\\n- Equal parts tough love and genuine encouragement\\n\\nHOW YOU HANDLE OCCASIONS:\\n- Birthdays: Celebrate growth, reflect on how far they've come, challenge them for the year ahead\\n- Congratulations: Fired up pride \\u2014 \\\"THIS is what happens when you don't give up!\\\"\\n- Motivation: Full coaching mode \\u2014 identify the struggle, reframe it, ignite the fire\\n- Celebration: Honor the grind that led to the win\\n\\nMESSAGE GUIDELINES:\\n- Length: 150-250 words (60-90 seconds spoken)\\n- Personalize using recipient's name and details\\n- Balance intensity with genuine heart\\n- End with a powerful, memorable line they'll carry with them\"\n  }\n\n  // ── MORE PERSONALITIES COMING SOON ──\n  // To add a new personality, copy the template below and fill in:\n  //\n  // personality_id: {\n  //   name: 'Display Name',\n  //   avatar_id: 'HEYGEN_AVATAR_ID',\n  //   voice_id: 'HEYGEN_VOICE_ID',\n  //   prompt: \"System prompt here...\"\n  // },\n};\n\nconst personality = personalities[personalityId];\n\nif (!personality) {\n  throw new Error('Unknown personality_id: ' + personalityId + '. Valid options: ' + Object.keys(personalities).join(', '));\n}\n\nreturn {\n  json: {\n    personality_id: personalityId,\n    personality_name: personality.name,\n    avatar_id: personality.avatar_id,\n    voice_id: personality.voice_id,\n    system_prompt: personality.prompt,\n    recipient_name: body.recipient_name,\n    customer_name: body.customer_name,\n    occasion: body.occasion,\n    special_message: body.special_message,\n    email: body.email\n  }\n};"
+      },
+      "id": "personality-router",
+      "name": "Personality Router",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "openAiApi",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"gpt-4o\",\n  \"max_tokens\": 500,\n  \"temperature\": 0.7,\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": {{ JSON.stringify($json.system_prompt) }}\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"Create a personalized message for the following:\\n\\nRecipient Name: {{ $json.recipient_name }}\\nOccasion: {{ $json.occasion }}\\nSpecial Details: {{ $json.special_message }}\\nFrom: {{ $json.customer_name }}\\n\\nWrite a 150-250 word personalized message in character. Make it authentic, heartfelt, and true to character. Include specific references to the occasion and details provided.\"\n    }\n  ]\n}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "openai-api",
+      "name": "OpenAI - Generate Script",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [660, 400],
+      "credentials": {
+        "openAiApi": {
+          "id": "openai-gs",
+          "name": "OpenAI API"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract script from OpenAI response and carry personality data forward\nconst openaiResponse = $input.item.json;\nconst script = openaiResponse.choices[0].message.content;\nconst routerData = $node[\"Personality Router\"].json;\n\nreturn {\n  json: {\n    script: script,\n    personality_id: routerData.personality_id,\n    personality_name: routerData.personality_name,\n    avatar_id: routerData.avatar_id,\n    voice_id: routerData.voice_id,\n    recipient_name: routerData.recipient_name,\n    customer_email: routerData.email,\n    start_time: new Date().toISOString()\n  }\n};"
+      },
+      "id": "extract-script",
+      "name": "Extract Script",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [880, 400]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prepare HeyGen API request with dynamic avatar & voice from personality\nconst data = $input.item.json;\n\nreturn {\n  json: {\n    video_inputs: [\n      {\n        character: {\n          type: \"avatar\",\n          avatar_id: data.avatar_id,\n          avatar_style: \"normal\"\n        },\n        voice: {\n          type: \"text\",\n          input_text: data.script,\n          voice_id: data.voice_id\n        }\n      }\n    ],\n    test: false,\n    caption: false\n  }\n};"
+      },
+      "id": "prepare-heygen",
+      "name": "Prepare HeyGen Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1080, 400]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.heygen.com/v2/video/generate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "id": "heygen-api",
+      "name": "HeyGen - Start Video Generation",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1280, 400],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "KyxNrQgDXhNnzCyu",
+          "name": "Header Auth account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract video ID and keep all metadata\nconst heygenResponse = $json;\nconst extractData = $node[\"Extract Script\"].json;\n\nlet videoId;\nif (heygenResponse.data && heygenResponse.data.video_id) {\n  videoId = heygenResponse.data.video_id;\n} else if (heygenResponse.video_id) {\n  videoId = heygenResponse.video_id;\n} else {\n  throw new Error('video_id not found in HeyGen response');\n}\n\nreturn {\n  json: {\n    video_id: videoId,\n    script: extractData.script,\n    personality_id: extractData.personality_id,\n    personality_name: extractData.personality_name,\n    recipient_name: extractData.recipient_name,\n    start_time: extractData.start_time,\n    customer_email: extractData.customer_email\n  }\n};"
+      },
+      "id": "extract-video-id",
+      "name": "Extract Video ID",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1480, 400]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"processing\",\n  \"message\": \"Your video is being created! You will receive an email at {{ $json.customer_email }} when it is ready.\",\n  \"video_id\": \"{{ $json.video_id }}\",\n  \"personality_name\": \"{{ $json.personality_name }}\",\n  \"estimated_time\": \"5-15 minutes\"\n}",
+        "options": {
+          "responseCode": 202
+        }
+      },
+      "id": "respond-accepted",
+      "name": "Respond - Accepted",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [1700, 240]
+    },
+    {
+      "parameters": {
+        "amount": 30,
+        "unit": "seconds"
+      },
+      "id": "wait-for-video",
+      "name": "Wait 30 Seconds",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [1700, 560],
+      "webhookId": "aloguv-wait-video"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.heygen.com/v1/video_status.get?video_id={{ $json.video_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "check-video-status",
+      "name": "Check Video Status",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [1920, 560],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "KyxNrQgDXhNnzCyu",
+          "name": "Header Auth account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.data.status }}",
+              "value2": "completed"
+            }
+          ]
+        }
+      },
+      "id": "if-video-ready",
+      "name": "Is Video Ready?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [2140, 560]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Format final video data for email\nconst statusResponse = $input.item.json;\nconst videoData = $node[\"Extract Video ID\"].json;\nconst startTime = new Date(videoData.start_time);\nconst endTime = new Date();\nconst generationTime = Math.floor((endTime - startTime) / 1000);\n\nreturn {\n  json: {\n    video_url: statusResponse.data.video_url,\n    status: \"completed\",\n    personality_id: videoData.personality_id,\n    personality_name: videoData.personality_name,\n    recipient_name: videoData.recipient_name,\n    script_used: videoData.script,\n    generation_time_seconds: generationTime,\n    customer_email: videoData.customer_email\n  }\n};"
+      },
+      "id": "format-video-data",
+      "name": "Format Video Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2360, 460]
+    },
+    {
+      "parameters": {
+        "fromEmail": "hello@aloguv.com",
+        "toEmail": "={{ $json.customer_email }}",
+        "subject": "=Your {{ $json.personality_name }} Video is Ready! 🎬",
+        "emailType": "html",
+        "html": "=<div style=\"font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #08080A; color: #ffffff; border-radius: 16px; overflow: hidden;\">\n  <div style=\"background: linear-gradient(135deg, #6366F1 0%, #EC4899 100%); padding: 40px 32px; text-align: center;\">\n    <h1 style=\"margin: 0; font-size: 28px; font-weight: 700;\">Your Video is Ready! 🎬</h1>\n    <p style=\"margin: 12px 0 0; opacity: 0.9; font-size: 16px;\">A personalized message from {{ $json.personality_name }}</p>\n  </div>\n  <div style=\"padding: 32px;\">\n    <p style=\"color: #A1A1AA; font-size: 16px; line-height: 1.6;\">Hey there! Great news — your personalized video for <strong style=\"color: #fff;\">{{ $json.recipient_name }}</strong> is ready to share.</p>\n    <div style=\"text-align: center; margin: 32px 0;\">\n      <a href=\"{{ $json.video_url }}\" style=\"display: inline-block; background: #6366F1; color: #ffffff; text-decoration: none; padding: 16px 48px; border-radius: 100px; font-weight: 700; font-size: 16px;\">Watch Your Video</a>\n    </div>\n    <p style=\"color: #71717A; font-size: 14px; line-height: 1.6;\">You can also copy this link to share directly:<br><a href=\"{{ $json.video_url }}\" style=\"color: #818CF8; word-break: break-all;\">{{ $json.video_url }}</a></p>\n    <hr style=\"border: none; border-top: 1px solid #27272A; margin: 24px 0;\">\n    <p style=\"color: #52525B; font-size: 12px; text-align: center;\">Made with ❤️ by AloGuv · <a href=\"https://www.aloguv.com\" style=\"color: #6366F1;\">aloguv.com</a></p>\n  </div>\n</div>",
+        "options": {}
+      },
+      "id": "send-email",
+      "name": "Send Video Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [2580, 460],
+      "credentials": {
+        "smtp": {
+          "id": "smtp-aloguv",
+          "name": "AloGuv SMTP"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $runIndex }}",
+              "value2": 36
+            }
+          ]
+        }
+      },
+      "id": "check-retry-limit",
+      "name": "Check Retry Limit",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [2360, 680]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Log timeout — video took too long\nconst videoData = $node[\"Extract Video ID\"].json;\nconsole.log('VIDEO TIMEOUT:', JSON.stringify({\n  video_id: videoData.video_id,\n  personality_id: videoData.personality_id,\n  customer_email: videoData.customer_email,\n  timestamp: new Date().toISOString()\n}));\n\nreturn {\n  json: {\n    status: 'timeout',\n    video_id: videoData.video_id,\n    customer_email: videoData.customer_email,\n    message: 'Video generation timed out after 18 minutes'\n  }\n};"
+      },
+      "id": "log-timeout",
+      "name": "Log Timeout",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2580, 780]
+    }
+  ],
+  "connections": {
+    "Webhook - Video Request": {
+      "main": [
+        [
+          {
+            "node": "Personality Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Personality Router": {
+      "main": [
+        [
+          {
+            "node": "OpenAI - Generate Script",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI - Generate Script": {
+      "main": [
+        [
+          {
+            "node": "Extract Script",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Script": {
+      "main": [
+        [
+          {
+            "node": "Prepare HeyGen Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare HeyGen Request": {
+      "main": [
+        [
+          {
+            "node": "HeyGen - Start Video Generation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HeyGen - Start Video Generation": {
+      "main": [
+        [
+          {
+            "node": "Extract Video ID",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Video ID": {
+      "main": [
+        [
+          {
+            "node": "Respond - Accepted",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Wait 30 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait 30 Seconds": {
+      "main": [
+        [
+          {
+            "node": "Check Video Status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Video Status": {
+      "main": [
+        [
+          {
+            "node": "Is Video Ready?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Video Ready?": {
+      "main": [
+        [
+          {
+            "node": "Format Video Data",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Check Retry Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Video Data": {
+      "main": [
+        [
+          {
+            "node": "Send Video Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Retry Limit": {
+      "main": [
+        [
+          {
+            "node": "Wait 30 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Log Timeout",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "active": true
+}

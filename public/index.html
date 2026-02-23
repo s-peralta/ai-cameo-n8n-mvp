@@ -1175,6 +1175,30 @@
             box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
         }
 
+        /* Coming Soon badge */
+        .bento-item.coming-soon {
+            pointer-events: none;
+            opacity: 0.5;
+            position: relative;
+        }
+        .coming-soon-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         /* Play overlay */
         .play-overlay {
             position: absolute;
@@ -2277,7 +2301,7 @@
             <div class="section-header-left">
                 <div class="section-label">Personalities</div>
                 <h2 class="section-title">Choose Your<br>AI Personality</h2>
-                <p class="section-subtitle">AloGuv offers 9 AI personalities, each crafted with a unique voice, style, and character to make every video message unforgettable.</p>
+                <p class="section-subtitle">Each personality is crafted with a unique voice, style, and character to make every video message unforgettable. More coming soon.</p>
             </div>
             <div class="section-header-right">
                 <button class="filter-btn active">All</button>
@@ -2374,8 +2398,9 @@
         <!-- More personalities (hidden by default) -->
         <div class="bento-extra" id="bentoExtra" style="display:none;">
 
-            <!-- 5: Romeo Rose -->
-            <div class="bento-item" data-personality="romeo" data-name="Romeo Rose" data-price="15" data-emoji="💝" data-bg="linear-gradient(135deg, #880E4F 0%, #E91E63 100%)">
+            <!-- 5: Romeo Rose (Coming Soon) -->
+            <div class="bento-item coming-soon" data-personality="romeo" data-name="Romeo Rose" data-price="15" data-emoji="💝" data-bg="linear-gradient(135deg, #880E4F 0%, #E91E63 100%)">
+                <span class="coming-soon-badge">Coming Soon</span>
                 <div class="bento-thumbnail" style="background-image: url('images/latina-female.jpg');"></div>
                 <div class="play-overlay"><div class="play-icon"></div></div>
                 <div class="bento-content">
@@ -2392,8 +2417,9 @@
                 </div>
             </div>
 
-            <!-- 6: Comedy Carl -->
-            <div class="bento-item" data-personality="comedy" data-name="Comedy Carl" data-price="12" data-emoji="😂" data-bg="linear-gradient(135deg, #0D47A1 0%, #42A5F5 100%)">
+            <!-- 6: Comedy Carl (Coming Soon) -->
+            <div class="bento-item coming-soon" data-personality="comedy" data-name="Comedy Carl" data-price="12" data-emoji="😂" data-bg="linear-gradient(135deg, #0D47A1 0%, #42A5F5 100%)">
+                <span class="coming-soon-badge">Coming Soon</span>
                 <div class="bento-thumbnail" style="background: linear-gradient(135deg, #0D47A1 0%, #42A5F5 100%);">
                     <span style="font-size: 7rem; position: relative; z-index: 2;">😂</span>
                 </div>
@@ -2413,8 +2439,9 @@
                 </div>
             </div>
 
-            <!-- 7: CEO Sarah -->
-            <div class="bento-item" data-personality="ceo" data-name="CEO Sarah" data-price="20" data-emoji="💼" data-bg="linear-gradient(135deg, #212121 0%, #616161 100%)">
+            <!-- 7: CEO Sarah (Coming Soon) -->
+            <div class="bento-item coming-soon" data-personality="ceo" data-name="CEO Sarah" data-price="20" data-emoji="💼" data-bg="linear-gradient(135deg, #212121 0%, #616161 100%)">
+                <span class="coming-soon-badge">Coming Soon</span>
                 <div class="bento-thumbnail" style="background-image: url('images/asian-chick.jpg');"></div>
                 <div class="play-overlay"><div class="play-icon"></div></div>
                 <div class="bento-content">
@@ -2432,8 +2459,9 @@
                 </div>
             </div>
 
-            <!-- 8: Fit Frank -->
-            <a href="personality/fit-frank" class="bento-item" data-personality="fitness" data-name="Fit Frank" data-price="11" data-emoji="🏋️" data-bg="linear-gradient(135deg, #1B5E20 0%, #66BB6A 100%)">
+            <!-- 8: Fit Frank (Coming Soon) -->
+            <div class="bento-item coming-soon" data-personality="fitness" data-name="Fit Frank" data-price="11" data-emoji="🏋️" data-bg="linear-gradient(135deg, #1B5E20 0%, #66BB6A 100%)">
+                <span class="coming-soon-badge">Coming Soon</span>
                 <div class="bento-thumbnail" style="background-image: url('images/yoga-chick.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Gym_Guy_-_Thumb.mp4"></video>
                 </div>
@@ -2451,10 +2479,11 @@
                         <button class="book-btn">Book Now</button>
                     </div>
                 </div>
-            </a>
+            </div>
 
-            <!-- 9: Grandma Betty -->
-            <a href="personality/grandma-betty" class="bento-item" data-personality="grandma" data-name="Grandma Betty" data-price="9" data-emoji="👵" data-bg="linear-gradient(135deg, #4E342E 0%, #A1887F 100%)">
+            <!-- 9: Grandma Betty (Coming Soon) -->
+            <div class="bento-item coming-soon" data-personality="grandma" data-name="Grandma Betty" data-price="9" data-emoji="👵" data-bg="linear-gradient(135deg, #4E342E 0%, #A1887F 100%)">
+                <span class="coming-soon-badge">Coming Soon</span>
                 <div class="bento-thumbnail" style="background-image: url('images/grandma-female.jpg');">
                     <video muted loop playsinline preload="none" data-src="video/Grandma-Thumb.mp4"></video>
                 </div>
@@ -2471,7 +2500,7 @@
                         <button class="book-btn">Book</button>
                     </div>
                 </div>
-            </a>
+            </div>
 
         </div><!-- end .bento-extra -->
 
