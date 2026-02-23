@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
         <loc>https://www.aloguv.com/</loc>
-        <lastmod>2026-02-16</lastmod>
+        <lastmod>2026-02-23</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -77,5 +77,35 @@
         <lastmod>2026-02-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.aloguv.com/compare/aloguv-vs-cameo</loc>
+        <lastmod>2026-02-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.aloguv.com/blog</loc>
+        <lastmod>2026-02-23</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.aloguv.com/blog/cameo-alternatives</loc>
+        <lastmod>2026-02-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.aloguv.com/blog/personalized-video-birthday-gifts</loc>
+        <lastmod>2026-02-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://www.aloguv.com/blog/how-ai-video-messages-work</loc>
+        <lastmod>2026-02-23</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
     </url>
 </urlset>

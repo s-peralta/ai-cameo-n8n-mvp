@@ -99,5 +99,10 @@ AloGuv processes payments securely through Stripe. Personal details are not used
 - [The Oracle](https://www.aloguv.com/personality/the-oracle): Order an Oracle video message
 - [Grandma Betty](https://www.aloguv.com/personality/grandma-betty): Order a Grandma Betty video message
 - [Fit Frank](https://www.aloguv.com/personality/fit-frank): Order a Fit Frank video message
+- [AloGuv vs Cameo](https://www.aloguv.com/compare/aloguv-vs-cameo): Side-by-side comparison of AloGuv and Cameo pricing, delivery, and features
+- [Blog](https://www.aloguv.com/blog): Guides on AI video messages, gift ideas, and platform comparisons
+- [Cameo Alternatives](https://www.aloguv.com/blog/cameo-alternatives): Cheaper personalized video message platforms in 2026
+- [Birthday Gift Ideas](https://www.aloguv.com/blog/personalized-video-birthday-gifts): Best personalized video birthday gifts under $20
+- [How AI Video Messages Work](https://www.aloguv.com/blog/how-ai-video-messages-work): The technology behind AloGuv's AI video generation
 - [Terms of Service](https://www.aloguv.com/terms)
 - [Privacy Policy](https://www.aloguv.com/privacy)

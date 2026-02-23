@@ -19,6 +19,14 @@ AloGuv is an affordable alternative to Cameo that uses AI-generated characters i
 - [About](https://www.aloguv.com/about): Our story, mission, and values.
 - [FAQ](https://www.aloguv.com/faq): Pricing, delivery times, technology, refund policy, and support.
 - [Contact](https://www.aloguv.com/contact): Get in touch with the AloGuv team.
+- [AloGuv vs Cameo](https://www.aloguv.com/compare/aloguv-vs-cameo): Side-by-side comparison of AloGuv and Cameo.
+- [Blog](https://www.aloguv.com/blog): Guides on AI video messages, gift ideas, and comparisons.
+
+## Blog Posts
+
+- [Cameo Alternatives](https://www.aloguv.com/blog/cameo-alternatives): Cheaper personalized video message platforms in 2026.
+- [Birthday Gift Ideas](https://www.aloguv.com/blog/personalized-video-birthday-gifts): Best personalized video birthday gifts under $20.
+- [How AI Video Messages Work](https://www.aloguv.com/blog/how-ai-video-messages-work): The technology behind AloGuv's AI video generation.
 
 ## Optional
 
