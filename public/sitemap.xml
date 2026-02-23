@@ -7,6 +7,12 @@
         <priority>1.0</priority>
     </url>
     <url>
+        <loc>https://www.aloguv.com/about</loc>
+        <lastmod>2026-02-16</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
         <loc>https://www.aloguv.com/faq</loc>
         <lastmod>2026-02-16</lastmod>
         <changefreq>monthly</changefreq>

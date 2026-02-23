@@ -45,7 +45,11 @@
         "url": "https://www.aloguv.com",
         "logo": "https://www.aloguv.com/logo.png",
         "description": "AloGuv is an AI-powered personalized video message platform. Choose from unique AI personalities to send custom video greetings for birthdays, celebrations, motivation, and more.",
-        "sameAs": []
+        "sameAs": [
+            "https://instagram.com/aloguv",
+            "https://tiktok.com/@aloguv",
+            "https://x.com/aloguv"
+        ]
     }
     </script>
 
@@ -128,6 +132,25 @@
                     "text": "AloGuv videos are perfect for birthdays, congratulations, motivation, holidays, anniversaries, thank you messages, friendly roasts, and any occasion where you want to surprise someone with a personalized video."
                 }
             }
+        ]
+    }
+    </script>
+
+    <!-- Structured Data: ItemList (personality catalog for LLM discovery) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "AloGuv AI Personalities",
+        "description": "Browse AloGuv's AI personalities for personalized video messages",
+        "numberOfItems": 6,
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Santa Claus", "url": "https://www.aloguv.com/personality/santa" },
+            { "@type": "ListItem", "position": 2, "name": "Party Pat", "url": "https://www.aloguv.com/personality/party-pat" },
+            { "@type": "ListItem", "position": 3, "name": "Coach Tony", "url": "https://www.aloguv.com/personality/coach-tony" },
+            { "@type": "ListItem", "position": 4, "name": "The Oracle", "url": "https://www.aloguv.com/personality/the-oracle" },
+            { "@type": "ListItem", "position": 5, "name": "Fit Frank", "url": "https://www.aloguv.com/personality/fit-frank" },
+            { "@type": "ListItem", "position": 6, "name": "Grandma Betty", "url": "https://www.aloguv.com/personality/grandma-betty" }
         ]
     }
     </script>

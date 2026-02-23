@@ -1,0 +1,26 @@
+# AloGuv
+
+> AloGuv is an AI-powered personalized video message platform. Users choose from unique AI personalities, provide details about the recipient, and receive a custom video message delivered in minutes. Prices start at $9. Available 24/7 with instant delivery. Based in Canada.
+
+AloGuv is an affordable alternative to Cameo that uses AI-generated characters instead of real celebrities. Every video is scripted from scratch using AI based on the details you provide — the recipient's name, the occasion, inside jokes, special memories. No templates, no recycled scripts. Videos are delivered in under 10 minutes via email.
+
+## AI Personalities
+
+- [Santa Claus](https://www.aloguv.com/personality/santa): Jolly holiday greetings, birthday surprises, and magical moments. $14 per video.
+- [Party Pat](https://www.aloguv.com/personality/party-pat): High-energy celebrations, birthday shoutouts, and epic surprises. $10 per video.
+- [Coach Tony](https://www.aloguv.com/personality/coach-tony): Powerful motivation, birthday speeches, and career boosts. $12 per video.
+- [The Oracle](https://www.aloguv.com/personality/the-oracle): Mystical guidance, cosmic wisdom, and profound messages. $17 per video.
+- [Grandma Betty](https://www.aloguv.com/personality/grandma-betty): Warm birthday wishes, heartfelt comfort, and loving messages. $9 per video.
+- [Fit Frank](https://www.aloguv.com/personality/fit-frank): Workout motivation, fitness milestones, and gym buddy energy. $11 per video.
+
+## Key Pages
+
+- [Home](https://www.aloguv.com/): Browse all AI personalities and order a video message.
+- [About](https://www.aloguv.com/about): Our story, mission, and values.
+- [FAQ](https://www.aloguv.com/faq): Pricing, delivery times, technology, refund policy, and support.
+- [Contact](https://www.aloguv.com/contact): Get in touch with the AloGuv team.
+
+## Optional
+
+- [Terms of Service](https://www.aloguv.com/terms)
+- [Privacy Policy](https://www.aloguv.com/privacy)

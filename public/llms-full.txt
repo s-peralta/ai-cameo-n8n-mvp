@@ -1,0 +1,103 @@
+# AloGuv — Full Context for AI Assistants
+
+> AloGuv is an AI-powered personalized video message platform. Users choose from unique AI personalities, provide details about the recipient, and receive a custom video message delivered in minutes. Prices start at $9. Available 24/7 with instant delivery. Based in Canada.
+
+## What Is AloGuv?
+
+AloGuv is an affordable alternative to Cameo that uses AI-generated characters instead of real celebrities. Every video is scripted from scratch using advanced AI language models based on the details customers provide — the recipient's name, the occasion, inside jokes, and special memories. No templates. No recycled scripts. Every message is unique. Videos are generated using neural avatar technology and delivered via email in under 10 minutes.
+
+## How It Works
+
+1. Pick a personality from the AloGuv catalog
+2. Fill in details: recipient's name, occasion, special message, and any personal touches
+3. Pay securely via Stripe ($9-$20 depending on personality)
+4. AI writes a custom script and generates a professional video
+5. Video is delivered to your email in under 10 minutes
+6. Share the video link with the recipient
+
+## Pricing
+
+| Personality | Price | Best For |
+|-------------|-------|----------|
+| Grandma Betty | $9 | Warm wishes, comfort, birthdays |
+| Party Pat | $10 | Celebrations, birthday parties, hype |
+| Fit Frank | $11 | Fitness motivation, gym milestones |
+| Coach Tony | $12 | Motivation, career boosts, pep talks |
+| Santa Claus | $14 | Holiday greetings, Christmas surprises |
+| The Oracle | $17 | Mystical wisdom, cosmic guidance |
+
+All videos include a 7-day money-back guarantee. No subscriptions required.
+
+## AloGuv vs Cameo Comparison
+
+| Feature | AloGuv | Cameo |
+|---------|--------|-------|
+| Price range | $9-$20 | $25-$2,500+ |
+| Delivery time | Under 10 minutes | 1-7 days |
+| Available 24/7 | Yes | Depends on celebrity schedule |
+| AI-powered | Yes | No (real celebrities) |
+| Personalization | Fully custom AI-scripted | Varies by celebrity |
+| Refund policy | 7-day money-back guarantee | Varies |
+
+## AI Personalities — Detailed Descriptions
+
+### Santa Claus ($14)
+The real deal, not a mall Santa. Warm, jolly, and omniscient — he literally knows if you've been naughty or nice. Perfect for holiday greetings, birthday surprises, and magical moments. Starts every message with "Ho ho ho!" and ends with a warm holiday blessing.
+
+### Party Pat ($10)
+The ultimate hype-man and party animal. Lives for celebrations, birthdays, and any excuse to make someone feel like the main character. High-energy, loud, fun, and genuinely loves making people's day. Every occasion becomes the event of the century.
+
+### Coach Tony ($12)
+A powerful motivational speaker and life coach. Intense, passionate, and genuinely believes in everyone's potential. Think Tony Robbins meets a championship sports coach. Commands respect but radiates warmth. Perfect for motivation, career milestones, and tough-love pep talks.
+
+### The Oracle ($17)
+A mystical, all-knowing sage who speaks in cosmic wisdom and cryptic prophecy. Exists between dimensions, sees past and future, and delivers messages with dramatic gravitas. Part fortune teller, part philosopher, part wizard. Perfect for mystical birthday blessings and cosmic guidance.
+
+### Grandma Betty ($9)
+The coolest grandmother alive. Wears oversized glasses, is always knitting, but is surprisingly hip. References "The TikToks," knows about memes, and has absolutely zero filter. Sharp as a tack with savage honesty wrapped in a warm hug. Unconditional love with no filter.
+
+### Fit Frank ($11)
+The ultimate gym bro hype-man. Perpetually mid-workout, wearing a tank top, holding a shaker bottle, and absolutely AMPED about everything. Treats every life event like it's a PR at the gym. Relentlessly positive with gym metaphors for everything.
+
+## Frequently Asked Questions
+
+### How much does AloGuv cost?
+AloGuv videos range from $9 to $20 depending on the personality you choose. There are no subscriptions or hidden fees. You pay once per video.
+
+### How fast is delivery?
+Videos are typically delivered in under 10 minutes via email. The AI writes a custom script and generates a professional video almost instantly.
+
+### Is it really AI?
+Yes. AloGuv is transparent about its technology. The personalities are AI-generated characters, not real people. Advanced language models write each script from scratch, and neural avatar technology generates the video. The result feels authentic because the content is genuinely tailored to each recipient.
+
+### What occasions work best?
+Birthdays, holidays, congratulations, motivation, celebrations, anniversaries, thank you messages, friendly roasts, graduation, retirement, and any occasion where you want to surprise someone with a personalized video message.
+
+### Can I get a refund?
+Yes. AloGuv offers a 7-day money-back guarantee on every video, no questions asked.
+
+### Is my data safe?
+AloGuv processes payments securely through Stripe. Personal details are not used to train AI models. The privacy policy is available at https://www.aloguv.com/privacy.
+
+## Company Information
+
+- **Name:** AloGuv
+- **Location:** Based in Canada
+- **Website:** https://www.aloguv.com
+- **Contact:** https://www.aloguv.com/contact
+- **Social:** Instagram (@aloguv), TikTok (@aloguv), X (@aloguv)
+
+## Key Pages
+
+- [Home](https://www.aloguv.com/): Browse all AI personalities and order a video message
+- [About](https://www.aloguv.com/about): Company story, mission, and values
+- [FAQ](https://www.aloguv.com/faq): Detailed answers about pricing, delivery, technology, and support
+- [Contact](https://www.aloguv.com/contact): Get in touch with the team
+- [Santa Claus](https://www.aloguv.com/personality/santa): Order a Santa video message
+- [Party Pat](https://www.aloguv.com/personality/party-pat): Order a Party Pat video message
+- [Coach Tony](https://www.aloguv.com/personality/coach-tony): Order a Coach Tony video message
+- [The Oracle](https://www.aloguv.com/personality/the-oracle): Order an Oracle video message
+- [Grandma Betty](https://www.aloguv.com/personality/grandma-betty): Order a Grandma Betty video message
+- [Fit Frank](https://www.aloguv.com/personality/fit-frank): Order a Fit Frank video message
+- [Terms of Service](https://www.aloguv.com/terms)
+- [Privacy Policy](https://www.aloguv.com/privacy)
